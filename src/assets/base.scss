@@ -1,0 +1,20 @@
+@import './skeleton/normalize.css';
+@import './skeleton/skeleton.css';
+@import './charts.scss';
+
+body {
+  background: #fff;
+  color: #191919;
+}
+
+input, select {
+  background-color: #282828;
+  color: #999;
+  border-color: transparent;
+}
+
+
+h1, h2, h3, h4, h5 {
+  text-transform: uppercase;
+  font-weight: 600;
+}

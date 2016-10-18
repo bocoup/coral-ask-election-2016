@@ -1,0 +1,43 @@
+.chart {
+  .axis-label {
+    font-size: 11px;
+    fill: #666;
+    text-transform: uppercase;
+  }
+  .voronoi path {
+    fill: transparent;
+    stroke: none;
+  }
+
+  .highlight-y,
+  .highlight-x {
+    font-size: 10px;
+    fill: #999;
+    font-weight: 500;
+  }
+  .highlight-text-bg {
+    fill: #191919;
+  }
+
+  .highlight-circle {
+    stroke: #aaa;
+    fill: #bbb;
+  }
+
+  .y-axis, .x-axis {
+    font-size: 10px;
+
+    path, line {
+      stroke: #444;
+      shape-rendering: crispEdges;
+    }
+
+    text {
+      fill: #555;
+    }
+  }
+}
+
+.chart-container {
+  position: relative;
+}
