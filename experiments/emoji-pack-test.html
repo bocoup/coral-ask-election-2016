@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="lib/emoji.js"></script>
+    <link rel="stylesheet" href="lib/emoji.css">
+  </head>
+  <body>
+    <h1>Emoji Pack Layout Test</h1>
+    <p>
+      Rendering emoji as fonts
+    </p>
+    <canvas width="1000" height="600" class="emojis">
+    </canvas>
+
+    <script>
+      function randSize(min, max) {
+        return Math.floor(Math.random() * max) + min;
+      }
+      var max = 80, min = 10;
+      var emojiArr = { "tree" : 
+        [
+          {"parent": "", "name": "root"},
+          {"parent" : "root", name: "😀", "val": randSize(min, max) },
+          {"parent" : "root", name: "😐", "val": randSize(min, max) },
+          {"parent" : "root", name: "😏", "val": randSize(min, max) },
+          {"parent" : "root", name: "😥", "val": randSize(min, max) },
+          {"parent" : "root", name: "😮", "val": randSize(min, max) },
+          {"parent" : "root", name: "😱", "val": randSize(min, max) },
+          {"parent" : "root", name: "😡", "val": randSize(min, max) },
+          {"parent" : "root", name: "😬", "val": randSize(min, max) },
+          {"parent" : "root", name:"🇺🇸", "val":randSize(min, max) }
+        ]
+      };
+
+      var h = 400;
+      var w = 400;
+  
+      var pack = d3.pack()
+        .size([w - 2, h - 2])
+        .padding(3);
+  
+      var root = d3.stratify()
+        .id(function(d) { return d.name; })
+        .parentId(function(d) { return d.parent; })
+        (emojiArr.tree)
+
+        // use the value to render items
+        .sum(function(d) { return d.val; });
+
+      pack(root);
+      
+      var fontFamily = '"Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols"';
+
+      var ctx = d3.select(".emojis").node().getContext('2d');
+
+      root.children.forEach(function(d) {
+
+        // actual emoji rendering
+        // these multipliers are totally arbitrary and render differently
+        // on the browser vs mobile devices. I figured it was a good start
+        // but we probably need to come up with a more stable way to
+        // render these.
+        var mult = 1.9;
+        ctx.font = (d.r * mult) + "px " + fontFamily;
+        ctx.fillText(d.id, d.x - (d.r - d.r * 0.05) , d.y + (d.r - d.r * 0.2));
+
+        // test circles (to try and figure out what the right emoji font size
+        // to radius ratio should be... this feels a bit fragile to me.)
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, 2 * Math.PI, false);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#003300';
+        ctx.stroke();
+      });
+
+      // var fontFamily = '"Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols"';
+      // var ctx = d3.select(".emojis").node().getContext('2d');
+      // emojiArr.forEach(function(d) {
+      //   var size = Math.floor(Math.random() * 40) + 20;
+      //   inc += size;
+      //   ctx.font = size + "px " + fontFamily;
+      //   ctx.fillText(d, prev, h/2);
+      //   prev = inc;
+      // });
+    </script>
+  </body>
+</html>
