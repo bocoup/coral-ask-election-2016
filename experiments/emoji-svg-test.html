@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <style>
+      .emoji {
+        padding-left: 10px;
+        display: block;
+        float: left;
+        font-weight: normal;
+        font-family: "Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols";
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Emoji Test</h1>
+    <p>
+      Rendering emoji as fonts
+    </p>
+    <svg width="1000" height="600" class="emojis">
+    </svg>
+    <script>
+      var emoji = ["😀","😐","😏","😥","😮","😱","😡","😬","🇺🇸"];
+      var h = 600;
+      var w = 1000;
+
+      var chart = d3.select(".emojis");
+      var binding = chart.selectAll("div")
+        .data(emoji);
+      
+      var inc = 0;
+      var entering = binding.enter()
+        .append("text")
+        .classed("emoji", true)
+        .text(function(d) { return d; })
+        .each(function(d) {
+          var elm = d3.select(this);
+          
+          elm.attr("x", inc);
+          elm.attr("y", h/2);
+          elm.style("font-size", function(d) {
+            var size = Math.floor(Math.random() * 40) + 20;
+            inc += size;
+            return size;
+          });
+        });
+
+
+    </script>
+  </body>
+</html>
