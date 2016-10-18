@@ -1,0 +1,36 @@
+{
+  "emotions": [
+    {
+      "name": "thrilled",
+      "count": 42
+    },
+    {
+      "name": "happy",
+      "count": 67
+    },
+    {
+      "name": "ok",
+      "count": 12
+    },
+    {
+      "name": "meh",
+      "count": 9
+    },
+    {
+      "name": "sad",
+      "count": 67
+    },
+    {
+      "name": "despondent",
+      "count": 32
+    },
+    {
+      "name": "angry",
+      "count": 16
+    },
+    {
+      "name": "quizzical",
+      "count": 14
+    }
+  ]
+}
