@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="lib/emoji.js"></script>
+    <link rel="stylesheet" href="lib/emoji.css">
+
+    <style>
+      .emoji {
+        padding-left: 10px;
+        display: block;
+        float: left;
+        font-weight: normal;
+        font-family: "Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols";
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Emoji Test</h1>
+    <p>
+      Rendering emoji as fonts
+    </p>
+    <canvas width="1000" height="600" class="emojis">
+    </canvas>
+    <script>
+      var emojiArr = ["😀","😐","😏","😥","😮","😱","😡","😬","🇺🇸"];
+      var h = 600;
+      var w = 1000;
+      var inc = 0, prev=0;
+      var fontFamily = '"Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols"';
+      var ctx = d3.select(".emojis").node().getContext('2d');
+      emojiArr.forEach(function(d) {
+        var size = Math.floor(Math.random() * 40) + 20;
+        inc += size;
+        ctx.font = size + "px " + fontFamily;
+        ctx.fillText(d, prev, h/2);
+        prev = inc;
+      });
+    </script>
+  </body>
+</html>
