@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunkMiddleware from 'redux-thunk';
 import Root from '../Root';
-import rootReducer from '../../state/reducer';
 
-const store = createStore(
-  rootReducer,
-  compose(applyMiddleware(thunkMiddleware))
-);
+import configureMockStore from 'redux-mock-store'
+import thunkMiddleware from 'redux-thunk'
+const mockStore = configureMockStore([thunkMiddleware]);
 
 it('renders without crashing', () => {
+  const store = mockStore({
+    summary: {
+      payload: []
+    }
+  });
   const div = document.createElement('div');
   ReactDOM.render(<Root store={store} />, div);
 });
