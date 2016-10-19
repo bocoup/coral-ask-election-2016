@@ -1,10 +1,10 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { PureComponent, PropTypes } from 'react';
+import addComputedProps from 'react-computed-props';
+import twemoji from 'twemoji';
 import d3 from '../d3';
 
-// import './AxisTooltip.scss';
-
-// const randSize = (min, max) => Math.floor(Math.random() * max) + min;
-//
+import log from '../utils/log';
 
 const fontFamily = [
   'Apple Color Emoji',
@@ -15,10 +15,32 @@ const fontFamily = [
   'EmojiSymbols'
 ].join();
 
-export default class EmojiBubbleChart extends PureComponent {
+const computeProps = (props) => {
+  const { emoji, min, max } = props;
+
+  const sizeScale = d3.scaleSqrt()
+    .range([min, max])
+    .domain(d3.extent(emoji, d => d.count));
+
+  const emojiTree = emoji && emoji.reduce((tree, emojiGroup) => tree.concat({
+    parent: 'root',
+    name: emojiGroup.emoji,
+    val: sizeScale(emojiGroup.count)
+  }), [{
+    parent: '',
+    name: 'root'
+  }]);
+
+  return {
+    emojiTree
+  };
+};
+
+class EmojiBubbleChart extends PureComponent {
 
   static propTypes = {
     emoji: PropTypes.array,
+    emojiTree: PropTypes.array,
     width: PropTypes.number,
     height: PropTypes.number,
     max: PropTypes.number,
@@ -48,31 +70,22 @@ export default class EmojiBubbleChart extends PureComponent {
    * Initialize the d3 chart - this is run once on mount
    */
   update() {
-    const {
-      emoji,
-      min,
-      max
-    } = this.props;
+    const { emojiTree } = this.props;
 
-    if (!emoji) {
+    if (!emojiTree) {
       return;
     }
-
-    const sizeScale = d3.scaleSqrt()
-      .range([min, max])
-      .domain(d3.extent(emoji, d => d.count));
 
     const w = this.props.width;
     const h = this.props.height;
 
-    const emojiTree = emoji.reduce((tree, emoji) => tree.concat({
-      parent: 'root',
-      name: emoji.emoji,
-      val: sizeScale(emoji.count)
-    }), [{
-      parent: '',
-      name: 'root'
-    }]);
+    emojiTree.forEach((e) => {
+      if (e.name !== 'root') {
+        log(twemoji.parse(e.name, {
+          size: e.val
+        }));
+      }
+    });
 
     const pack = d3.pack()
       .size([w - 2, h - 2])
@@ -127,3 +140,7 @@ export default class EmojiBubbleChart extends PureComponent {
     );
   }
 }
+
+export default addComputedProps(computeProps, {
+  changeInclude: ['emoji', 'min', 'max']
+})(EmojiBubbleChart);

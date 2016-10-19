@@ -73,7 +73,8 @@
     "redux-actions": "^0.12.0",
     "redux-logger": "^2.7.0",
     "redux-thunk": "^2.1.0",
-    "reselect": "^2.5.4"
+    "reselect": "^2.5.4",
+    "twemoji": "^2.2.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
