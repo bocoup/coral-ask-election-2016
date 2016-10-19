@@ -48,55 +48,24 @@ export function getSummary() {
   return fetch(`${publicRoot}/data/mock-data.json`)
     .then(response => response.json())
     .then((arr) => {
-      // const simplifyObj = question => ({
-      //   count: question.count,
-      //   group: question.group.answer,
-      //   mc: flattenQuestion(question.mc),
-      //   text: flattenQuestion(question.text)
-      // });
-
-      // const tmp = Object.keys(arr.aggregations).reduce((carry, key) => {
-      //   const question = arr.aggregations[key];
-      //   if (question.group.answer === 'all') {
-      //     carry.all = {
-      //       count: question.count,
-      //       questions: [].concat(questions.mc.map(q => Object.keys(q)))
-      //     };
-      //     // console.log(question);
-      //     return carry;
-      //   }
-      //   const simpleQuestion = simplifyObj(question);
-      //   const emoji = simpleQuestion.group;
-      //   carry.emoji[emoji] = simpleQuestion;
-      //   return carry;
-      // }, {
-      //   emoji: {}
-      // });
-      // console.log(tmp);
-
       let all;
-      const emojiGroups = Object.keys(arr.aggregations)
-        // .reduce((memo, key) => {
-        //   const q = arr.aggregations[key];
-        // })
-        // These two .map statements could be combined
-        .map(key => arr.aggregations[key])
-        .map(question => ({
-          count: question.count,
-          group: question.group.answer,
-          mc: flattenQuestion(question.mc),
-          text: flattenQuestion(question.text)
-        }))
-        .filter((question) => {
-          if (question.group !== 'all') {
-            return true;
+      const emoji = Object.keys(arr.aggregations)
+        .reduce((carry, key) => {
+          const question = arr.aggregations[key];
+          const simpleQuestion = {
+            count: question.count,
+            emoji: question.group.answer,
+            mc: flattenQuestion(question.mc),
+            text: flattenQuestion(question.text)
+          };
+          if (question.group.answer === 'all') {
+            all = simpleQuestion;
+            return carry;
           }
-          all = question;
-          return false;
-        });
-      // console.log(emojiGroups);
+          return carry.concat(simpleQuestion);
+        }, []);
       return {
-        emojiGroups,
+        emoji,
         all
       };
     });

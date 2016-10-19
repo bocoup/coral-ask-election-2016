@@ -8,6 +8,7 @@ const randSize = (min, max) => Math.floor(Math.random() * max) + min;
 export default class EmojiBubbleChart extends PureComponent {
 
   static propTypes = {
+    questions: PropTypes.arrayOf(PropTypes.object),
     width: PropTypes.number,
     height: PropTypes.number,
     max: PropTypes.number,

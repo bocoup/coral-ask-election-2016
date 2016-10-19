@@ -10,12 +10,13 @@ import {
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
+  state,
   summary: getSummary(state)
 });
 
 class App extends Component {
   static propTypes = {
-    summary: PropTypes.array,
+    summary: PropTypes.object,
     dispatch: PropTypes.func
   }
 
@@ -25,16 +26,17 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { summary } = this.props;
     return (
       <div className="App">
         <div className="container">
-          <ul>
+          {/* <ul>
             {summary && summary.map(emotion => (
               <li key={emotion.name}>{emotion.count} {emotion.name} respondents</li>
             ))}
-          </ul>
-          <EmojiBubbleChart width={500} height={300} />
+          </ul> */}
+          <EmojiBubbleChart data={summary.emoji} width={500} height={300} />
         </div>
       </div>
     );

@@ -39,7 +39,7 @@ const summary = handleActions({
   }),
 
   RECEIVE_DATA: (state, action) => ({
-    payload: action.payload.emotions,
+    payload: action.payload,
     isFetching: false
   })
 }, {
