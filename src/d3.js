@@ -7,6 +7,7 @@ import * as axis from 'd3-axis';
 import * as collection from 'd3-collection';
 import * as color from 'd3-color';
 import * as format from 'd3-format';
+import * as hierarchy from 'd3-hierarchy';
 import * as scale from 'd3-scale';
 import * as selection from 'd3-selection';
 import * as shape from 'd3-shape';
@@ -19,6 +20,7 @@ const d3 = Object.assign({},
   collection,
   color,
   format,
+  hierarchy,
   scale,
   selection,
   shape,

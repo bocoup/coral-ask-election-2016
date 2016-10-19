@@ -1,36 +1,327 @@
 {
-  "emotions": [
-    {
-      "name": "thrilled",
-      "count": 42
+  "aggregations": {
+    "86d88d9e4e39979f13b822d1643a95f4": {
+      "group": {
+        "question_id": "d21eda82-8000-4e5d-9506-3a41907b6b59",
+        "question": "How do you feel about the incumbent?",
+        "answer": "🇺🇸"
+      },
+      "count": 1,
+      "mc": {
+        "80bd7b99-edc6-435d-9585-8a6014cea52e": {
+          "question": "What should the new president focus on first?",
+          "answers": {
+            "ab4b1482cb2ba3f1ee7fd9201c8a1fad": {
+              "answer": "War",
+              "count": 1
+            }
+          }
+        },
+        "d21eda82-8000-4e5d-9506-3a41907b6b59": {
+          "question": "How do you feel about the incumbent?",
+          "answers": {
+            "86d88d9e4e39979f13b822d1643a95f4": {
+              "answer": "🇺🇸",
+              "count": 1
+            }
+          }
+        }
+      },
+      "text": {
+        "d452b94d-e650-41c6-80af-c56091315c90": {
+          "question": "What do you want to say?",
+          "answers": [
+            "Once more into the breach my friends. It's a hard day.  It's a red day. Let's rejoice!"
+          ]
+        }
+      }
     },
-    {
-      "name": "happy",
-      "count": 67
+    "a181a603769c1f98ad927e7367c7aa51": {
+      "group": {
+        "question_id": "",
+        "question": "all",
+        "answer": "all"
+      },
+      "count": 13,
+      "mc": {
+        "80bd7b99-edc6-435d-9585-8a6014cea52e": {
+          "question": "What should the new president focus on first?",
+          "answers": {
+            "6839d672141795d0959700017e3cdec4": {
+              "answer": "Cats",
+              "count": 1
+            },
+            "8afc1f2760cfc2d63b8f0e9ddb1b6f39": {
+              "answer": "Economy",
+              "count": 5
+            },
+            "8cec7d6c891fc360bfd61e14b8512896": {
+              "answer": "Justice",
+              "count": 2
+            },
+            "9e5a1ebfc5b29bbccdbfdde4c0dc621e": {
+              "answer": "Naptime",
+              "count": 1
+            },
+            "ab4b1482cb2ba3f1ee7fd9201c8a1fad": {
+              "answer": "War",
+              "count": 4
+            }
+          }
+        },
+        "d21eda82-8000-4e5d-9506-3a41907b6b59": {
+          "question": "How do you feel about the incumbent?",
+          "answers": {
+            "86d88d9e4e39979f13b822d1643a95f4": {
+              "answer": "🇺🇸",
+              "count": 1
+            },
+            "bf1f01da0bfa69d071d64823cefbdf4c": {
+              "answer": "😒",
+              "count": 1
+            },
+            "d1bccc85fc14440d4201e4fa2a7a88a2": {
+              "answer": "😳",
+              "count": 6
+            },
+            "d6707e4336e1d5b88c06c60f1f2fe383": {
+              "answer": "😸",
+              "count": 2
+            },
+            "e36f865a311bb2bcec6a270ab3083028": {
+              "answer": "😃",
+              "count": 1
+            },
+            "fd212198c64a6510ea26c2c6c14228ba": {
+              "answer": "😪",
+              "count": 2
+            }
+          }
+        }
+      },
+      "text": {
+        "d452b94d-e650-41c6-80af-c56091315c90": {
+          "question": "What do you want to say?",
+          "answers": [
+            "Hihi",
+            "Yoyo",
+            "Lala",
+            "Dada",
+            "A new one!",
+            "Congrats on your victory, Mrs. President!",
+            "So glad it's over...",
+            "This was the best election season ever! Can we just start campaigning for 2020 now?",
+            "Boring. I want a nap.",
+            "Election?  Was there an election?  Who's gonna be the president?  I hope it's not me?!",
+            "Cats do not receive enough respect.  Not even close!",
+            "Once more into the breach my friends. It's a hard day.  It's a red day. Let's rejoice!",
+            "Let's get our criminal justice system in line with any coherent conception of justice."
+          ]
+        }
+      }
     },
-    {
-      "name": "ok",
-      "count": 12
+    "bf1f01da0bfa69d071d64823cefbdf4c": {
+      "group": {
+        "question_id": "d21eda82-8000-4e5d-9506-3a41907b6b59",
+        "question": "How do you feel about the incumbent?",
+        "answer": "😒"
+      },
+      "count": 1,
+      "mc": {
+        "80bd7b99-edc6-435d-9585-8a6014cea52e": {
+          "question": "What should the new president focus on first?",
+          "answers": {
+            "9e5a1ebfc5b29bbccdbfdde4c0dc621e": {
+              "answer": "Naptime",
+              "count": 1
+            }
+          }
+        },
+        "d21eda82-8000-4e5d-9506-3a41907b6b59": {
+          "question": "How do you feel about the incumbent?",
+          "answers": {
+            "bf1f01da0bfa69d071d64823cefbdf4c": {
+              "answer": "😒",
+              "count": 1
+            }
+          }
+        }
+      },
+      "text": {
+        "d452b94d-e650-41c6-80af-c56091315c90": {
+          "question": "What do you want to say?",
+          "answers": [
+            "Boring. I want a nap."
+          ]
+        }
+      }
     },
-    {
-      "name": "meh",
-      "count": 9
+    "d1bccc85fc14440d4201e4fa2a7a88a2": {
+      "group": {
+        "question_id": "d21eda82-8000-4e5d-9506-3a41907b6b59",
+        "question": "How do you feel about the incumbent?",
+        "answer": "😳"
+      },
+      "count": 6,
+      "mc": {
+        "80bd7b99-edc6-435d-9585-8a6014cea52e": {
+          "question": "What should the new president focus on first?",
+          "answers": {
+            "8afc1f2760cfc2d63b8f0e9ddb1b6f39": {
+              "answer": "Economy",
+              "count": 3
+            },
+            "8cec7d6c891fc360bfd61e14b8512896": {
+              "answer": "Justice",
+              "count": 1
+            },
+            "ab4b1482cb2ba3f1ee7fd9201c8a1fad": {
+              "answer": "War",
+              "count": 2
+            }
+          }
+        },
+        "d21eda82-8000-4e5d-9506-3a41907b6b59": {
+          "question": "How do you feel about the incumbent?",
+          "answers": {
+            "d1bccc85fc14440d4201e4fa2a7a88a2": {
+              "answer": "😳",
+              "count": 6
+            }
+          }
+        }
+      },
+      "text": {
+        "d452b94d-e650-41c6-80af-c56091315c90": {
+          "question": "What do you want to say?",
+          "answers": [
+            "Hihi",
+            "Lala",
+            "Dada",
+            "Congrats on your victory, Mrs. President!",
+            "So glad it's over...",
+            "Election?  Was there an election?  Who's gonna be the president?  I hope it's not me?!"
+          ]
+        }
+      }
     },
-    {
-      "name": "sad",
-      "count": 67
+    "d6707e4336e1d5b88c06c60f1f2fe383": {
+      "group": {
+        "question_id": "d21eda82-8000-4e5d-9506-3a41907b6b59",
+        "question": "How do you feel about the incumbent?",
+        "answer": "😸"
+      },
+      "count": 2,
+      "mc": {
+        "80bd7b99-edc6-435d-9585-8a6014cea52e": {
+          "question": "What should the new president focus on first?",
+          "answers": {
+            "6839d672141795d0959700017e3cdec4": {
+              "answer": "Cats",
+              "count": 1
+            },
+            "8afc1f2760cfc2d63b8f0e9ddb1b6f39": {
+              "answer": "Economy",
+              "count": 1
+            }
+          }
+        },
+        "d21eda82-8000-4e5d-9506-3a41907b6b59": {
+          "question": "How do you feel about the incumbent?",
+          "answers": {
+            "d6707e4336e1d5b88c06c60f1f2fe383": {
+              "answer": "😸",
+              "count": 2
+            }
+          }
+        }
+      },
+      "text": {
+        "d452b94d-e650-41c6-80af-c56091315c90": {
+          "question": "What do you want to say?",
+          "answers": [
+            "Yoyo",
+            "Cats do not receive enough respect.  Not even close!"
+          ]
+        }
+      }
     },
-    {
-      "name": "despondent",
-      "count": 32
+    "e36f865a311bb2bcec6a270ab3083028": {
+      "group": {
+        "question_id": "d21eda82-8000-4e5d-9506-3a41907b6b59",
+        "question": "How do you feel about the incumbent?",
+        "answer": "😃"
+      },
+      "count": 1,
+      "mc": {
+        "80bd7b99-edc6-435d-9585-8a6014cea52e": {
+          "question": "What should the new president focus on first?",
+          "answers": {
+            "ab4b1482cb2ba3f1ee7fd9201c8a1fad": {
+              "answer": "War",
+              "count": 1
+            }
+          }
+        },
+        "d21eda82-8000-4e5d-9506-3a41907b6b59": {
+          "question": "How do you feel about the incumbent?",
+          "answers": {
+            "e36f865a311bb2bcec6a270ab3083028": {
+              "answer": "😃",
+              "count": 1
+            }
+          }
+        }
+      },
+      "text": {
+        "d452b94d-e650-41c6-80af-c56091315c90": {
+          "question": "What do you want to say?",
+          "answers": [
+            "This was the best election season ever! Can we just start campaigning for 2020 now?"
+          ]
+        }
+      }
     },
-    {
-      "name": "angry",
-      "count": 16
-    },
-    {
-      "name": "quizzical",
-      "count": 14
+    "fd212198c64a6510ea26c2c6c14228ba": {
+      "group": {
+        "question_id": "d21eda82-8000-4e5d-9506-3a41907b6b59",
+        "question": "How do you feel about the incumbent?",
+        "answer": "😪"
+      },
+      "count": 2,
+      "mc": {
+        "80bd7b99-edc6-435d-9585-8a6014cea52e": {
+          "question": "What should the new president focus on first?",
+          "answers": {
+            "8afc1f2760cfc2d63b8f0e9ddb1b6f39": {
+              "answer": "Economy",
+              "count": 1
+            },
+            "8cec7d6c891fc360bfd61e14b8512896": {
+              "answer": "Justice",
+              "count": 1
+            }
+          }
+        },
+        "d21eda82-8000-4e5d-9506-3a41907b6b59": {
+          "question": "How do you feel about the incumbent?",
+          "answers": {
+            "fd212198c64a6510ea26c2c6c14228ba": {
+              "answer": "😪",
+              "count": 2
+            }
+          }
+        }
+      },
+      "text": {
+        "d452b94d-e650-41c6-80af-c56091315c90": {
+          "question": "What do you want to say?",
+          "answers": [
+            "A new one!",
+            "Let's get our criminal justice system in line with any coherent conception of justice."
+          ]
+        }
+      }
     }
-  ]
+  }
 }

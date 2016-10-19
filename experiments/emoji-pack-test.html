@@ -2,8 +2,8 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="lib/emoji.js"></script>
-    <link rel="stylesheet" href="lib/emoji.css">
+    <!-- <script src="lib/emoji.js"></script>
+    <link rel="stylesheet" href="lib/emoji.css"> -->
   </head>
   <body>
     <h1>Emoji Pack Layout Test</h1>
@@ -18,7 +18,7 @@
         return Math.floor(Math.random() * max) + min;
       }
       var max = 80, min = 10;
-      var emojiArr = { "tree" : 
+      var emojiArr = { "tree" :
         [
           {"parent": "", "name": "root"},
           {"parent" : "root", name: "😀", "val": randSize(min, max) },
@@ -35,11 +35,11 @@
 
       var h = 400;
       var w = 400;
-  
+
       var pack = d3.pack()
         .size([w - 2, h - 2])
         .padding(3);
-  
+
       var root = d3.stratify()
         .id(function(d) { return d.name; })
         .parentId(function(d) { return d.parent; })
@@ -49,7 +49,7 @@
         .sum(function(d) { return d.val; });
 
       pack(root);
-      
+
       var fontFamily = '"Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols"';
 
       var ctx = d3.select(".emojis").node().getContext('2d');

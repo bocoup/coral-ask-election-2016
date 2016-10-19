@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import EmojiBubbleChart from '../components/EmojiBubbleChart';
+
 import { fetchDataIfNeeded } from '../state/reducer';
 
 import {
@@ -32,6 +34,7 @@ class App extends Component {
               <li key={emotion.name}>{emotion.count} {emotion.name} respondents</li>
             ))}
           </ul>
+          <EmojiBubbleChart width={500} height={300} />
         </div>
       </div>
     );
