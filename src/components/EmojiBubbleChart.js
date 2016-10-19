@@ -3,12 +3,12 @@ import d3 from '../d3';
 
 // import './AxisTooltip.scss';
 
-const randSize = (min, max) => Math.floor(Math.random() * max) + min;
+// const randSize = (min, max) => Math.floor(Math.random() * max) + min;
 
 export default class EmojiBubbleChart extends PureComponent {
 
   static propTypes = {
-    questions: PropTypes.arrayOf(PropTypes.object),
+    emoji: PropTypes.array,
     width: PropTypes.number,
     height: PropTypes.number,
     max: PropTypes.number,
@@ -39,65 +39,34 @@ export default class EmojiBubbleChart extends PureComponent {
    */
   setup() {
     const {
+      emoji,
       min,
       max
     } = this.props;
+
+    if (!emoji) {
+      return;
+    }
+
+    const sizeScale = d3.scaleSqrt()
+      .range([min, max])
+      .domain([
+        d3.min(emoji, d => d.count),
+        d3.max(emoji, d => d.count)
+      ]);
 
     const w = this.props.width;
     const h = this.props.height;
 
     const emojiArr = {
-      tree: [
-        {
-          parent: '',
-          name: 'root'
-        },
-        {
-          parent: 'root',
-          name: '😀',
-          val: randSize(min, max)
-        },
-        {
-          parent: 'root',
-          name: '😐',
-          val: randSize(min, max)
-        },
-        {
-          parent: 'root',
-          name: '😏',
-          val: randSize(min, max)
-        },
-        {
-          parent: 'root',
-          name: '😥',
-          val: randSize(min, max)
-        },
-        {
-          parent: 'root',
-          name: '😮',
-          val: randSize(min, max)
-        },
-        {
-          parent: 'root',
-          name: '😱',
-          val: randSize(min, max)
-        },
-        {
-          parent: 'root',
-          name: '😡',
-          val: randSize(min, max)
-        },
-        {
-          parent: 'root',
-          name: '😬',
-          val: randSize(min, max)
-        },
-        {
-          parent: 'root',
-          name: '🇺🇸',
-          val: randSize(min, max)
-        }
-      ]
+      tree: emoji.reduce((tree, emoji) => tree.concat({
+        parent: 'root',
+        name: emoji.emoji,
+        val: sizeScale(emoji.count)
+      }), [{
+        parent: '',
+        name: 'root'
+      }])
     };
 
     const pack = d3.pack()

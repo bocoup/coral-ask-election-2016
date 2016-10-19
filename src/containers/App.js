@@ -26,7 +26,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { summary } = this.props;
     return (
       <div className="App">
@@ -36,7 +35,7 @@ class App extends Component {
               <li key={emotion.name}>{emotion.count} {emotion.name} respondents</li>
             ))}
           </ul> */}
-          <EmojiBubbleChart data={summary.emoji} width={500} height={300} />
+          {summary && <EmojiBubbleChart emoji={summary.emoji} width={500} height={300} />}
         </div>
       </div>
     );

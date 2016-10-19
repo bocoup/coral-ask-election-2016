@@ -47,11 +47,11 @@ export function getSummary() {
   //   });
   return fetch(`${publicRoot}/data/mock-data.json`)
     .then(response => response.json())
-    .then((arr) => {
+    .then((response) => {
       let all;
-      const emoji = Object.keys(arr.aggregations)
+      const emoji = Object.keys(response.aggregations)
         .reduce((carry, key) => {
-          const question = arr.aggregations[key];
+          const question = response.aggregations[key];
           const simpleQuestion = {
             count: question.count,
             emoji: question.group.answer,
