@@ -4,6 +4,16 @@ import d3 from '../d3';
 // import './AxisTooltip.scss';
 
 // const randSize = (min, max) => Math.floor(Math.random() * max) + min;
+//
+
+const fontFamily = [
+  'Apple Color Emoji',
+  'Segoe UI Emoji',
+  'NotoColorEmoji',
+  'Segoe UI Symbol',
+  'Android Emoji',
+  'EmojiSymbols'
+].join();
 
 export default class EmojiBubbleChart extends PureComponent {
 
@@ -16,28 +26,28 @@ export default class EmojiBubbleChart extends PureComponent {
   }
 
   static defaultProps = {
-    max: 80,
-    min: 10
+    max: 200,
+    min: 20
   }
 
   /**
    * When the react component mounts, setup the d3 vis
    */
   componentDidMount() {
-    this.setup();
+    this.update();
   }
 
   /**
    * When the react component updates, update the d3 vis
    */
   componentDidUpdate() {
-    // this.update();
+    this.update();
   }
 
   /**
    * Initialize the d3 chart - this is run once on mount
    */
-  setup() {
+  update() {
     const {
       emoji,
       min,
@@ -50,24 +60,19 @@ export default class EmojiBubbleChart extends PureComponent {
 
     const sizeScale = d3.scaleSqrt()
       .range([min, max])
-      .domain([
-        d3.min(emoji, d => d.count),
-        d3.max(emoji, d => d.count)
-      ]);
+      .domain(d3.extent(emoji, d => d.count));
 
     const w = this.props.width;
     const h = this.props.height;
 
-    const emojiArr = {
-      tree: emoji.reduce((tree, emoji) => tree.concat({
-        parent: 'root',
-        name: emoji.emoji,
-        val: sizeScale(emoji.count)
-      }), [{
-        parent: '',
-        name: 'root'
-      }])
-    };
+    const emojiTree = emoji.reduce((tree, emoji) => tree.concat({
+      parent: 'root',
+      name: emoji.emoji,
+      val: sizeScale(emoji.count)
+    }), [{
+      parent: '',
+      name: 'root'
+    }]);
 
     const pack = d3.pack()
       .size([w - 2, h - 2])
@@ -75,22 +80,14 @@ export default class EmojiBubbleChart extends PureComponent {
 
     const root = d3.stratify()
       .id(d => d.name)
-      .parentId(d => d.parent)(emojiArr.tree)
+      .parentId(d => d.parent)(emojiTree)
       // use the value to render items
       .sum(d => d.val);
 
     pack(root);
 
-    const fontFamily = [
-      'Apple Color Emoji',
-      'Segoe UI Emoji',
-      'NotoColorEmoji',
-      'Segoe UI Symbol',
-      'Android Emoji',
-      'EmojiSymbols'
-    ].join();
-
     const ctx = d3.select(this.root).node().getContext('2d');
+    ctx.clearRect(0, 0, w, h);
 
     root.children.forEach((d) => {
       // actual emoji rendering
@@ -107,19 +104,9 @@ export default class EmojiBubbleChart extends PureComponent {
       ctx.beginPath();
       ctx.arc(d.x, d.y, d.r, 0, 2 * Math.PI, false);
       ctx.lineWidth = 2;
-      ctx.strokeStyle = '#003300';
+      ctx.strokeStyle = 'rgba(0, 10, 0, 0.3)';
       ctx.stroke();
     });
-
-    // var fontFamily = ''Apple Color Emoji','Segoe UI Emoji','NotoColorEmoji','Segoe UI Symbol','Android Emoji','EmojiSymbols'';
-    // var ctx = d3.select('.emojis').node().getContext('2d');
-    // emojiArr.forEach(function(d) {
-    //   var size = Math.floor(Math.random() * 40) + 20;
-    //   inc += size;
-    //   ctx.font = size + 'px ' + fontFamily;
-    //   ctx.fillText(d, prev, h/2);
-    //   prev = inc;
-    // });
   }
 
   render() {
@@ -130,6 +117,9 @@ export default class EmojiBubbleChart extends PureComponent {
 
     return (
       <canvas
+        style={{
+          border: '1px solid black'
+        }}
         width={width}
         height={height}
         ref={(node) => { this.root = node; }}

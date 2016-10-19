@@ -35,7 +35,7 @@ class App extends Component {
               <li key={emotion.name}>{emotion.count} {emotion.name} respondents</li>
             ))}
           </ul> */}
-          {summary && <EmojiBubbleChart emoji={summary.emoji} width={500} height={300} />}
+          {summary && <EmojiBubbleChart emoji={summary.emoji} width={400} height={300} />}
         </div>
       </div>
     );
