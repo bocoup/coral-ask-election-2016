@@ -89,16 +89,20 @@ module.exports = {
     preLoaders: [
       {
         test: /\.(js|jsx)$/,
-        loader: 'eslint',
+        loader: 'eslint-loader',
         include: paths.appSrc,
       }
     ],
+    eslint: {
+      failOnError: false,
+      failOnWarning: false
+    },
     loaders: [
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
 
           // This is a feature of `babel-loader` for webpack (not Babel itself).
@@ -117,11 +121,11 @@ module.exports = {
       // in development "style" loader enables hot editing of CSS.
       {
         test: /\.css$/,
-        loader: 'style!css!postcss'
+        loader: ['style-loader', 'css-loader', 'postcss-loader']
       },
       {
         test: /\.scss$/,
-        loader: 'style!css!postcss!sass'
+        loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
@@ -134,7 +138,7 @@ module.exports = {
       // In production, they would get copied to the `build` folder.
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-        loader: 'file',
+        loader: 'file-loader',
         query: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
@@ -143,7 +147,7 @@ module.exports = {
       // assets smaller than specified size as data URLs to avoid requests.
       {
         test: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/,
-        loader: 'url',
+        loader: 'url-loader',
         query: {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]'
