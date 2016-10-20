@@ -1,25 +1,18 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { PureComponent, PropTypes } from 'react';
 import addComputedProps from 'react-computed-props';
-// import twemoji from 'twemoji';
+import twemoji from 'twemoji';
 import d3 from '../d3';
+
+import './EmojiBubbleChart.scss';
 
 // import log from '../utils/log';
 
-const fontFamily = [
-  'Apple Color Emoji',
-  'Segoe UI Emoji',
-  'NotoColorEmoji',
-  'Segoe UI Symbol',
-  'Android Emoji',
-  'EmojiSymbols'
-].join();
-
 const computeProps = (props) => {
-  const { emoji, min, max } = props;
+  const { emoji, maxRadius, minRadius } = props;
 
   const sizeScale = d3.scaleSqrt()
-    .range([min, max])
+    .range([minRadius, maxRadius])
     .domain(d3.extent(emoji, d => d.count));
 
   const emojiTree = emoji && emoji.reduce((tree, emojiGroup) => tree.concat({
@@ -43,13 +36,13 @@ class EmojiBubbleChart extends PureComponent {
     emojiTree: PropTypes.array,
     width: PropTypes.number,
     height: PropTypes.number,
-    max: PropTypes.number,
-    min: PropTypes.number
+    maxRadius: PropTypes.number,
+    minRadius: PropTypes.number
   }
 
   static defaultProps = {
-    max: 200,
-    min: 20
+    maxRadius: 60,
+    minRadius: 20
   }
 
   /**
@@ -75,6 +68,7 @@ class EmojiBubbleChart extends PureComponent {
     if (!emojiTree) {
       return;
     }
+    const parent = d3.select(this.root);
 
     const w = this.props.width;
     const h = this.props.height;
@@ -91,27 +85,67 @@ class EmojiBubbleChart extends PureComponent {
 
     pack(root);
 
-    const ctx = d3.select(this.root).node().getContext('2d');
-    ctx.clearRect(0, 0, w, h);
+    const scaler = 1.5;
+    const sumValues = d3.sum(root.children, d => d.value);
 
-    root.children.forEach((d) => {
-      // actual emoji rendering
-      // these multipliers are totally arbitrary and render differently
-      // on the browser vs mobile devices. I figured it was a good start
-      // but we probably need to come up with a more stable way to
-      // render these.
-      const mult = 1.9;
-      ctx.font = `${(d.r * mult)}px ${fontFamily}`;
-      ctx.fillText(d.id, d.x - (d.r - (d.r * 0.05)), d.y + (d.r - (d.r * 0.2)));
+    // == render emoji ==
+    const emojiBinding = parent.selectAll('div.emoji')
+      .data(root.children, d => d.id);
 
-      // test circles (to try and figure out what the right emoji font size
-      // to radius ratio should be... this feels a bit fragile to me.)
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, d.r, 0, 2 * Math.PI, false);
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgba(0, 10, 0, 0.3)';
-      ctx.stroke();
-    });
+    const enteringEmoji = emojiBinding.enter()
+      .append('div')
+      .classed('emoji', true)
+      .text(d => d.id)
+      .style('top', d => `${d.y}px`)
+      .style('left', d => `${d.x}px`)
+      .style('width', '0px')
+      .style('height', '0px');
+
+    enteringEmoji.merge(emojiBinding)
+      .each(function renderEmoji() {
+        twemoji.parse(this, {
+          folder: 'svg', ext: '.svg'
+        });
+        return this;
+      })
+      .transition()
+        .delay((d, i) => i * 100)
+        .style('top', d => `${d.y - ((d.r * scaler) / 2)}px`)
+        .style('left', d => `${d.x - ((d.r * scaler) / 2)}px`)
+        .style('width', d => `${d.r * scaler}px`)
+        .style('height', d => `${d.r * scaler}px`);
+
+    emojiBinding.exit()
+      .transition()
+      .style('width', '0px')
+      .style('height', '0px')
+      .remove();
+
+    // render labels
+    const labelBinding = parent.selectAll('div.emoji-label')
+      .data(root.children, d => d.id);
+
+    const labelEntering = labelBinding.enter()
+      .append('div')
+      .classed('emoji-label', true)
+      .text(d => d3.format('0.0%')(d.value / sumValues))
+      .style('top', d => `${d.y}px`)
+      .style('left', d => `${d.x}px`)
+      .style('width', '0px')
+      .style('opacity', 0);
+
+    labelBinding.merge(labelEntering)
+      .transition()
+      .delay((d, i) => i * 100)
+        .style('top', d => `${d.y + ((d.r * scaler) / 2)}px`)
+        .style('left', d => `${d.x - ((d.r * scaler) / 2)}px`)
+        .style('opacity', 1)
+        .style('width', d => `${d.r * scaler}px`);
+
+    labelBinding.exit()
+      .transition()
+      .style('width', '0px')
+      .style('opacity', '0px');
   }
 
   render() {
@@ -128,14 +162,15 @@ class EmojiBubbleChart extends PureComponent {
     //   }));
 
     return (
-      <div>
+      <div className={'emojis-bubble-chart'}>
         {/* emojiSvgs.map(imgTag => imgTag && <div key={imgTag} dangerouslySetInnerHTML={{ __html: imgTag }} />) */}
-        <canvas
+        <div
           style={{
-            border: '1px solid black'
+            position: 'relative',
+            border: '1px solid red',
+            width: `${width}px`,
+            height: `${height}px`
           }}
-          width={width}
-          height={height}
           ref={(node) => { this.root = node; }}
         />
       </div>
@@ -144,5 +179,5 @@ class EmojiBubbleChart extends PureComponent {
 }
 
 export default addComputedProps(computeProps, {
-  changeInclude: ['emoji', 'min', 'max']
+  changeInclude: ['emoji', 'minRadius', 'maxRadius']
 })(EmojiBubbleChart);
