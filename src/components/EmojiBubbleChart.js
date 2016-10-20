@@ -4,7 +4,7 @@ import addComputedProps from 'react-computed-props';
 import twemoji from 'twemoji';
 import d3 from '../d3';
 
-import log from '../utils/log';
+// import log from '../utils/log';
 
 const fontFamily = [
   'Apple Color Emoji',
@@ -79,14 +79,6 @@ class EmojiBubbleChart extends PureComponent {
     const w = this.props.width;
     const h = this.props.height;
 
-    emojiTree.forEach((e) => {
-      if (e.name !== 'root') {
-        log(twemoji.parse(e.name, {
-          size: e.val
-        }));
-      }
-    });
-
     const pack = d3.pack()
       .size([w - 2, h - 2])
       .padding(3);
@@ -124,19 +116,29 @@ class EmojiBubbleChart extends PureComponent {
 
   render() {
     const {
+      emojiTree,
       width,
       height
     } = this.props;
 
+    const emojiSvgs = emojiTree
+      .map(e => e.name !== 'root' && twemoji.parse(e.name, {
+        folder: 'svg',
+        ext: '.svg'
+      }));
+
     return (
-      <canvas
-        style={{
-          border: '1px solid black'
-        }}
-        width={width}
-        height={height}
-        ref={(node) => { this.root = node; }}
-      />
+      <div>
+        {emojiSvgs.map(imgTag => imgTag && <div key={imgTag} dangerouslySetInnerHTML={{ __html: imgTag }} />)}
+        <canvas
+          style={{
+            border: '1px solid black'
+          }}
+          width={width}
+          height={height}
+          ref={(node) => { this.root = node; }}
+        />
+      </div>
     );
   }
 }
