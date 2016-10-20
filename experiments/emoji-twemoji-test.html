@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .emoji {
+        padding-left: 10px;
+        display: block;
+        float: left;
+        font-weight: normal;
+        font-family: "Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols";
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Emoji Test</h1>
+    <p>
+      Rendering emoji as fonts
+    </p>
+    <div class="emoji">😀</div>
+    <div class="emoji">😐</div>
+    <div class="emoji">😏</div>
+    <div class="emoji">😥</div>
+    <div class="emoji">😮</div>
+    <div class="emoji">😱</div>
+    <div class="emoji">😡</div>
+    <div class="emoji">😬</div>
+    <div class="emoji">🇺🇸</div>
+    <script src="//twemoji.maxcdn.com/2/twemoji.min.js?2.2"></script>
+    <script>
+      var elms = document.querySelectorAll('.emoji');
+      for (var i = 0; i < elms.length; i++) {
+        var e = elms[i];
+        twemoji.parse(e);
+      }
+    </script>
+  </body>
+</html>

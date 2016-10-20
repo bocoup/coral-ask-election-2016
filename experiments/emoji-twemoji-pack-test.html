@@ -1,0 +1,151 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="//twemoji.maxcdn.com/2/twemoji.min.js?2.2"></script>
+    <style type="text/css">
+      .emojis {
+        position: relative;
+        width: 320px;
+        height: 320px;
+      }
+      .emoji {
+        position: absolute;
+      }
+      .emoji-label {
+        position: absolute;
+        text-align: center;
+      }
+      .emojis canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Emoji Pack Layout Test</h1>
+    <p>
+      Rendering emoji as fonts
+    </p>
+    
+    <div class="emojis">
+      <canvas width="320" height="320">
+      </canvas>
+
+    </div>
+    
+
+
+    <script>
+      function randSize(min, max) {
+        return Math.floor(Math.random() * max) + min;
+      }
+      var max = 60, min = 20;
+      var emojiArr = { "tree" : 
+        [
+          {"parent": "", "name": "root"},
+          {"parent" : "root", name: "😀", "val": randSize(min, max) },
+          {"parent" : "root", name: "😐", "val": randSize(min, max) },
+          {"parent" : "root", name: "😏", "val": randSize(min, max) },
+          {"parent" : "root", name: "😥", "val": randSize(min, max) },
+          {"parent" : "root", name: "😮", "val": randSize(min, max) },
+          {"parent" : "root", name: "😱", "val": randSize(min, max) },
+          {"parent" : "root", name: "😡", "val": randSize(min, max) },
+          {"parent" : "root", name: "😬", "val": randSize(min, max) },
+          {"parent" : "root", name:"🇺🇸", "val":randSize(min, max) }
+        ]
+      };
+      
+      function valAcc(d) {
+        return d.val;
+      }
+
+      var medianR = d3.median(emojiArr.tree, valAcc);
+      var sum = d3.sum(emojiArr.tree, valAcc)
+
+      var h = 320;
+      var w = 320;
+
+      var radiusScale = d3.scaleLinear()
+        .domain(d3.extent(emojiArr.tree, valAcc))
+        .range([20, 60]);
+
+      var pack = d3.pack()
+        .size([w - 2, h - 2])
+        .padding(3);
+  
+      var root = d3.stratify()
+        .id(function(d) { return d.name; })
+        .parentId(function(d) { return d.parent; })
+        (emojiArr.tree)
+
+        // use the value to render items
+        .sum(function(d) { return d.val; });
+
+      pack(root);  
+      
+      var ctx = d3.select("canvas").node().getContext('2d');
+      var parent = d3.select('.emojis').node();
+      root.children.forEach(function(d) {
+        
+        var mult = 1.5;
+
+        // make a div with the content
+        var div = document.createElement('div')
+        div.innerHtml = d.id;
+        var scaleMultiplier = d.r / medianR;
+
+        var d3div = d3.select(div);
+        d3div
+          .text(d.id)
+          .classed("emoji", true)
+          .style("top", d.y - ((d.r * mult)/2))
+          .style("left", d.x - ((d.r * mult)/2))
+          .style("width", d.r * mult)
+          .style("height", d.r * mult);
+          //.style("-webkit-transform", "scale(" + (d.r / medianR) + ")");
+
+        twemoji.parse(div, {
+          folder: 'svg',
+          ext: '.svg'
+        });
+
+        console.log(d.data.val, sum);
+        d3div.append("div")
+          .classed("emoji-label", true)
+          .text(d3.format("0.0%")(d.data.val / sum))
+          .style("top", d.r * mult)
+          .style("left", 0)
+          .style("width", d.r * mult)
+
+
+        parent.appendChild(div);
+        // position the div appropriatly
+        
+
+        // ctx.font = (d.r * mult) + "px " + fontFamily;
+        // ctx.fillText(d.id, d.x - (d.r - d.r * 0.05) , d.y + (d.r - d.r * 0.2));
+
+        // test circles (to try and figure out what the right emoji font size
+        // to radius ratio should be... this feels a bit fragile to me.)
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, 2 * Math.PI, false);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#003300';
+        // ctx.stroke();
+
+      });
+
+      // var fontFamily = '"Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols"';
+      // var ctx = d3.select(".emojis").node().getContext('2d');
+      // emojiArr.forEach(function(d) {
+      //   var size = Math.floor(Math.random() * 40) + 20;
+      //   inc += size;
+      //   ctx.font = size + "px " + fontFamily;
+      //   ctx.fillText(d, prev, h/2);
+      //   prev = inc;
+      // });
+    </script>
+  </body>
+</html>
