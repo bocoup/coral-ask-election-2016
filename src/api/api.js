@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-
+import log from '../utils/log';
 // import keyedToArray from './transformations';
 
 const publicRoot = process.env.PUBLIC_URL;
@@ -47,6 +47,7 @@ export function getSummary() {
   //   });
   return fetch(`${publicRoot}/data/mock-data.json`)
     .then(response => response.json())
+    .then(log)
     .then((response) => {
       let all;
       const emoji = Object.keys(response.aggregations)

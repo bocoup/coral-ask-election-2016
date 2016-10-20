@@ -9,6 +9,11 @@ export const requestData = createAction('REQUEST_DATA');
 export const receiveData = createAction('RECEIVE_DATA');
 
 /**
+ * Action creator for selecting an emoji filter
+ */
+export const selectEmoji = createAction('SELECT_EMOJI');
+
+/**
  * Action creator to fetch summary data from the API
  */
 const fetchData = () => (dispatch) => {
@@ -46,6 +51,16 @@ const summary = handleActions({
   isFetching: false
 });
 
+const selected = handleActions({
+  SELECT_EMOJI: (state, action) => {
+    if (state === action.payload) {
+      return null;
+    }
+    return action.payload;
+  }
+}, null);
+
 export default combineReducers({
-  summary
+  summary,
+  selected
 });
