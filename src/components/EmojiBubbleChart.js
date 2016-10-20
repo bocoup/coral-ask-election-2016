@@ -29,6 +29,21 @@ const computeProps = (props) => {
   };
 };
 
+const emojiSVGs = require.context('../assets/twemoji');
+const emojiSVGUrl = (emojiUnicode) => {
+  const filename = `${emojiUnicode}.svg`;
+  let emojiUrl;
+  try {
+    emojiUrl = emojiSVGs(`./${filename}`);
+  } catch (e) {
+    // this really shouldn't happen... we should have all
+    // emoji, but if we we don't, we should probably
+    // catch that here with some default. TODO.
+  }
+  return emojiUrl;
+};
+
+
 class EmojiBubbleChart extends PureComponent {
 
   static propTypes = {
@@ -103,9 +118,7 @@ class EmojiBubbleChart extends PureComponent {
 
     enteringEmoji.merge(emojiBinding)
       .each(function renderEmoji() {
-        twemoji.parse(this, {
-          folder: 'svg', ext: '.svg'
-        });
+        twemoji.parse(this, icon => emojiSVGUrl(icon));
         return this;
       })
       .transition()
