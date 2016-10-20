@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { PureComponent, PropTypes } from 'react';
 import addComputedProps from 'react-computed-props';
-import twemoji from 'twemoji';
+// import twemoji from 'twemoji';
 import d3 from '../d3';
 
 // import log from '../utils/log';
@@ -116,20 +116,20 @@ class EmojiBubbleChart extends PureComponent {
 
   render() {
     const {
-      emojiTree,
+      // emojiTree,
       width,
       height
     } = this.props;
 
-    const emojiSvgs = emojiTree
-      .map(e => e.name !== 'root' && twemoji.parse(e.name, {
-        folder: 'svg',
-        ext: '.svg'
-      }));
+    // const emojiSvgs = emojiTree
+    //   .map(e => e.name !== 'root' && twemoji.parse(e.name, {
+    //     folder: 'svg',
+    //     ext: '.svg'
+    //   }));
 
     return (
       <div>
-        {emojiSvgs.map(imgTag => imgTag && <div key={imgTag} dangerouslySetInnerHTML={{ __html: imgTag }} />)}
+        {/* emojiSvgs.map(imgTag => imgTag && <div key={imgTag} dangerouslySetInnerHTML={{ __html: imgTag }} />) */}
         <canvas
           style={{
             border: '1px solid black'

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
+import EmojiFilter from '../components/EmojiFilter';
 
 import { fetchDataIfNeeded } from '../state/reducer';
 
@@ -36,6 +37,7 @@ class App extends Component {
             ))}
           </ul> */}
           {summary && <EmojiBubbleChart emoji={summary.emoji} width={400} height={300} />}
+          {summary && <EmojiFilter emoji={summary.emoji} />}
         </div>
       </div>
     );
