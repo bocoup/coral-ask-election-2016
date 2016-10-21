@@ -1,0 +1,72 @@
+{
+  "questions": {
+    "6e8ce7ef-5310-4e65-9995-bdf492394f3c": {
+      "id": "6e8ce7ef-5310-4e65-9995-bdf492394f3c",
+      "type": "TextField",
+      "title": "Where are you?",
+      "group_by": false
+    },
+    "80bd7b99-edc6-435d-9585-8a6014cea52e": {
+      "id": "80bd7b99-edc6-435d-9585-8a6014cea52e",
+      "type": "MultipleChoice",
+      "title": "What should the new president focus on first?",
+      "group_by": true,
+      "options": [
+        {
+          "id": "8afc1f2760cfc2d63b8f0e9ddb1b6f39",
+          "value": "Economy"
+        },
+        {
+          "id": "8cec7d6c891fc360bfd61e14b8512896",
+          "value": "Justice"
+        },
+        {
+          "id": "ab4b1482cb2ba3f1ee7fd9201c8a1fad",
+          "value": "War"
+        }
+      ]
+    },
+    "d21eda82-8000-4e5d-9506-3a41907b6b59": {
+      "id": "d21eda82-8000-4e5d-9506-3a41907b6b59",
+      "type": "MultipleChoice",
+      "title": "How do you feel about the incumbent?",
+      "group_by": true,
+      "options": [
+        {
+          "id": "d1bccc85fc14440d4201e4fa2a7a88a2",
+          "value": "😳"
+        },
+        {
+          "id": "e36f865a311bb2bcec6a270ab3083028",
+          "value": "😃"
+        },
+        {
+          "id": "bf1f01da0bfa69d071d64823cefbdf4c",
+          "value": "😒"
+        },
+        {
+          "id": "d6707e4336e1d5b88c06c60f1f2fe383",
+          "value": "😸"
+        },
+        {
+          "id": "34d4637c0412f2df0030332922d07885",
+          "value": "😁"
+        },
+        {
+          "id": "fd212198c64a6510ea26c2c6c14228ba",
+          "value": "😪"
+        },
+        {
+          "id": "86d88d9e4e39979f13b822d1643a95f4",
+          "value": "🇺🇸"
+        }
+      ]
+    },
+    "d452b94d-e650-41c6-80af-c56091315c90": {
+      "id": "d452b94d-e650-41c6-80af-c56091315c90",
+      "type": "TextArea",
+      "title": "What do you want to say?",
+      "group_by": false
+    }
+  }
+}
