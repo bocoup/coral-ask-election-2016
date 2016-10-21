@@ -8,7 +8,7 @@ import TopicBarChart from '../components/TopicBarChart';
 import Letter from '../components/Letter';
 import ShortAnswerList from '../components/ShortAnswerList';
 
-import { fetchDataIfNeeded, selectEmoji } from '../state/reducer';
+import { fetchDataIfNeeded, selectEmoji } from '../state/actions';
 
 import {
   getSelected,

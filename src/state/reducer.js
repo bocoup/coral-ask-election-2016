@@ -1,44 +1,13 @@
+// arrow-body-style discourages nesting, making complex reducers hard to read
+/* eslint-disable arrow-body-style */
 import { combineReducers } from 'redux';
-import { createAction, handleActions } from 'redux-actions';
-import * as api from '../api/api';
-
-/**
- * Action creators for requesting and receiving data. Identity used for payload
- */
-export const requestData = createAction('REQUEST_DATA');
-export const receiveData = createAction('RECEIVE_DATA');
-
-/**
- * Action creator for selecting an emoji filter
- */
-export const selectEmoji = createAction('SELECT_EMOJI');
-
-/**
- * Action creator to fetch summary data from the API
- */
-const fetchData = () => (dispatch) => {
-  dispatch(requestData());
-  return api.getSummary().then(data => dispatch(receiveData(data)));
-};
-
-/**
- * Helper to check if we have already fetched the data or not
- */
-function shouldFetchData(state) {
-  return !state.summary.payload || !state.summary.isFetching;
-}
-
-/**
- * Action creator to fetch data only if we haven't fetched it before.
- */
-export const fetchDataIfNeeded = () => (dispatch, getState) => (
-  shouldFetchData(getState()) ? dispatch(fetchData()) : Promise.resolve()
-);
+import { handleActions } from 'redux-actions';
+import omitKeys from '../utils/omit-keys';
 
 /**
  * Summary reducer
  */
-const summary = handleActions({
+export const summary = handleActions({
   REQUEST_DATA: () => ({
     isFetching: true
   }),
@@ -51,7 +20,7 @@ const summary = handleActions({
   isFetching: false
 });
 
-const selected = handleActions({
+export const selected = handleActions({
   SELECT_EMOJI: (state, action) => {
     if (state === action.payload) {
       return null;
@@ -60,7 +29,18 @@ const selected = handleActions({
   }
 }, null);
 
+export const responses = handleActions({
+  RECEIVE_DATA: (state, action) => {
+    return action.payload.latest.reduce((carry, response) => {
+      return Object.assign({}, carry, {
+        [response.response_id]: omitKeys(response, ['response_id'])
+      });
+    }, state);
+  }
+}, {});
+
 export default combineReducers({
   summary,
-  selected
+  selected,
+  responses
 });
