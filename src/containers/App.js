@@ -5,6 +5,7 @@ import EmojiBubbleChart from '../components/EmojiBubbleChart';
 import EmojiGrid from '../components/EmojiGrid';
 import EmojiFilter from '../components/EmojiFilter';
 import TopicBarChart from '../components/TopicBarChart';
+import Letter from '../components/Letter';
 import ShortAnswerList from '../components/ShortAnswerList';
 
 import { fetchDataIfNeeded, selectEmoji } from '../state/reducer';
@@ -46,6 +47,7 @@ class App extends Component {
           {summary && <EmojiGrid responses={[]} width={400} height={300} />}
           {summary && <EmojiFilter emoji={summary.emoji} onSelect={emoji => dispatch(selectEmoji(emoji))} />}
           {summary && <TopicBarChart topics={[]} width={400} />}
+          {summary && <Letter response={[]} width={400} />}
           {summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} />}
         </div>
       </div>
