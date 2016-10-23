@@ -8,15 +8,29 @@ import omitKeys from '../utils/omit-keys';
  * Summary reducer
  */
 export const summary = handleActions({
-  REQUEST_DATA: () => ({
+  REQUEST_AGGREGATIONS: () => ({
     isFetching: true
   }),
 
-  RECEIVE_DATA: (state, action) => ({
+  RECEIVE_AGGREGATIONS: (state, action) => ({
     payload: action.payload,
     isFetching: false
   })
 }, {
+  isFetching: false
+});
+
+export const questions = handleActions({
+  REQUEST_QUESTIONS: (state) => Object.assign({}, state, {
+    isFetching: true
+  }),
+
+  RECEIVE_QUESTIONS: (state, action) => ({
+    questions: action.payload,
+    isFetching: false
+  })
+}, {
+  questions: {},
   isFetching: false
 });
 
@@ -30,7 +44,7 @@ export const selected = handleActions({
 }, null);
 
 export const responses = handleActions({
-  RECEIVE_DATA: (state, action) => {
+  RECEIVE_AGGREGATIONS: (state, action) => {
     return action.payload.latest.reduce((carry, response) => {
       return Object.assign({}, carry, {
         [response.response_id]: omitKeys(response, ['response_id'])
@@ -42,5 +56,6 @@ export const responses = handleActions({
 export default combineReducers({
   summary,
   selected,
+  questions,
   responses
 });

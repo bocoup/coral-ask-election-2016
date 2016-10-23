@@ -4,8 +4,10 @@ import * as api from '../api/api';
 /**
  * Action creators for requesting and receiving data. Identity used for payload
  */
-export const requestData = createAction('REQUEST_DATA');
-export const receiveData = createAction('RECEIVE_DATA');
+export const requestData = createAction('REQUEST_AGGREGATIONS');
+export const receiveData = createAction('RECEIVE_AGGREGATIONS');
+export const requestQuestions = createAction('REQUEST_QUESTIONS');
+export const receiveQuestions = createAction('RECEIVE_QUESTIONS');
 
 /**
  * Action creator for selecting an emoji filter. Identity used for payload

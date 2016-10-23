@@ -71,3 +71,10 @@ export function getSummary() {
       };
     });
 }
+
+export function getQuestions() {
+  return fetch(`${publicRoot}/data/mock-data.json`)
+    .then(response => response.json())
+    .then(response => response.questions)
+    .then(log);
+}
