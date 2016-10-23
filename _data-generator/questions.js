@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const GUID = require('guid');
-const guid = () => GUID.raw();
 const md5 = require('md5');
+
+const questionIds = require('./question-guids');
 
 const outputPath = path.relative(__dirname, '../public/data/questions.json');
 
@@ -12,7 +12,7 @@ const answerToQuestionObj = val => ({
 });
 
 const questions = [{
-  id: guid(),
+  id: questionIds.emoji,
   group_by: true,
   order: 0,
   title: 'How do you feel as the new President prepares to take office?',
@@ -29,7 +29,7 @@ const questions = [{
     '🇺🇸'
   ].map(answerToQuestionObj)
 }, {
-  id: guid(),
+  id: questionIds.issue,
   group_by: false,
   order: 1,
   title: 'Which issue should be highest on the new president’s agenda?',
@@ -48,27 +48,26 @@ const questions = [{
     'Social Issues'
   ].map(answerToQuestionObj)
 }, {
-  id: guid(),
+  id: questionIds.focus,
   group_by: false,
   order: 2,
   title: 'If the new president achieves one thing in the next four years, what should it be?',
   type: 'TextArea'
 }, {
-  id: guid(),
+  id: questionIds.name,
   group_by: false,
   order: 3,
   title: 'Please provide your name for display',
   type: 'TextArea'
 }, {
-  id: guid(),
+  id: questionIds.location,
   group_by: false,
   order: 4,
   title: 'Please provide your location for display',
   type: 'TextArea'
-}].reduce((questionsObj, q) => Object.assign({
+}];
+
+// Convert array to dictionary keyed by ID
+module.exports = questions.reduce((questionsObj, q) => Object.assign({
   [q.id]: q
 }, questionsObj), {});
-
-fs.writeFileSync(outputPath, JSON.stringify({
-  questions
-}));

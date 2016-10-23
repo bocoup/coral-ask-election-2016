@@ -22,47 +22,10 @@ const outputPath = path.join(__dirname, 'mock-data.json');
 
 const csvText = fs.readFileSync(dataPath).toString();
 
-let questions = {
-  emoji: {
-    question_id: uuid(),
-    order: 0,
-    question: 'How do you feel as the new President prepares to take office?',
-    type: 'mc',
-    options: []
-  },
-  issue: {
-    question_id: uuid(),
-    order: 1,
-    question: 'Which issue should be highest on the new president’s agenda?',
-    type: 'mc',
-    options: []
-  },
-  message: {
-    question_id: uuid(),
-    order: 2,
-    question: 'If the new president achieves one thing in the next four years, what should it be?',
-    type: 'text'
-  },
-  name: {
-    question_id: uuid(),
-    order: 3,
-    question: 'Please provide your name for display',
-    type: 'text'
-  },
-  location: {
-    question_id: uuid(),
-    order: 3,
-    question: 'Please provide your location for display',
-    type: 'text'
-  }
-};
-const groupby_id = questions.emoji.question_id;
+const questions = require('./questions');
+const groupby_id = Object.keys(questions).find(key => questions[key].group_by);
 
-const questionById = uuid => {
-  const key = Object.keys(questions)
-    .find(key => questions[key].question_id === uuid);
-  return key && questions[key];
-};
+const questionById = guid => questions[guid];
 
 const convertKeysToQuestionIds = obj => Object.keys(questions)
   .reduce((objKeyedByQId, key) => Object.assign({
@@ -100,30 +63,6 @@ const convertToObjects = arr => {
       return rowObj;
     }, {}));
   }, []);
-};
-
-const populateQuestionsOptions = arr => {
-  arr.forEach(row => {
-    Object.keys(questions).forEach(key => {
-      if (!questions[key].options) {
-        return;
-      }
-      if (!questions[key].options.includes(row[key])) {
-        questions[key].options.push(row[key]);
-      }
-    });
-  });
-  Object.keys(questions).forEach(key => {
-    if (!questions[key].options) {
-      return;
-    }
-    questions[key].options = questions[key].options.map(answer => ({
-      answer: answer,
-      answer_id: uuid()
-    }));
-    // console.log( questions[key].options );
-  });
-  return arr;
 };
 
 const generateAggregations = arr => {
@@ -173,8 +112,8 @@ const generateAggregations = arr => {
 
 parseComplete
   .then(convertToObjects)
-  .then(populateQuestionsOptions)
   .then(arr => arr.map(convertKeysToQuestionIds))
+  .then(logDeep)
   .then(generateAggregations)
   .then(logDeep)
   .then(output => fs.writeFileSync(outputPath, JSON.stringify(output)))
