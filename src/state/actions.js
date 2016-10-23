@@ -15,6 +15,14 @@ export const receiveQuestions = createAction('RECEIVE_QUESTIONS');
 export const selectEmoji = createAction('SELECT_EMOJI');
 
 /**
+ * Action creator to fetch questions (form digest) from the API
+ */
+export const fetchQuestions = () => (dispatch) => {
+  dispatch(requestQuestions());
+  return api.getQuestions().then(data => dispatch(receiveQuestions(data)));
+};
+
+/**
  * Action creator to fetch summary data from the API
  */
 const fetchData = () => (dispatch) => {

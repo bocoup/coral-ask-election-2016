@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "csv-parse": "^1.1.7",
+    "guid": "0.0.12",
     "md5": "^2.2.1",
     "uuid-lib": "0.0.6"
   }

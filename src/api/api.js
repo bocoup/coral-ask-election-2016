@@ -73,7 +73,7 @@ export function getSummary() {
 }
 
 export function getQuestions() {
-  return fetch(`${publicRoot}/data/mock-data.json`)
+  return fetch(`${publicRoot}/data/questions.json`)
     .then(response => response.json())
     .then(response => response.questions)
     .then(log);

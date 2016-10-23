@@ -21,7 +21,7 @@ export const summary = handleActions({
 });
 
 export const questions = handleActions({
-  REQUEST_QUESTIONS: (state) => Object.assign({}, state, {
+  REQUEST_QUESTIONS: state => Object.assign({}, state, {
     isFetching: true
   }),
 

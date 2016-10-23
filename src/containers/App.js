@@ -8,7 +8,11 @@ import TopicBarChart from '../components/TopicBarChart';
 import Letter from '../components/Letter';
 import ShortAnswerList from '../components/ShortAnswerList';
 
-import { fetchDataIfNeeded, selectEmoji } from '../state/actions';
+import {
+  fetchDataIfNeeded,
+  fetchQuestions,
+  selectEmoji
+} from '../state/actions';
 
 import {
   getSelected,
@@ -30,6 +34,7 @@ class App extends Component {
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(fetchDataIfNeeded());
+    dispatch(fetchQuestions());
   }
 
   render() {
