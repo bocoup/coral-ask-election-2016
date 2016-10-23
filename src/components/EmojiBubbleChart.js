@@ -4,6 +4,8 @@ import addComputedProps from 'react-computed-props';
 import twemoji from 'twemoji';
 import d3 from '../d3';
 
+import { emojiSVGUrl } from '../utils/emoji';
+
 import './EmojiBubbleChart.scss';
 
 // import log from '../utils/log';
@@ -28,21 +30,6 @@ const computeProps = (props) => {
     emojiTree
   };
 };
-
-const emojiSVGs = require.context('../assets/twemoji');
-const emojiSVGUrl = (emojiUnicode) => {
-  const filename = `${emojiUnicode}.svg`;
-  let emojiUrl;
-  try {
-    emojiUrl = emojiSVGs(`./${filename}`);
-  } catch (e) {
-    // this really shouldn't happen... we should have all
-    // emoji, but if we we don't, we should probably
-    // catch that here with some default. TODO.
-  }
-  return emojiUrl;
-};
-
 
 class EmojiBubbleChart extends PureComponent {
 
