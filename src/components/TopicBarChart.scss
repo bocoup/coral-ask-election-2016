@@ -1,0 +1,62 @@
+@import '../shared/shared.scss';
+
+.topic-bar-chart {
+
+  .bar-group-container {
+    padding: 20px;
+    background-color: white;
+    
+
+    .bar-group {
+      width: 95%;
+      display: inline-block;
+      background-color: $lightgrey;
+      padding: 10px;
+      height: 45px;
+
+      .topic-detail-container {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+
+        .topic-name {
+          display: inline-block;
+          float:left;
+        }
+
+        .percentage {
+          display: inline-block;
+          float: right;
+          text-align: right;
+        }
+      }
+
+      .topic-bar-container {
+        position: relative;
+
+        .topic-bar-background {
+          position: absolute;
+          background-color: #bbb;
+          top: 0;
+          right: 0;
+          height: 20px;
+        }
+
+        .topic-bar {
+          background-color: $darkgrey;
+          position: absolute;
+          top: 0;
+          height: 20px;
+        }
+      }
+    }
+
+    .bar-group:hover {
+      cursor: pointer;
+
+      .topic-bar {
+        background-color: $highlight;
+      }
+    }
+  }
+}
