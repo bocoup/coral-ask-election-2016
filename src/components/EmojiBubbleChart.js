@@ -13,6 +13,10 @@ import './EmojiBubbleChart.scss';
 const computeProps = (props) => {
   const { emoji, maxRadius, minRadius } = props;
 
+  if (!emoji) {
+    return {};
+  }
+
   const sizeScale = d3.scaleSqrt()
     .range([minRadius, maxRadius])
     .domain(d3.extent(emoji, d => d.count));

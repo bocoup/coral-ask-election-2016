@@ -45,7 +45,7 @@ export const selected = handleActions({
 
 export const responses = handleActions({
   RECEIVE_AGGREGATIONS: (state, action) => {
-    return action.payload.latest.reduce((carry, response) => {
+    return action.payload.submissions.reduce((carry, response) => {
       return Object.assign({}, carry, {
         [response.response_id]: omitKeys(response, ['response_id'])
       });

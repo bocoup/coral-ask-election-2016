@@ -39,7 +39,8 @@ class App extends Component {
 
   render() {
     const { summary, selectedEmoji, dispatch } = this.props;
-    const selectedEmojiGroup = summary && summary.emoji.filter(emojiGroup => emojiGroup.emoji === selectedEmoji);
+    const hasSummary = summary && summary.emoji;
+    const selectedEmojiGroup = hasSummary && summary.emoji.filter(emojiGroup => emojiGroup.emoji === selectedEmoji);
     return (
       <div className="App">
         <div className="container">

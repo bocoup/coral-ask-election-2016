@@ -4,6 +4,9 @@ import './EmojiFilter.scss';
 
 function EmojiFilter(props) {
   const { emoji, onSelect } = props;
+  if (!emoji) {
+    return null;
+  }
   const emojiList = emoji && emoji.map(emojiGroup => emojiGroup.emoji);
   return (
     <div className="filter">
