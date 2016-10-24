@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
+import EmojiGrid from '../components/EmojiGrid';
 import EmojiFilter from '../components/EmojiFilter';
 import TopicBarChart from '../components/TopicBarChart';
 import ShortAnswerList from '../components/ShortAnswerList';
@@ -42,6 +43,7 @@ class App extends Component {
             ))}
           </ul> */}
           {summary && <EmojiBubbleChart emoji={summary.emoji} width={400} height={300} />}
+          {summary && <EmojiGrid responses={[]} width={400} height={300} />}
           {summary && <EmojiFilter emoji={summary.emoji} onSelect={emoji => dispatch(selectEmoji(emoji))} />}
           {summary && <TopicBarChart topics={[]} width={400} />}
           {summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} />}
