@@ -1,47 +1,79 @@
 import * as selectors from '../selectors';
 
-describe('getSummary', () => {
-  const { getSummary } = selectors;
+describe('getAggregations', () => {
+  const { getAggregations } = selectors;
 
   it('is a defined function', () => {
-    expect(getSummary).toBeDefined();
-    expect(getSummary).toBeInstanceOf(Function);
+    expect(getAggregations).toBeDefined();
+    expect(getAggregations).toBeInstanceOf(Function);
   });
 
   it('returns the proper object from the state', () => {
-    const payload = {
+    const aggregations = {
       emotions: 'mixed'
     };
-    const result = getSummary({
+    const result = getAggregations({
       summary: {
-        payload
+        aggregations
       }
     });
-    expect(result).toEqual(payload);
+    expect(result).toEqual(aggregations);
   });
 });
 
-describe.skip('getResponses', () => {
+describe('getQuestions', () => {
+  const { getQuestions } = selectors;
+
+  it('is a defined function', () => {
+    expect(getQuestions).toBeDefined();
+    expect(getQuestions).toBeInstanceOf(Function);
+  });
+
+  it('returns the dictionary of questions from the state', () => {
+    const result = getQuestions({
+      questions: {
+        dictionary: {
+          a: 1,
+          b: 2
+        }
+      }
+    });
+    expect(result).toEqual({
+      a: 1,
+      b: 2
+    });
+  });
+});
+
+describe('getResponses', () => {
   const { getResponses } = selectors;
   const store = {
     responses: {
-      aaa: {
-        emoji: '🚌'
-      },
-      bbb: {
-        emoji: '🍩'
-      },
-      ccc: {
-        emoji: '🍸'
-      },
-      ddd: {
-        emoji: '🍸'
-      },
-      ddd: {
-        emoji: '🍩'
-      },
-      fff: {
-        emoji: '🍩'
+      dictionary: {
+        aaa: {
+          id: 'aaa',
+          emoji: '🚌'
+        },
+        bbb: {
+          id: 'bbb',
+          emoji: '🍩'
+        },
+        ccc: {
+          id: 'ccc',
+          emoji: '🍸'
+        },
+        ddd: {
+          id: 'ddd',
+          emoji: '🍸'
+        },
+        eee: {
+          id: 'eee',
+          emoji: '🍩'
+        },
+        fff: {
+          id: 'fff',
+          emoji: '🍩'
+        }
       }
     }
   };
@@ -51,12 +83,43 @@ describe.skip('getResponses', () => {
     expect(getResponses).toBeInstanceOf(Function);
   });
 
-  it('returns an array of responses from the state with the provided answers', () => {
-    const payload = {
-      emotions: 'mixed'
-    };
+  it('returns an array of all available responses', () => {
     const result = getResponses(store);
-    expect(result).toEqual(payload);
+    expect(result).toBeInstanceOf(Array);
+    expect(result.length).toEqual(Object.keys(store.responses.dictionary).length);
+    expect(result).toContainEqual({
+      id: 'aaa',
+      emoji: '🚌'
+    });
+    expect(result).toContainEqual({
+      id: 'bbb',
+      emoji: '🍩'
+    });
+    expect(result).toContainEqual({
+      id: 'ccc',
+      emoji: '🍸'
+    });
+    expect(result).toContainEqual({
+      id: 'ddd',
+      emoji: '🍸'
+    });
+    expect(result).toContainEqual({
+      id: 'eee',
+      emoji: '🍩'
+    });
+    expect(result).toContainEqual({
+      id: 'fff',
+      emoji: '🍩'
+    });
+  });
+
+  it('returns an array of responses that match the provided parameters', () => {
+    const result = getResponses(store, {
+      emoji: '🍩'
+    });
+    expect(result).toBeInstanceOf(Array);
+    expect(result.map(r => r.emoji)).toEqual(['🍩', '🍩', '🍩']);
+    expect(result.map(r => r.id).sort()).toEqual(['bbb', 'eee', 'fff']);
   });
 })
 
@@ -117,5 +180,21 @@ describe('getIsFetching', () => {
     const result = getIsFetching(store);
     expect(result).toBe(true);
   });
+
+});
+
+describe('getEmojiList', () => {
+  const { getEmojiList } = selectors;
+
+  it('is a defined function', () => {
+    expect(getEmojiList).toBeDefined();
+    expect(getEmojiList).toBeInstanceOf(Function);
+  });
+
+  it('does not blow up if no emoji are loaded', () => {
+    expect(getEmojiList({
+      questions: {}
+    })).toEqual([]);
+  })
 
 });

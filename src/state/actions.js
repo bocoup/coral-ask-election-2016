@@ -4,8 +4,8 @@ import * as api from '../api/api';
 /**
  * Action creators for requesting and receiving data. Identity used for payload
  */
-export const requestData = createAction('REQUEST_AGGREGATIONS');
-export const receiveData = createAction('RECEIVE_AGGREGATIONS');
+export const requestSummary = createAction('REQUEST_AGGREGATIONS');
+export const receiveSummary = createAction('RECEIVE_AGGREGATIONS');
 export const requestQuestions = createAction('REQUEST_QUESTIONS');
 export const receiveQuestions = createAction('RECEIVE_QUESTIONS');
 
@@ -26,8 +26,8 @@ export const fetchQuestions = () => (dispatch) => {
  * Action creator to fetch summary data from the API
  */
 const fetchData = () => (dispatch) => {
-  dispatch(requestData());
-  return api.getSummary().then(data => dispatch(receiveData(data)));
+  dispatch(requestSummary());
+  return api.getSummary().then(data => dispatch(receiveSummary(data)));
 };
 
 /**

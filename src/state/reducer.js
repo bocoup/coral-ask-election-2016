@@ -1,5 +1,3 @@
-// arrow-body-style discourages nesting, making complex reducers hard to read
-/* eslint-disable arrow-body-style */
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import omitKeys from '../utils/omit-keys';
@@ -8,15 +6,17 @@ import omitKeys from '../utils/omit-keys';
  * Summary reducer
  */
 export const summary = handleActions({
-  REQUEST_AGGREGATIONS: () => ({
+  REQUEST_AGGREGATIONS: state => ({
+    aggregations: state.aggregations,
     isFetching: true
   }),
 
   RECEIVE_AGGREGATIONS: (state, action) => ({
-    payload: action.payload,
+    aggregations: action.payload.aggregations,
     isFetching: false
   })
 }, {
+  aggregations: null,
   isFetching: false
 });
 
@@ -30,7 +30,7 @@ export const questions = handleActions({
     isFetching: false
   })
 }, {
-  questions: {},
+  dictionary: {},
   isFetching: false
 });
 
@@ -44,14 +44,23 @@ export const selected = handleActions({
 }, null);
 
 export const responses = handleActions({
-  RECEIVE_AGGREGATIONS: (state, action) => {
-    return action.payload.submissions.reduce((carry, response) => {
-      return Object.assign({}, carry, {
+  // Not yet called
+  REQUEST_RESPONSES: state => Object.assign({}, state, {
+    isFetching: true
+  }),
+
+  // Does not currently impact the isFetching state
+  RECEIVE_AGGREGATIONS: (state, action) => ({
+    dictionary: action.payload.submissions
+      .reduce((carry, response) => Object.assign({}, carry, {
         [response.response_id]: omitKeys(response, ['response_id'])
-      });
-    }, state);
-  }
-}, {});
+      }), state.dictionary),
+    isFetching: state.isFetching
+  })
+}, {
+  dictionary: {},
+  isFetching: false
+});
 
 export default combineReducers({
   summary,

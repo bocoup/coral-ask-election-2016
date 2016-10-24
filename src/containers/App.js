@@ -16,12 +16,12 @@ import {
 
 import {
   getSelected,
-  getSummary
+  getAggregations
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
   selectedEmoji: getSelected(state),
-  summary: getSummary(state)
+  summary: getAggregations(state)
 });
 
 class App extends Component {
