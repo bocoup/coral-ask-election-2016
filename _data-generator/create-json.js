@@ -46,12 +46,17 @@ const convertKeysToQuestionIds = obj => Object.keys(obj)
     id: guid()
   });
 
-const getAnswerId = (questionId, answer) => {
+const getAnswerObj = (questionId, answer) => {
   const question = questions[questionId];
   if (!question.options) {
     return;
   }
   const selectedOption = question.options.find(option => option.answer === answer);
+  return selectedOption;
+};
+
+const getAnswerId = (question, answer) => {
+  const selectedOption = getAnswerObj(question, answer);
   return selectedOption && selectedOption.id;
 };
 
@@ -87,24 +92,27 @@ const aggregate = arr => {
     };
 
     // Increment overall count
-    carry[answerId].count = carry[answerId].count++;
+    carry[answerId].count++;
 
     nonGroupingMCQuestions.forEach(mcQuestionId => {
-      const mcQAnswerId = getAnswerId(mcQuestionId, submission[mcQuestionId]);
-      if (!mcQAnswerId) {
+      const mcQuestion = questions[mcQuestionId];
+      const mcQAnswerObj = getAnswerObj(mcQuestionId, submission[mcQuestionId]);
+      if (!mcQAnswerObj) {
         throw new Error(`Unrecognized response: ${submission[mcQuestionId]}`);
       }
-      const mcQuestion = questions[mcQuestionId];
+      const mcQAnswerId = mcQAnswerObj.id;
+      console.log(mcQAnswerObj, mcQAnswerId);
 
       // Ensure answer key is present
       carry[answerId].mc[mcQuestionId] = carry[answerId].mc[mcQuestionId] || {
         question: mcQuestion.title,
-        answers: mcQuestion.options.reduce((carry, option) => Object.assign({
-          [option.id]: {
-            answer: option.answer,
-            count: 0
-          }
-        }, carry), {})
+        answers: {}
+      };
+
+      // Ensure the key on the answers list for the selected answer is present
+      carry[answerId].mc[mcQuestionId].answers[mcQAnswerId] = carry[answerId].mc[mcQuestionId].answers[mcQAnswerId] || {
+        answer: mcQAnswerObj.answer,
+        count: 0
       };
 
       // Increment count for this question
