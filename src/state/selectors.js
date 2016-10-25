@@ -88,3 +88,9 @@ export const getEmojiCounts = createSelector(
     }, emoji));
   }
 );
+
+export const getSelectedEmoji = createSelector(
+  getEmojiQuestion,
+  getSelected,
+  (question, selectedEmojiId) => question && question.options.find(option => option.id === selectedEmojiId)
+);

@@ -12,7 +12,14 @@
     display: block;
     font-style: italic;
     text-align: right;
-    padding-bottom: 5px;
+    margin-bottom: 10px;
+
+    img {
+      height: 1.5em;
+      display: inline-block;
+      vertical-align: top;
+      padding: 0 5px;
+    }
   }
 
   .bar-group {
