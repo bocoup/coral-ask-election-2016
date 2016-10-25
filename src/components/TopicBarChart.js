@@ -81,8 +81,7 @@ class TopicBarChart extends PureComponent {
 
     // % label
     labelContainer.append('div')
-      .classed('percentage', true)
-      .text(d => d3.format('.0%')(d.count / sumCounts));
+      .classed('percentage', true);
 
     const barContainer = entering.append('div')
       .classed('topic-bar-container', true);
@@ -97,8 +96,11 @@ class TopicBarChart extends PureComponent {
       .classed('topic-bar', true);
 
     binding.merge(entering).each(function(d) {
-      d3.select(this).selectAll('div.topic-bar')
+      const node = d3.select(this);
+      node.selectAll('div.topic-bar')
         .style('width', d => `${countScale(d.count)}px`);
+      node.selectAll('div.percentage', true)
+        .text(d => d3.format('.0%')(d.count / sumCounts));
     });
   }
 
