@@ -3,60 +3,58 @@
 .topic-bar-chart {
 
   .bar-group-container {
-    padding: 20px;
-    background-color: white;
-    
+    margin: 20px 10px;
+    background-color: $lightgrey;
+    padding: 10px;
+  }
 
-    .bar-group {
-      width: 95%;
+  .note {
+    display: block;
+    font-style: italic;
+    text-align: right;
+    margin-bottom: 10px;
+
+    img {
+      height: 1.5em;
       display: inline-block;
-      background-color: $lightgrey;
-      padding: 10px;
-      height: 45px;
-
-      .topic-detail-container {
-        display: inline-block;
-        position: relative;
-        width: 100%;
-
-        .topic-name {
-          display: inline-block;
-          float:left;
-        }
-
-        .percentage {
-          display: inline-block;
-          float: right;
-          text-align: right;
-        }
-      }
-
-      .topic-bar-container {
-        position: relative;
-
-        .topic-bar-background {
-          position: absolute;
-          background-color: #bbb;
-          top: 0;
-          right: 0;
-          height: 20px;
-        }
-
-        .topic-bar {
-          background-color: $darkgrey;
-          position: absolute;
-          top: 0;
-          height: 20px;
-        }
-      }
+      vertical-align: top;
+      padding: 0 5px;
     }
+  }
 
-    .bar-group:hover {
-      cursor: pointer;
+  .bar-group {
+    width: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: inline-block;
+  }
 
-      .topic-bar {
-        background-color: $highlight;
-      }
+  .topic-name {
+    display: inline-block;
+    float: left;
+  }
+
+  .percentage {
+    display: inline-block;
+    float: right;
+    text-align: right;
+  }
+
+  .topic-bar-container {
+    clear: both;
+    background-color: #bbb;
+  }
+
+  .topic-bar {
+    background-color: $darkgrey;
+    height: 20px;
+    transition: width 200ms;
+  }
+
+  .bar-group:hover {
+
+    .topic-bar {
+      background-color: $highlight;
     }
   }
 }
