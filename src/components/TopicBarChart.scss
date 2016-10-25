@@ -3,60 +3,50 @@
 .topic-bar-chart {
 
   .bar-group-container {
-    padding: 20px;
-    background-color: white;
-    
+    margin: 20px 10px;
+    background-color: $lightgrey;
+    padding: 10px;
+  }
 
-    .bar-group {
-      width: 95%;
-      display: inline-block;
-      background-color: $lightgrey;
-      padding: 10px;
-      height: 45px;
+  .note {
+    display: block;
+    font-style: italic;
+    text-align: right;
+    padding-bottom: 5px;
+  }
 
-      .topic-detail-container {
-        display: inline-block;
-        position: relative;
-        width: 100%;
+  .bar-group {
+    width: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: inline-block;
+  }
 
-        .topic-name {
-          display: inline-block;
-          float:left;
-        }
+  .topic-name {
+    display: inline-block;
+    float: left;
+  }
 
-        .percentage {
-          display: inline-block;
-          float: right;
-          text-align: right;
-        }
-      }
+  .percentage {
+    display: inline-block;
+    float: right;
+    text-align: right;
+  }
 
-      .topic-bar-container {
-        position: relative;
+  .topic-bar-container {
+    clear: both;
+    background-color: #bbb;
+  }
 
-        .topic-bar-background {
-          position: absolute;
-          background-color: #bbb;
-          top: 0;
-          right: 0;
-          height: 20px;
-        }
+  .topic-bar {
+    background-color: $darkgrey;
+    height: 20px;
+  }
 
-        .topic-bar {
-          background-color: $darkgrey;
-          position: absolute;
-          top: 0;
-          height: 20px;
-        }
-      }
-    }
+  .bar-group:hover {
 
-    .bar-group:hover {
-      cursor: pointer;
-
-      .topic-bar {
-        background-color: $highlight;
-      }
+    .topic-bar {
+      background-color: $highlight;
     }
   }
 }
