@@ -1,5 +1,33 @@
 import * as selectors from '../selectors';
 
+// Re-usable store values
+const responsesDictionary = {
+  aaa: {
+    id: 'aaa',
+    emoji: '🚌'
+  },
+  bbb: {
+    id: 'bbb',
+    emoji: '🍩'
+  },
+  ccc: {
+    id: 'ccc',
+    emoji: '🍸'
+  },
+  ddd: {
+    id: 'ddd',
+    emoji: '🍸'
+  },
+  eee: {
+    id: 'eee',
+    emoji: '🍩'
+  },
+  fff: {
+    id: 'fff',
+    emoji: '🍩'
+  }
+};
+
 describe('getAggregations', () => {
   const { getAggregations } = selectors;
 
@@ -45,46 +73,21 @@ describe('getQuestions', () => {
   });
 });
 
-describe('getResponses', () => {
-  const { getResponses } = selectors;
+describe('getResponsesList', () => {
+  const { getResponsesList } = selectors;
   const store = {
     responses: {
-      dictionary: {
-        aaa: {
-          id: 'aaa',
-          emoji: '🚌'
-        },
-        bbb: {
-          id: 'bbb',
-          emoji: '🍩'
-        },
-        ccc: {
-          id: 'ccc',
-          emoji: '🍸'
-        },
-        ddd: {
-          id: 'ddd',
-          emoji: '🍸'
-        },
-        eee: {
-          id: 'eee',
-          emoji: '🍩'
-        },
-        fff: {
-          id: 'fff',
-          emoji: '🍩'
-        }
-      }
+      dictionary: responsesDictionary
     }
   };
 
   it('is a defined function', () => {
-    expect(getResponses).toBeDefined();
-    expect(getResponses).toBeInstanceOf(Function);
+    expect(getResponsesList).toBeDefined();
+    expect(getResponsesList).toBeInstanceOf(Function);
   });
 
   it('returns an array of all available responses', () => {
-    const result = getResponses(store);
+    const result = getResponsesList(store);
     expect(result).toBeInstanceOf(Array);
     expect(result.length).toEqual(Object.keys(store.responses.dictionary).length);
     expect(result).toContainEqual({
@@ -114,7 +117,7 @@ describe('getResponses', () => {
   });
 
   it('returns an array of responses that match the provided parameters', () => {
-    const result = getResponses(store, {
+    const result = getResponsesList(store, {
       emoji: '🍩'
     });
     expect(result).toBeInstanceOf(Array);
@@ -195,6 +198,87 @@ describe('getEmojiList', () => {
     expect(getEmojiList({
       questions: {}
     })).toEqual([]);
-  })
+  });
+
+  it('returns a list of the emoji specified in the grouping question', () => {
+    const result = getEmojiList({
+      questions: {
+        dictionary: {
+          emojiQ: {
+            group_by: true,
+            options: [{
+              id: 'a',
+              answer: '✨'
+            }, {
+              id: 'b',
+              answer: '🍩'
+            }]
+          }
+        }
+      }
+    });
+    expect(result).toEqual([{
+      id: 'a',
+      answer: '✨'
+    }, {
+      id: 'b',
+      answer: '🍩'
+    }]);
+  });
 
 });
+
+describe('getEmojiCounts', () => {
+  const { getEmojiCounts } = selectors;
+
+  it('is a defined function', () => {
+    expect(getEmojiCounts).toBeDefined();
+    expect(getEmojiCounts).toBeInstanceOf(Function);
+  });
+
+  it('does not blow up if no emoji are loaded', () => {
+    expect(getEmojiCounts({
+      summary: {},
+      questions: {}
+    })).toEqual([]);
+  });
+
+  it('returns a list of the emoji specified in the grouping question', () => {
+    const result = getEmojiCounts({
+      summary: {
+        aggregations: {
+          a: {
+            count: 2
+          },
+          b: {
+            count: 1
+          }
+        }
+      },
+      questions: {
+        dictionary: {
+          emojiQ: {
+            group_by: true,
+            options: [{
+              id: 'a',
+              answer: '✨'
+            }, {
+              id: 'b',
+              answer: '🍩'
+            }]
+          }
+        }
+      }
+    });
+    expect(result).toEqual([{
+      id: 'a',
+      answer: '✨',
+      count: 2
+    }, {
+      id: 'b',
+      answer: '🍩',
+      count: 1
+    }]);
+  });
+
+})

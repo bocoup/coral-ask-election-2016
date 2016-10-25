@@ -1,9 +1,10 @@
-// import { createSelector } from 'reselect';
-// import d3 from '../d3';
+// Use createSelector for any reducer which returns a computed object
+import { createSelector } from 'reselect';
 
+export const getResponses = state => state.responses.dictionary;
 export const getSelected = state => state.selected;
-
 export const getAggregations = state => state.summary.aggregations;
+export const getQuestions = state => state.questions.dictionary;
 
 export const getIsFetching = state => [
   'questions',
@@ -11,14 +12,15 @@ export const getIsFetching = state => [
   'summary'
 ].reduce((isFetching, storeKey) => isFetching || state[storeKey].isFetching, false);
 
-export const getQuestions = state => state.questions.dictionary;
-
-export const getQuestionsAsList = (state) => {
-  const questions = getQuestions(state);
-  return questions ?
-    Object.keys(questions).map(qId => questions[qId]) :
-    [];
-};
+export const getQuestionsList = createSelector(
+  getQuestions,
+  (questions) => {
+    if (questions) {
+      return Object.keys(questions).map(qId => questions[qId]);
+    }
+    return [];
+  }
+);
 
 /**
  * Return an array of emoji multiple-choice answer objects with `.answer` and
@@ -27,28 +29,38 @@ export const getQuestionsAsList = (state) => {
  * @param {Object} state The state object
  * @returns {Object[]} An array of `{ answer, id }` objects
  */
-export const getEmojiList = (state) => {
-  const questions = getQuestionsAsList(state);
-  const emojiQuestion = questions.find(question => question.group_by);
-  return emojiQuestion ?
-    emojiQuestion.options :
-    [];
-};
+export const getEmojiList = createSelector(
+  getQuestionsList,
+  (questions) => {
+    const emojiQuestion = questions.find(question => question.group_by);
+    return emojiQuestion ?
+      emojiQuestion.options :
+      [];
+  }
+);
 
-export const getEmojiCounts = (state) => {
-  const aggregations = getAggregations(state);
-  return getEmojiList(state).forEach(emoji => Object.assign({
+/**
+ * Return an array of emoji multiple-choice answer objects with counts for
+ * how often each emoji occurs in the response data
+ *
+ * @param {Object} state The state object
+ * @returns {Object[]} An array of `{ answer, id, count }` objects
+ */
+export const getEmojiCounts = createSelector(
+  getEmojiList,
+  getAggregations,
+  (emojiList, aggregations) => emojiList.map(emoji => Object.assign({
     count: aggregations[emoji.id].count
-  }, emoji));
-};
+  }, emoji))
+);
 
-export const getResponses = (state, props) => {
+export const getResponsesList = (state, props) => {
   const responses = Object.keys(state.responses.dictionary)
     .map(key => state.responses.dictionary[key]);
 
   if (props) {
     return responses.filter(response => Object.keys(props)
-        .reduce((isMatch, key) => isMatch || props[key] === response[key], false));
+      .reduce((isMatch, key) => isMatch || props[key] === response[key], false));
   }
 
   return responses;

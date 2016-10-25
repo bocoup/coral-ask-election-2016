@@ -13,7 +13,7 @@ import './EmojiBubbleChart.scss';
 const computeProps = (props) => {
   const { emoji, maxRadius, minRadius } = props;
 
-  if (!emoji) {
+  if (!emoji || !emoji.length) {
     return {};
   }
 
@@ -21,14 +21,15 @@ const computeProps = (props) => {
     .range([minRadius, maxRadius])
     .domain(d3.extent(emoji, d => d.count));
 
-  const emojiTree = emoji && emoji.reduce((tree, emojiGroup) => tree.concat({
-    parent: 'root',
-    name: emojiGroup.emoji,
-    val: sizeScale(emojiGroup.count)
-  }), [{
+  const emojiTree = [{
     parent: '',
     name: 'root'
-  }]);
+  }].concat(emoji.map(emojiGroup => ({
+    id: emojiGroup.id,
+    parent: 'root',
+    name: emojiGroup.answer,
+    val: sizeScale(emojiGroup.count)
+  })));
 
   return {
     emojiTree
@@ -74,6 +75,7 @@ class EmojiBubbleChart extends PureComponent {
     if (!emojiTree) {
       return;
     }
+
     const parent = d3.select(this.root);
 
     const w = this.props.width;
@@ -83,6 +85,8 @@ class EmojiBubbleChart extends PureComponent {
       .size([w - 2, h - 2])
       .padding(3);
 
+    console.log(emojiTree);
+
     const root = d3.stratify()
       .id(d => d.name)
       .parentId(d => d.parent)(emojiTree)
@@ -90,6 +94,8 @@ class EmojiBubbleChart extends PureComponent {
       .sum(d => d.val);
 
     pack(root);
+
+    console.log(root, root.children);
 
     const scaler = 1.5;
     const sumValues = d3.sum(root.children, d => d.value);

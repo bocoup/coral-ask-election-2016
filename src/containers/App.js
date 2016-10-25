@@ -16,16 +16,19 @@ import {
 
 import {
   getSelected,
-  getAggregations
-} from '../state/selectors';
+  getAggregations,
+  getEmojiCounts
+} from '../state/selectors';;
 
 const mapStateToProps = state => ({
+  emoji: getEmojiCounts(state),
   selectedEmoji: getSelected(state),
   summary: getAggregations(state)
 });
 
 class App extends Component {
   static propTypes = {
+    emoji: PropTypes.array,
     summary: PropTypes.object,
     selectedEmoji: PropTypes.string,
     dispatch: PropTypes.func
@@ -38,7 +41,7 @@ class App extends Component {
   }
 
   render() {
-    const { summary, selectedEmoji, dispatch } = this.props;
+    const { emoji, summary, selectedEmoji, dispatch } = this.props;
     const hasSummary = summary && summary.emoji;
     const selectedEmojiGroup = hasSummary && summary.emoji.filter(emojiGroup => emojiGroup.emoji === selectedEmoji);
     return (
@@ -49,7 +52,7 @@ class App extends Component {
               <li key={emotion.name}>{emotion.count} {emotion.name} respondents</li>
             ))}
           </ul> */}
-          {summary && <EmojiBubbleChart emoji={summary.emoji} width={400} height={300} />}
+          {summary && <EmojiBubbleChart emoji={emoji} width={400} height={300} />}
           {summary && <EmojiGrid responses={[]} width={400} height={300} />}
           {summary && <EmojiFilter emoji={summary.emoji} onSelect={emoji => dispatch(selectEmoji(emoji))} />}
           {summary && <TopicBarChart topics={[]} width={400} />}

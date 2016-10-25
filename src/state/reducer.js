@@ -26,7 +26,7 @@ export const questions = handleActions({
   }),
 
   RECEIVE_QUESTIONS: (state, action) => ({
-    questions: action.payload,
+    dictionary: action.payload,
     isFetching: false
   })
 }, {
