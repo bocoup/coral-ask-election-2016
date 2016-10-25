@@ -18,7 +18,7 @@ import {
   getSelected,
   getAggregations,
   getEmojiCounts
-} from '../state/selectors';;
+} from '../state/selectors';
 
 const mapStateToProps = state => ({
   emoji: getEmojiCounts(state),
