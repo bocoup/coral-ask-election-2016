@@ -31,6 +31,8 @@ class TopicBarChart extends PureComponent {
       __html: emojiImage
     }} />;
 
+    const pluralizePeople = count => (count === 1) ? 'person' : 'people';
+
     return (
       <div className={'topic-bar-chart'}>
         <h3>Topics</h3>
@@ -43,10 +45,10 @@ class TopicBarChart extends PureComponent {
         </p>
         <div className="bar-group-container" style={containerStyles}>
           <p className="note">
-            {responseCount}
-            {emojiImageElement}
-            {!selected && ' total '}
-            responses</p>
+            {selected && `${responseCount} ${pluralizePeople(responseCount)} said `}
+            {selected && emojiImageElement}
+            {!selected && `${responseCount} total responses`}
+          </p>
           {topics.map((topic) => {
             const percentage = topic.count ?
               d3.format('.0%')(topic.count / responseCount) :
