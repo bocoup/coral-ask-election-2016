@@ -24,6 +24,39 @@ export const getEmojiQuestion = createSelector(
   questions => questions.find(question => question.group_by)
 );
 
+export const getMultipleChoiceQuestions = createSelector(
+  getQuestionsList,
+  getEmojiQuestion,
+  (questionsList, emojiQuestion) => questionsList
+    .filter(question => question.type === 'MultipleChoice' && question.id !== emojiQuestion.id)
+);
+
+export const getMultipleChoiceCounts = createSelector(
+  getMultipleChoiceQuestions,
+  getSelected,
+  getAggregations,
+  (mcQuestions, selectedEmojiId, aggregations) => mcQuestions
+    .map(question => question.options.map((option) => {
+      let optionCount = 0;
+
+      if (selectedEmojiId) {
+        optionCount = aggregations[selectedEmojiId][question.id][option.id];
+      } else if (aggregations) {
+        optionCount = Object.keys(aggregations)
+          .reduce((count, groupKey) => {
+            if (aggregations[groupKey][question.id][option.id]) {
+              return count + aggregations[groupKey][question.id][option.id];
+            }
+            return count;
+          }, 0);
+      }
+
+      return Object.assign({
+        count: optionCount
+      }, option);
+    }))
+);
+
 /**
  * Return an array of emoji multiple-choice answer objects with `.answer` and
  * `.id` keys
@@ -46,7 +79,12 @@ export const getEmojiList = createSelector(
 export const getEmojiCounts = createSelector(
   getEmojiList,
   getAggregations,
-  (emojiList, aggregations) => emojiList.map(emoji => Object.assign({
-    count: aggregations[emoji.id].count
-  }, emoji))
+  (emojiList, aggregations) => {
+    if (!aggregations) {
+      return [];
+    }
+    return emojiList.map(emoji => Object.assign({
+      count: aggregations[emoji.id].count
+    }, emoji));
+  }
 );

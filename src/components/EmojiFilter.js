@@ -7,11 +7,11 @@ function EmojiFilter(props) {
   if (!emoji) {
     return null;
   }
-  const emojiList = emoji && emoji.map(emojiGroup => emojiGroup.answer);
+  const emojiList = emoji;
   return (
     <div className="filter">
       {emojiList.map(emoji => (
-        <button key={emoji} type="button" onClick={() => onSelect(emoji)}>{emoji}</button>
+        <button key={emoji.id} type="button" onClick={() => onSelect(emoji.id)}>{emoji.answer}</button>
       ))}
     </div>
   );

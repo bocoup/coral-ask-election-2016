@@ -6,7 +6,7 @@ import EmojiGrid from '../components/EmojiGrid';
 import EmojiFilter from '../components/EmojiFilter';
 import TopicBarChart from '../components/TopicBarChart';
 import Letter from '../components/Letter';
-import ShortAnswerList from '../components/ShortAnswerList';
+// import ShortAnswerList from '../components/ShortAnswerList';
 
 import {
   fetchDataIfNeeded,
@@ -15,28 +15,31 @@ import {
 } from '../state/actions';
 
 import {
-  getSelected,
+  // getSelected,
   getAggregations,
   getEmojiCounts,
   getEmojiQuestion,
+  getMultipleChoiceCounts,
   getResponsesList
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
   emoji: getEmojiCounts(state),
-  selectedEmoji: getSelected(state),
+  // selectedEmoji: getSelected(state),
   emojiQuestion: getEmojiQuestion(state),
+  mcQuestions: getMultipleChoiceCounts(state),
   responses: getResponsesList(state),
-  summary: getAggregations(state)
+  aggregations: getAggregations(state)
 });
 
 class App extends Component {
   static propTypes = {
     emoji: PropTypes.array,
-    summary: PropTypes.object,
+    aggregations: PropTypes.object,
     emojiQuestion: PropTypes.object,
     responses: PropTypes.array,
-    selectedEmoji: PropTypes.string,
+    mcQuestions: PropTypes.array,
+    // selectedEmoji: PropTypes.string,
     dispatch: PropTypes.func
   }
 
@@ -50,13 +53,12 @@ class App extends Component {
     const {
       emoji,
       responses,
-      summary,
-      selectedEmoji,
+      aggregations,
+      // selectedEmoji,
       emojiQuestion,
+      mcQuestions,
       dispatch
     } = this.props;
-    const hasSummary = summary && summary.emoji;
-    const selectedEmojiGroup = hasSummary && summary.emoji.filter(emojiGroup => emojiGroup.emoji === selectedEmoji);
     return (
       <div className="App">
         <div className="container">
@@ -68,9 +70,11 @@ class App extends Component {
           {emoji && <EmojiBubbleChart emoji={emoji} width={400} height={300} />}
           {emojiQuestion && <EmojiGrid questionKey={emojiQuestion.id} responses={responses} width={400} height={300} />}
           {emoji && <EmojiFilter emoji={emoji} onSelect={emoji => dispatch(selectEmoji(emoji))} />}
-          {summary && <TopicBarChart topics={[]} width={400} />}
-          {summary && <Letter response={[]} width={400} />}
-          {summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} />}
+          {mcQuestions && mcQuestions.map((questionOptions, idx) => (
+            <TopicBarChart key={`topicbarchart${idx}`} topics={questionOptions} width={400} />
+          ))}
+          {aggregations && <Letter response={[]} width={400} />}
+          {/* summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} /> */}
         </div>
       </div>
     );

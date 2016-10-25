@@ -220,6 +220,86 @@ describe('getEmojiList', () => {
 
 });
 
+describe('getMultipleChoiceCounts', () => {
+  const { getMultipleChoiceCounts } = selectors;
+  const state = {
+    selected: null,
+    questions: {
+      dictionary: {
+        emoji: {
+          id: 'emoji',
+          type: 'MultipleChoice',
+          group_by: true,
+          options: [
+            { id: 'happy', answer: ':)' },
+            { id: 'sad', answer: ':(' }
+          ]
+        },
+        focus: {
+          id: 'focus',
+          type: 'MultipleChoice',
+          group_by: false,
+          options: [
+            { id: 'econ', answer: 'Economy' },
+            { id: 'edu', answer: 'Education' },
+            { id: 'env', answer: 'Environment' }
+          ]
+        }
+      }
+    },
+    summary: {
+      aggregations: {
+        happy: {
+          count: 11,
+          focus: {
+            econ: 1,
+            env: 6,
+            edu: 4
+          }
+        },
+        sad: {
+          count: 7,
+          focus: {
+            econ: 1,
+            env: 6
+          }
+        }
+      }
+    }
+  };
+
+  it('is a defined function', () => {
+    expect(getMultipleChoiceCounts).toBeDefined();
+    expect(getMultipleChoiceCounts).toBeInstanceOf(Function);
+  });
+
+  it('returns an array', () => {
+    const result = getMultipleChoiceCounts(state);
+    expect(result).toBeInstanceOf(Array);
+  });
+
+  it('returns a list of topic object lists, with counts', () => {
+    const result = getMultipleChoiceCounts(state);
+    expect(result).toEqual([[
+      { id: 'econ', answer: 'Economy', count: 2 },
+      { id: 'edu', answer: 'Education', count: 4 },
+      { id: 'env', answer: 'Environment', count: 12 }
+    ]]);
+  });
+
+  it('filters the returned results based on selected emoji', () => {
+    const result = getMultipleChoiceCounts(Object.assign({}, state, {
+      selected: 'happy'
+    }));
+    expect(result).toEqual([[
+      { id: 'econ', answer: 'Economy', count: 1 },
+      { id: 'edu', answer: 'Education', count: 4 },
+      { id: 'env', answer: 'Environment', count: 6 }
+    ]]);
+  });
+
+});
+
 describe('getEmojiCounts', () => {
   const { getEmojiCounts } = selectors;
 
@@ -230,7 +310,9 @@ describe('getEmojiCounts', () => {
 
   it('does not blow up if no emoji are loaded', () => {
     expect(getEmojiCounts({
-      summary: {},
+      summary: {
+        aggregations: null
+      },
       questions: {}
     })).toEqual([]);
   });

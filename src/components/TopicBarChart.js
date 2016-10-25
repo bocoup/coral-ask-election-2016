@@ -26,6 +26,15 @@ class TopicBarChart extends PureComponent {
    * When the react component mounts, setup the d3 vis
    */
   componentDidMount() {
+    console.log('mount');
+    this.update();
+  }
+
+  /**
+   * When the react component updates, update the d3 vis
+   */
+  componentDidUpdate() {
+    console.log('update');
     this.update();
   }
 
@@ -33,76 +42,15 @@ class TopicBarChart extends PureComponent {
    * Initialize the d3 chart - this is run once on mount
    */
   update() {
-    let { topics } = this.props;
-
-    // MOCK DATA
-    topics = [
-      {
-        id: '4690cd84196b0a4e3f84f2cc3bf79ac7',
-        answer: 'Cyber Security',
-        count: 40
-      },
-      {
-        id: '98a6399d1a49d929e8403bf9fce897e5',
-        answer: 'The Economy',
-        count: 10
-      },
-      {
-        id: '5f390d80b20daad8f5d2f483fb0ae9d8',
-        answer: 'Trade',
-        count: 80
-      },
-      {
-        id: 'de7a22a0c94aa64ba2449e520aa20c99',
-        answer: 'Education',
-        count: 20
-      },
-      {
-        id: 'd91b20b62997b6bfe27473dd16675cfb',
-        answer: 'Energy and the Environment',
-        count: 10
-      },
-      {
-        id: '745ce5bc6e3557b01bf4cfbd90721ae7',
-        answer: 'Health Care',
-        count: 100
-      },
-      {
-        id: 'c967a0dbb29151be23e4d79805a1da02',
-        answer: 'Crime',
-        count: 60
-      },
-      {
-        id: 'e03aac50cc66ce2b2b0eeaf57cb68d0a',
-        answer: 'Defense and National Security',
-        count: 30
-      },
-      {
-        id: 'b306b60e6d0b6a265e0914a60ac48867',
-        answer: 'Immigration',
-        count: 20
-      },
-      {
-        id: '8deaa8bde66cc6bf6ffc7d4e48c82f68',
-        answer: 'Foreign Policy',
-        count: 40
-      },
-      {
-        id: 'b1cc14fffa31a73de64ba82e99ecfbe6',
-        answer: 'Social Issues',
-        count: 20
-      }
-    ];
-
+    const { topics } = this.props;
 
     if (!topics.length) {
       return;
     }
 
-    const parent = d3.select(this.root);
+    console.log(topics);
 
-    const chart = parent.append('div')
-      .classed('bar-group-container', true);
+    const chart = d3.select(this.chart);
 
     const w = this.props.width;
     const labelWidth = 150;
@@ -146,8 +94,12 @@ class TopicBarChart extends PureComponent {
 
     // bar - value
     barContainer.append('div')
-      .classed('topic-bar', true)
-      .style('width', d => `${countScale(d.count)}px`);
+      .classed('topic-bar', true);
+
+    binding.merge(entering).each(function(d) {
+      d3.select(this).selectAll('div.topic-bar')
+        .style('width', d => `${countScale(d.count)}px`);
+    });
   }
 
   render() {
@@ -168,11 +120,12 @@ class TopicBarChart extends PureComponent {
           velit, facilisis sollicitudin eros vehicula sed.
         </p>
         <div
+          className="bar-group-container"
           style={{
             position: 'relative',
             width: `${width}px`
           }}
-          ref={(node) => { this.root = node; }}
+          ref={(node) => { this.chart = node; }}
         />
       </div>
     );
