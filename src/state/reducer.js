@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-import omitKeys from '../utils/omit-keys';
 
 /**
  * Summary reducer
@@ -53,7 +52,7 @@ export const responses = handleActions({
   RECEIVE_AGGREGATIONS: (state, action) => ({
     dictionary: action.payload.submissions
       .reduce((carry, response) => Object.assign({}, carry, {
-        [response.response_id]: omitKeys(response, ['response_id'])
+        [response.id]: response
       }), state.dictionary),
     isFetching: state.isFetching
   })

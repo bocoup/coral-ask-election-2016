@@ -1,6 +1,8 @@
 // Use createSelector for any reducer which returns a computed object
 import { createSelector } from 'reselect';
 
+import objectToList from '../utils/object-to-list';
+
 export const getResponses = state => state.responses.dictionary;
 export const getSelected = state => state.selected;
 export const getAggregations = state => state.summary.aggregations;
@@ -12,14 +14,14 @@ export const getIsFetching = state => [
   'summary'
 ].reduce((isFetching, storeKey) => isFetching || state[storeKey].isFetching, false);
 
-export const getQuestionsList = createSelector(
-  getQuestions,
-  (questions) => {
-    if (questions) {
-      return Object.keys(questions).map(qId => questions[qId]);
-    }
-    return [];
-  }
+export const getQuestionsList = createSelector(getQuestions, objectToList);
+
+export const getResponsesList = createSelector(getResponses, objectToList);
+
+// This app makes an assumption only Emoji questions will be used to group_by
+export const getEmojiQuestion = createSelector(
+  getQuestionsList,
+  questions => questions.find(question => question.group_by)
 );
 
 /**
@@ -30,13 +32,8 @@ export const getQuestionsList = createSelector(
  * @returns {Object[]} An array of `{ answer, id }` objects
  */
 export const getEmojiList = createSelector(
-  getQuestionsList,
-  (questions) => {
-    const emojiQuestion = questions.find(question => question.group_by);
-    return emojiQuestion ?
-      emojiQuestion.options :
-      [];
-  }
+  getEmojiQuestion,
+  emojiQuestion => (emojiQuestion && emojiQuestion.options) || []
 );
 
 /**
@@ -53,15 +50,3 @@ export const getEmojiCounts = createSelector(
     count: aggregations[emoji.id].count
   }, emoji))
 );
-
-export const getResponsesList = (state, props) => {
-  const responses = Object.keys(state.responses.dictionary)
-    .map(key => state.responses.dictionary[key]);
-
-  if (props) {
-    return responses.filter(response => Object.keys(props)
-      .reduce((isMatch, key) => isMatch || props[key] === response[key], false));
-  }
-
-  return responses;
-};

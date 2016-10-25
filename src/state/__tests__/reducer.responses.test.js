@@ -37,15 +37,15 @@ describe('reducers', () => {
         payload: {
           submissions: [
             {
-              response_id: '01234',
+              id: '01234',
               sentiment: 'meh'
             },
             {
-              response_id: '56789',
+              id: '56789',
               sentiment: 'woo'
             },
             {
-              response_id: '10111',
+              id: '10111',
               sentiment: 'boo'
             },
           ]
@@ -53,9 +53,9 @@ describe('reducers', () => {
       });
       expect(result).toEqual({
         dictionary: {
-          '01234': { sentiment: 'meh' },
-          '56789': { sentiment: 'woo' },
-          '10111': { sentiment: 'boo' }
+          '01234': { id: '01234', sentiment: 'meh' },
+          '56789': { id: '56789', sentiment: 'woo' },
+          '10111': { id: '10111', sentiment: 'boo' }
         },
         isFetching: false
       });

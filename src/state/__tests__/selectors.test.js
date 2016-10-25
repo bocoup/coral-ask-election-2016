@@ -116,15 +116,7 @@ describe('getResponsesList', () => {
     });
   });
 
-  it('returns an array of responses that match the provided parameters', () => {
-    const result = getResponsesList(store, {
-      emoji: '🍩'
-    });
-    expect(result).toBeInstanceOf(Array);
-    expect(result.map(r => r.emoji)).toEqual(['🍩', '🍩', '🍩']);
-    expect(result.map(r => r.id).sort()).toEqual(['bbb', 'eee', 'fff']);
-  });
-})
+});
 
 describe('getIsFetching', () => {
   const { getIsFetching } = selectors;

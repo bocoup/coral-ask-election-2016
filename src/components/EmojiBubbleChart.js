@@ -85,8 +85,6 @@ class EmojiBubbleChart extends PureComponent {
       .size([w - 2, h - 2])
       .padding(3);
 
-    console.log(emojiTree);
-
     const root = d3.stratify()
       .id(d => d.name)
       .parentId(d => d.parent)(emojiTree)
@@ -94,8 +92,6 @@ class EmojiBubbleChart extends PureComponent {
       .sum(d => d.val);
 
     pack(root);
-
-    console.log(root, root.children);
 
     const scaler = 1.5;
     const sumValues = d3.sum(root.children, d => d.value);

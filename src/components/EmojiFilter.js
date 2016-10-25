@@ -7,7 +7,7 @@ function EmojiFilter(props) {
   if (!emoji) {
     return null;
   }
-  const emojiList = emoji && emoji.map(emojiGroup => emojiGroup.emoji);
+  const emojiList = emoji && emoji.map(emojiGroup => emojiGroup.answer);
   return (
     <div className="filter">
       {emojiList.map(emoji => (
