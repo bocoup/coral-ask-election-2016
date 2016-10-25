@@ -1,24 +1,15 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { PureComponent, PropTypes } from 'react';
-import addComputedProps from 'react-computed-props';
 import twemoji from 'twemoji';
 import d3 from '../d3';
 import { emojiSVGUrl } from '../utils/emoji';
 
 import './EmojiGrid.scss';
 
-const computeProps = (props) => {
-  const { responses, rows } = props;
-
-  return {
-    responses,
-    rows
-  };
-};
-
-class EmojiGrid extends PureComponent {
+export default class EmojiGrid extends PureComponent {
   static propTypes = {
     responses: PropTypes.array,
+    questionKey: PropTypes.string,
     width: PropTypes.number,
     rows: PropTypes.number,
     height: PropTypes.number
@@ -48,36 +39,17 @@ class EmojiGrid extends PureComponent {
    * Initialize the d3 chart - this is run once on mount
    */
   update() {
-    let { responses } = this.props;
+    const { questionKey } = this.props;
+    const responses = this.props.responses.map(response => ({
+      answer: response[questionKey],
+      id: response.id
+    }));
 
-    // MOCK DATA
-    responses = [
-      { id: '134', answer: '😏' },
-      { id: 'abcd5437', answer: '😪' },
-      { id: 'abcd437', answer: '😪' },
-      { id: 'abd25437', answer: '😳' },
-      { id: 'awed25437', answer: '😳' },
-      { id: 'abcgr437', answer: '😀' },
-      { id: 'eef35437', answer: '😪' },
-      { id: 'abcd527', answer: '😳' },
-      { id: 'arrr437', answer: '😪' },
-      { id: 'abcdaaa437', answer: '😪' },
-      { id: 'abbbb37', answer: '🇺🇸' },
-      { id: '24td5437', answer: '🇺🇸' },
-      { id: 'aadt25437', answer: '😀' },
-      { id: 'amml25437', answer: '🇺🇸' },
-      { id: 'abcd2ssss', answer: '😪' },
-      { id: 'abffdd', answer: '😏' },
-      { id: 'abf1', answer: '😪' }
-    ];
-
-    if (!responses) {
+    if (!responses || !responses.length) {
       return;
     }
-    const parent = d3.select(this.root);
 
-    const chart = parent.append('div')
-      .classed('emoji-grid-container', true);
+    const chart = d3.select(this.chart);
 
     const binding = chart.selectAll('div.emoji-cell')
       .data(responses, d => d.id);
@@ -92,7 +64,7 @@ class EmojiGrid extends PureComponent {
       })
       .style('opacity', 0)
       .transition()
-      .delay((d, i) => i * 50)
+      .delay((d, i) => i * 30)
         .style('opacity', 1);
 
     binding.exit()
@@ -111,19 +83,16 @@ class EmojiGrid extends PureComponent {
     return (
       <div className={'emoji-grid-chart'}>
         <div
+          className={'emoji-grid-container'}
           style={{
             position: 'relative',
             border: '1px solid blue',
             width: `${width}px`,
             height: `${height}px`
           }}
-          ref={(node) => { this.root = node; }}
+          ref={(node) => { this.chart = node; }}
         />
       </div>
     );
   }
 }
-
-export default addComputedProps(computeProps, {
-  changeInclude: ['responses', 'rows']
-})(EmojiGrid);

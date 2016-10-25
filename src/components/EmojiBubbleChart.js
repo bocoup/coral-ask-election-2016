@@ -13,18 +13,23 @@ import './EmojiBubbleChart.scss';
 const computeProps = (props) => {
   const { emoji, maxRadius, minRadius } = props;
 
+  if (!emoji || !emoji.length) {
+    return {};
+  }
+
   const sizeScale = d3.scaleSqrt()
     .range([minRadius, maxRadius])
     .domain(d3.extent(emoji, d => d.count));
 
-  const emojiTree = emoji && emoji.reduce((tree, emojiGroup) => tree.concat({
-    parent: 'root',
-    name: emojiGroup.emoji,
-    val: sizeScale(emojiGroup.count)
-  }), [{
+  const emojiTree = [{
     parent: '',
     name: 'root'
-  }]);
+  }].concat(emoji.map(emojiGroup => ({
+    id: emojiGroup.id,
+    parent: 'root',
+    name: emojiGroup.answer,
+    val: sizeScale(emojiGroup.count)
+  })));
 
   return {
     emojiTree
@@ -70,6 +75,7 @@ class EmojiBubbleChart extends PureComponent {
     if (!emojiTree) {
       return;
     }
+
     const parent = d3.select(this.root);
 
     const w = this.props.width;

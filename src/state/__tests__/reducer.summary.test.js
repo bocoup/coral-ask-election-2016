@@ -1,0 +1,128 @@
+import combinedReducer from '../reducer';
+import { summary } from '../reducer';
+
+describe('reducers', () => {
+  const irrelevantAction = {
+    type: 'IRRELEVANT',
+    payload: null
+  };
+  const combinedReducerDefaultState = combinedReducer(undefined, irrelevantAction);
+
+  describe('summary', () => {
+    const defaultState = {
+      aggregations: null,
+      isFetching: false
+    };
+
+    it('is a defined function', () => {
+      expect(summary).toBeDefined();
+      expect(summary).toBeInstanceOf(Function);
+    });
+
+    it('generates the default state', () => {
+      const result = summary(undefined, irrelevantAction);
+      expect(result).toEqual(defaultState);
+    });
+
+    it('is represented in the combined default state', () => {
+      expect(combinedReducerDefaultState.summary).toEqual(defaultState)
+    });
+
+    it('sets isFetching on data request', () => {
+      const result = summary(defaultState, {
+        type: 'REQUEST_AGGREGATIONS'
+      });
+      expect(result.isFetching).toBe(true);
+    });
+
+    it('clears isFetching when data is received', () => {
+      const result = summary(defaultState, {
+        type: 'RECEIVE_AGGREGATIONS',
+        payload: {}
+      });
+      expect(result.isFetching).toBe(false);
+    });
+
+    it('populates the aggregations from the action payload', () => {
+      const result = summary(defaultState, {
+        type: 'RECEIVE_AGGREGATIONS',
+        payload: {
+          aggregations: {
+            dictionary: 'object'
+          },
+          submissions: []
+        }
+      });
+      expect(result).toEqual({
+        aggregations: {
+          dictionary: 'object'
+        },
+        isFetching: false
+      });
+    });
+
+    it('does not modify aggregations when requesting new data', () => {
+      const aggregations = {
+        dictionary: 'object'
+      };
+      const result = summary({
+        aggregations,
+        isFetching: false
+      }, {
+        type: 'REQUEST_AGGREGATIONS'
+      });
+      expect(result.aggregations).toEqual(aggregations);
+    });
+
+    it('overwrites the aggregations when new data is retrieved', () => {
+      const result = summary({
+        aggregations: {
+          dictionary: 'object'
+        },
+        isFetching: true
+      }, {
+        type: 'RECEIVE_AGGREGATIONS',
+        payload: {
+          aggregations: {
+            different: 'aggregation dictionary'
+          },
+          submissions: []
+        }
+      });
+      expect(result).toEqual({
+        aggregations: {
+          different: 'aggregation dictionary'
+        },
+        isFetching: false
+      });
+    });
+
+//     it('populates the state when data is received', () => {
+//       const result = summary({}, {
+//         type: 'RECEIVE_AGGREGATIONS',
+//         payload: {
+//           latest: [
+//             {
+//               response_id: '01234',
+//               sentiment: 'meh'
+//             },
+//             {
+//               response_id: '56789',
+//               sentiment: 'woo'
+//             },
+//             {
+//               response_id: '10111',
+//               sentiment: 'boo'
+//             },
+//           ]
+//         }
+//       });
+//       expect(result).toEqual({
+//         '01234': { sentiment: 'meh' },
+//         '56789': { sentiment: 'woo' },
+//         '10111': { sentiment: 'boo' }
+//       });
+//     });
+  });
+
+});

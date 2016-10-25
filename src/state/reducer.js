@@ -1,57 +1,39 @@
 import { combineReducers } from 'redux';
-import { createAction, handleActions } from 'redux-actions';
-import * as api from '../api/api';
-
-/**
- * Action creators for requesting and receiving data. Identity used for payload
- */
-export const requestData = createAction('REQUEST_DATA');
-export const receiveData = createAction('RECEIVE_DATA');
-
-/**
- * Action creator for selecting an emoji filter
- */
-export const selectEmoji = createAction('SELECT_EMOJI');
-
-/**
- * Action creator to fetch summary data from the API
- */
-const fetchData = () => (dispatch) => {
-  dispatch(requestData());
-  return api.getSummary().then(data => dispatch(receiveData(data)));
-};
-
-/**
- * Helper to check if we have already fetched the data or not
- */
-function shouldFetchData(state) {
-  return !state.summary.payload || !state.summary.isFetching;
-}
-
-/**
- * Action creator to fetch data only if we haven't fetched it before.
- */
-export const fetchDataIfNeeded = () => (dispatch, getState) => (
-  shouldFetchData(getState()) ? dispatch(fetchData()) : Promise.resolve()
-);
+import { handleActions } from 'redux-actions';
 
 /**
  * Summary reducer
  */
-const summary = handleActions({
-  REQUEST_DATA: () => ({
+export const summary = handleActions({
+  REQUEST_AGGREGATIONS: state => ({
+    aggregations: state.aggregations,
     isFetching: true
   }),
 
-  RECEIVE_DATA: (state, action) => ({
-    payload: action.payload,
+  RECEIVE_AGGREGATIONS: (state, action) => ({
+    aggregations: action.payload.aggregations,
     isFetching: false
   })
 }, {
+  aggregations: null,
   isFetching: false
 });
 
-const selected = handleActions({
+export const questions = handleActions({
+  REQUEST_QUESTIONS: state => Object.assign({}, state, {
+    isFetching: true
+  }),
+
+  RECEIVE_QUESTIONS: (state, action) => ({
+    dictionary: action.payload,
+    isFetching: false
+  })
+}, {
+  dictionary: {},
+  isFetching: false
+});
+
+export const selected = handleActions({
   SELECT_EMOJI: (state, action) => {
     if (state === action.payload) {
       return null;
@@ -60,7 +42,28 @@ const selected = handleActions({
   }
 }, null);
 
+export const responses = handleActions({
+  // Not yet called
+  REQUEST_RESPONSES: state => Object.assign({}, state, {
+    isFetching: true
+  }),
+
+  // Does not currently impact the isFetching state
+  RECEIVE_AGGREGATIONS: (state, action) => ({
+    dictionary: action.payload.submissions
+      .reduce((carry, response) => Object.assign({}, carry, {
+        [response.id]: response
+      }), state.dictionary),
+    isFetching: state.isFetching
+  })
+}, {
+  dictionary: {},
+  isFetching: false
+});
+
 export default combineReducers({
   summary,
-  selected
+  selected,
+  questions,
+  responses
 });

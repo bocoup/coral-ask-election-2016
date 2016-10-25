@@ -6,35 +6,59 @@ import EmojiGrid from '../components/EmojiGrid';
 import EmojiFilter from '../components/EmojiFilter';
 import TopicBarChart from '../components/TopicBarChart';
 import Letter from '../components/Letter';
-import ShortAnswerList from '../components/ShortAnswerList';
-
-import { fetchDataIfNeeded, selectEmoji } from '../state/reducer';
+// import ShortAnswerList from '../components/ShortAnswerList';
 
 import {
-  getSelected,
-  getSummary
+  fetchDataIfNeeded,
+  fetchQuestions,
+  selectEmoji
+} from '../state/actions';
+
+import {
+  // getSelected,
+  getAggregations,
+  getEmojiCounts,
+  getEmojiQuestion,
+  getMultipleChoiceCounts,
+  getResponsesList
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
-  selectedEmoji: getSelected(state),
-  summary: getSummary(state)
+  emoji: getEmojiCounts(state),
+  // selectedEmoji: getSelected(state),
+  emojiQuestion: getEmojiQuestion(state),
+  mcQuestions: getMultipleChoiceCounts(state),
+  responses: getResponsesList(state),
+  aggregations: getAggregations(state)
 });
 
 class App extends Component {
   static propTypes = {
-    summary: PropTypes.object,
-    selectedEmoji: PropTypes.string,
+    emoji: PropTypes.array,
+    aggregations: PropTypes.object,
+    emojiQuestion: PropTypes.object,
+    responses: PropTypes.array,
+    mcQuestions: PropTypes.array,
+    // selectedEmoji: PropTypes.string,
     dispatch: PropTypes.func
   }
 
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(fetchDataIfNeeded());
+    dispatch(fetchQuestions());
   }
 
   render() {
-    const { summary, selectedEmoji, dispatch } = this.props;
-    const selectedEmojiGroup = summary && summary.emoji.filter(emojiGroup => emojiGroup.emoji === selectedEmoji);
+    const {
+      emoji,
+      responses,
+      aggregations,
+      // selectedEmoji,
+      emojiQuestion,
+      mcQuestions,
+      dispatch
+    } = this.props;
     return (
       <div className="App">
         <div className="container">
@@ -43,12 +67,14 @@ class App extends Component {
               <li key={emotion.name}>{emotion.count} {emotion.name} respondents</li>
             ))}
           </ul> */}
-          {summary && <EmojiBubbleChart emoji={summary.emoji} width={400} height={300} />}
-          {summary && <EmojiGrid responses={[]} width={400} height={300} />}
-          {summary && <EmojiFilter emoji={summary.emoji} onSelect={emoji => dispatch(selectEmoji(emoji))} />}
-          {summary && <TopicBarChart topics={[]} width={400} />}
-          {summary && <Letter response={[]} width={400} />}
-          {summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} />}
+          {emoji && <EmojiBubbleChart emoji={emoji} width={400} height={300} />}
+          {emojiQuestion && <EmojiGrid questionKey={emojiQuestion.id} responses={responses} width={400} height={300} />}
+          {emoji && <EmojiFilter emoji={emoji} onSelect={emoji => dispatch(selectEmoji(emoji))} />}
+          {mcQuestions && mcQuestions.map((questionOptions, idx) => (
+            <TopicBarChart key={`topicbarchart${idx}`} topics={questionOptions} width={400} />
+          ))}
+          {aggregations && <Letter response={[]} width={400} />}
+          {/* summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} /> */}
         </div>
       </div>
     );

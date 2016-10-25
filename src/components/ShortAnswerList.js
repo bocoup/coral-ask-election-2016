@@ -5,6 +5,10 @@ import log from '../utils/log';
 function ShortAnswerList(props) {
   const { selectedEmoji } = props;
 
+  if (!selectedEmoji) {
+    return null;
+  }
+
   log(selectedEmoji);
 
   // const emojiList = emoji && emoji.map(emojiGroup => emojiGroup.emoji);
