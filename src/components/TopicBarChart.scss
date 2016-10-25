@@ -41,6 +41,7 @@
   .topic-bar {
     background-color: $darkgrey;
     height: 20px;
+    transition: width 200ms;
   }
 
   .bar-group:hover {
