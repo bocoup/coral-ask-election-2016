@@ -79,6 +79,8 @@ class EmojiBarChart extends PureComponent {
     // 1. small bar
     // 2. emoji
     // 3. label with value.
+
+    // 1. bars
     const bars = entering.append('div')
       .classed('bar', true)
       .style('height', `${maxBarHeight}px`)
@@ -86,21 +88,39 @@ class EmojiBarChart extends PureComponent {
       .classed('inner-bar', true);
 
     bars
-      .style('top', d => `${maxBarHeight - heightScale(d.count)}px`)
+      .style('top', () => `${maxBarHeight}px`)
       .style('width', `${barWidth}px`)
       .style('left', `${(emojiHeight - barWidth) / 2}px`);
 
+    // on update, animate bars up
+    entering.merge(binding)
+      .selectAll('div.inner-bar')
+      .transition()
+      .delay((d, i) => i * 25)
+        .style('top', d => `${maxBarHeight - heightScale(d.count)}px`);
+
+    // 2. emoji
     entering.append('div')
       .classed('emoji', true)
       .text(d => d.name)
-      .style('opacity', d => opacityScale(d.count / sumValues));
+      .style('opacity', 0);
+
+    // on update, animate opacity
+    entering.merge(binding)
+      .selectAll('div.emoji')
+        .transition()
+        .delay((d, i) => i * 100)
+          .style('opacity', d => opacityScale(d.count / sumValues));
 
     entering.append('div')
       .classed('label', true)
       .text(d => d3.format('.0%')(d.count / sumValues));
 
     binding.exit()
-      .remove();
+      .transition()
+      .delay((d, i) => i * 25)
+      .style('opacity', 0)
+        .remove();
   }
 
   render() {
