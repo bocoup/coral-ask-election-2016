@@ -3,6 +3,8 @@
 
   .emoji {
     position: absolute;
+    cursor: pointer;
+    transition: width 200ms, height 200ms;
   }
 
   .emoji-label {

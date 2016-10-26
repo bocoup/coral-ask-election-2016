@@ -71,7 +71,9 @@ class App extends Component {
           {/*
             emojiQuestion && <EmojiGrid questionKey={emojiQuestion.id} responses={responses} width={400} height={300} />
           */}
-          {emoji && <EmojiFilter emoji={emoji} onSelect={emoji => dispatch(selectEmoji(emoji))} />}
+          {/*
+            emoji && <EmojiFilter emoji={emoji} onSelect={emoji => dispatch(selectEmoji(emoji))} />
+          */}
           {mcQuestions && Object.keys(mcQuestions).map(key => (
             <FilterableBarChart key={key} questionId={key} />
           ))}

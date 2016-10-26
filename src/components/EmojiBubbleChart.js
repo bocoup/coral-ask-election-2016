@@ -6,6 +6,8 @@ import d3 from '../d3';
 
 import { emojiSVGUrl } from '../utils/emoji';
 
+import where from '../utils/where-properties-match';
+
 import './EmojiBubbleChart.scss';
 
 // import log from '../utils/log';
@@ -41,6 +43,7 @@ class EmojiBubbleChart extends PureComponent {
   static propTypes = {
     emoji: PropTypes.array,
     emojiTree: PropTypes.array,
+    onSelect: PropTypes.function,
     width: PropTypes.number,
     height: PropTypes.number,
     maxRadius: PropTypes.number,
@@ -70,7 +73,7 @@ class EmojiBubbleChart extends PureComponent {
    * Initialize the d3 chart - this is run once on mount
    */
   update() {
-    const { emojiTree } = this.props;
+    const { emojiTree, onSelect } = this.props;
 
     if (!emojiTree) {
       return;
@@ -94,30 +97,51 @@ class EmojiBubbleChart extends PureComponent {
     pack(root);
 
     const scaler = 1.5;
+    const zoomScaler = 1.6;
     const sumValues = d3.sum(root.children, d => d.value);
 
     // == render emoji ==
     const emojiBinding = parent.selectAll('div.emoji')
       .data(root.children, d => d.id);
 
+    console.log(root.children);
+
     const enteringEmoji = emojiBinding.enter()
       .append('div')
       .classed('emoji', true)
       .text(d => d.id)
+      // width & height default to 0 in CSS
       .style('top', d => `${d.y}px`)
-      .style('left', d => `${d.x}px`)
-      .style('width', '0px')
-      .style('height', '0px');
+      .style('left', d => `${d.x}px`);
 
     enteringEmoji.merge(emojiBinding)
       .each(function renderEmoji() {
         twemoji.parse(this, icon => emojiSVGUrl(icon));
         return this;
       })
+      .on('mouseover', function onMouseover(d) {
+        d3.select(this)
+          .style('width', `${d.r * zoomScaler}px`)
+          .style('height', `${d.r * zoomScaler}px`)
+      })
+      .on('mouseout', function onMouseout(d) {
+        d3.select(this)
+          .style('width', `${d.r * scaler}px`)
+          .style('height', `${d.r * scaler}px`);
+      })
+      .on('click', (d) => {
+        // Map back from name ("ID" within the hierarchy) to Emoji ID
+        for (const emoji of emojiTree) {
+          if (emoji.name === d.id) {
+            onSelect(emoji.id);
+            return;
+          }
+        }
+      })
+      .style('top', d => `${d.y - ((d.r * scaler) / 2)}px`)
+      .style('left', d => `${d.x - ((d.r * scaler) / 2)}px`)
       .transition()
         .delay((d, i) => i * 100)
-        .style('top', d => `${d.y - ((d.r * scaler) / 2)}px`)
-        .style('left', d => `${d.x - ((d.r * scaler) / 2)}px`)
         .style('width', d => `${d.r * scaler}px`)
         .style('height', d => `${d.r * scaler}px`);
 
