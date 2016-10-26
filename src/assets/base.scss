@@ -13,8 +13,13 @@ input, select {
   border-color: transparent;
 }
 
-
 h1, h2, h3, h4, h5 {
   text-transform: uppercase;
   font-weight: 600;
+}
+
+.container {
+  background: #F5F5F5;
+  padding: 1.5em;
+  max-width: 850px
 }
