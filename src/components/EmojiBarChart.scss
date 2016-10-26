@@ -1,0 +1,33 @@
+@import '../shared/shared.scss';
+
+.emoji-bar-chart {
+  display: inline-block;
+
+  .selectedTopic {
+    font-weight: bold;
+  }
+
+  .emoji-bar-container {
+    display: inline-block;
+    float: left;
+    margin-right: 20px;
+
+    .bar {
+      position: relative;
+      .inner-bar {
+        position: absolute;
+        bottom: 0;
+        background-color: $medgrey;
+      }
+    }
+
+    .emoji {
+      width: $small-emoji-size;
+      margin-top: 5px;
+    }
+
+    .label {
+      text-align: center;
+    }
+  }
+}

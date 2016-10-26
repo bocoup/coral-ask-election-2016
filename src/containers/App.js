@@ -6,6 +6,7 @@ import EmojiBubbleChart from '../components/EmojiBubbleChart';
 // import EmojiFilter from '../components/EmojiFilter';
 import FilterableBarChart from '../components/FilterableBarChart';
 import Letter from '../components/Letter';
+import EmojiBarChart from '../components/EmojiBarChart';
 // import ShortAnswerList from '../components/ShortAnswerList';
 
 import {
@@ -77,6 +78,7 @@ class App extends Component {
           {mcQuestions && Object.keys(mcQuestions).map(key => (
             <FilterableBarChart key={key} questionId={key} />
           ))}
+          <EmojiBarChart height={70} emoji={[]} topic={'Health Care'} />
           {aggregations && <Letter response={[]} width={400} />}
           {/* summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} /> */}
         </div>
