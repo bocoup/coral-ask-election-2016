@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <title>Election Reactions 2016</title>
+    <script>
+    if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+      var msViewportStyle = document.createElement("style");
+      msViewportStyle.appendChild(
+        document.createTextNode(
+          "@-ms-viewport{width:auto!important}"
+        )
+      );
+      document.getElementsByTagName("head")[0].
+        appendChild(msViewportStyle);
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

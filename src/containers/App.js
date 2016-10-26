@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
 // import EmojiGrid from '../components/EmojiGrid';
-import EmojiFilter from '../components/EmojiFilter';
+// import EmojiFilter from '../components/EmojiFilter';
 import FilterableBarChart from '../components/FilterableBarChart';
 import Letter from '../components/Letter';
 // import ShortAnswerList from '../components/ShortAnswerList';

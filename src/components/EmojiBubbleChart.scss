@@ -4,7 +4,8 @@
   .emoji {
     position: absolute;
     cursor: pointer;
-    transition: width 200ms, height 200ms;
+    text-align: center;
+    transition: width 200ms, height 200ms, left 200ms;
   }
 
   .emoji-label {

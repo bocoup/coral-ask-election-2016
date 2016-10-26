@@ -6,8 +6,6 @@ import d3 from '../d3';
 
 import { emojiSVGUrl } from '../utils/emoji';
 
-import where from '../utils/where-properties-match';
-
 import './EmojiBubbleChart.scss';
 
 // import log from '../utils/log';
@@ -104,8 +102,6 @@ class EmojiBubbleChart extends PureComponent {
     const emojiBinding = parent.selectAll('div.emoji')
       .data(root.children, d => d.id);
 
-    console.log(root.children);
-
     const enteringEmoji = emojiBinding.enter()
       .append('div')
       .classed('emoji', true)
@@ -121,11 +117,13 @@ class EmojiBubbleChart extends PureComponent {
       })
       .on('mouseover', function onMouseover(d) {
         d3.select(this)
+          .style('left', d => `${d.x - (d.r * zoomScaler)}px`)
           .style('width', `${d.r * zoomScaler}px`)
-          .style('height', `${d.r * zoomScaler}px`)
+          .style('height', `${d.r * zoomScaler}px`);
       })
       .on('mouseout', function onMouseout(d) {
         d3.select(this)
+          .style('left', d => `${d.x - (d.r * scaler)}px`)
           .style('width', `${d.r * scaler}px`)
           .style('height', `${d.r * scaler}px`);
       })
@@ -139,7 +137,7 @@ class EmojiBubbleChart extends PureComponent {
         }
       })
       .style('top', d => `${d.y - ((d.r * scaler) / 2)}px`)
-      .style('left', d => `${d.x - ((d.r * scaler) / 2)}px`)
+      .style('left', d => `${d.x - (d.r * scaler)}px`)
       .transition()
         .delay((d, i) => i * 100)
         .style('width', d => `${d.r * scaler}px`)
@@ -193,7 +191,6 @@ class EmojiBubbleChart extends PureComponent {
 
     return (
       <div className={'emojis-bubble-chart'}>
-        {/* emojiSvgs.map(imgTag => imgTag && <div key={imgTag} dangerouslySetInnerHTML={{ __html: imgTag }} />) */}
         <div
           style={{
             position: 'relative',
