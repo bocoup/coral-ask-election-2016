@@ -220,8 +220,7 @@ describe('getEmojiList', () => {
 
 });
 
-describe('getMultipleChoiceCounts', () => {
-  const { getMultipleChoiceCounts } = selectors;
+describe('getMultipleChoice...', () => {
   const state = {
     selected: null,
     questions: {
@@ -268,34 +267,78 @@ describe('getMultipleChoiceCounts', () => {
     }
   };
 
-  it('is a defined function', () => {
-    expect(getMultipleChoiceCounts).toBeDefined();
-    expect(getMultipleChoiceCounts).toBeInstanceOf(Function);
+  describe('getMultipleChoiceCounts', () => {
+    const { getMultipleChoiceCounts } = selectors;
+
+    it('is a defined function', () => {
+      expect(getMultipleChoiceCounts).toBeDefined();
+      expect(getMultipleChoiceCounts).toBeInstanceOf(Function);
+    });
+
+    it('returns an object', () => {
+      const result = getMultipleChoiceCounts(state);
+      expect(result).toBeInstanceOf(Object);
+    });
+
+    it('returns a dictionary by question ID of topic object lists, with counts', () => {
+      const result = getMultipleChoiceCounts(state);
+      expect(result).toEqual({
+        focus: [
+          { id: 'econ', answer: 'Economy', count: 2 },
+          { id: 'edu', answer: 'Education', count: 4 },
+          { id: 'env', answer: 'Environment', count: 12 }
+        ]
+      });
+    });
+
+    it('filters the returned results based on selected emoji', () => {
+      const result = getMultipleChoiceCounts(Object.assign({}, state, {
+        selected: 'happy'
+      }));
+      expect(result).toEqual({
+        focus: [
+          { id: 'econ', answer: 'Economy', count: 1 },
+          { id: 'edu', answer: 'Education', count: 4 },
+          { id: 'env', answer: 'Environment', count: 6 }
+        ]
+      });
+    });
+
   });
 
-  it('returns an array', () => {
-    const result = getMultipleChoiceCounts(state);
-    expect(result).toBeInstanceOf(Array);
-  });
+  describe('getMultipleChoiceCountsList', () => {
+    const { getMultipleChoiceCountsList } = selectors;
 
-  it('returns a list of topic object lists, with counts', () => {
-    const result = getMultipleChoiceCounts(state);
-    expect(result).toEqual([[
-      { id: 'econ', answer: 'Economy', count: 2 },
-      { id: 'edu', answer: 'Education', count: 4 },
-      { id: 'env', answer: 'Environment', count: 12 }
-    ]]);
-  });
+    it('is a defined function', () => {
+      expect(getMultipleChoiceCountsList).toBeDefined();
+      expect(getMultipleChoiceCountsList).toBeInstanceOf(Function);
+    });
 
-  it('filters the returned results based on selected emoji', () => {
-    const result = getMultipleChoiceCounts(Object.assign({}, state, {
-      selected: 'happy'
-    }));
-    expect(result).toEqual([[
-      { id: 'econ', answer: 'Economy', count: 1 },
-      { id: 'edu', answer: 'Education', count: 4 },
-      { id: 'env', answer: 'Environment', count: 6 }
-    ]]);
+    it('returns an array', () => {
+      const result = getMultipleChoiceCountsList(state);
+      expect(result).toBeInstanceOf(Array);
+    });
+
+    it('returns a list of topic object lists, with counts', () => {
+      const result = getMultipleChoiceCountsList(state);
+      expect(result).toEqual([[
+        { id: 'econ', answer: 'Economy', count: 2 },
+        { id: 'edu', answer: 'Education', count: 4 },
+        { id: 'env', answer: 'Environment', count: 12 }
+      ]]);
+    });
+
+    it('filters the returned results based on selected emoji', () => {
+      const result = getMultipleChoiceCountsList(Object.assign({}, state, {
+        selected: 'happy'
+      }));
+      expect(result).toEqual([[
+        { id: 'econ', answer: 'Economy', count: 1 },
+        { id: 'edu', answer: 'Education', count: 4 },
+        { id: 'env', answer: 'Environment', count: 6 }
+      ]]);
+    });
+
   });
 
 });

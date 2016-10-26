@@ -25,18 +25,26 @@ export const getEmojiQuestion = createSelector(
 );
 
 export const getMultipleChoiceQuestions = createSelector(
-  getQuestionsList,
+  getQuestions,
   getEmojiQuestion,
-  (questionsList, emojiQuestion) => questionsList
-    .filter(question => question.type === 'MultipleChoice' && question.id !== emojiQuestion.id)
+  (questions, emojiQuestion) => Object.keys(questions).reduce((mcQuestions, key) => {
+    const question = questions[key];
+    if (question.type !== 'MultipleChoice' || question.id === emojiQuestion.id) {
+      return mcQuestions;
+    }
+    return Object.assign(mcQuestions, {
+      [key]: question
+    });
+  }, {})
 );
 
 export const getMultipleChoiceCounts = createSelector(
   getMultipleChoiceQuestions,
   getSelected,
   getAggregations,
-  (mcQuestions, selectedEmojiId, aggregations) => mcQuestions
-    .map(question => question.options.map((option) => {
+  (mcQuestions, selectedEmojiId, aggregations) => Object.keys(mcQuestions).reduce((carry, key) => {
+    const question = mcQuestions[key];
+    const optionsWithCounts = question.options.map((option) => {
       let optionCount = 0;
 
       if (selectedEmojiId) {
@@ -54,8 +62,14 @@ export const getMultipleChoiceCounts = createSelector(
       return Object.assign({
         count: optionCount
       }, option);
-    }))
+    });
+    return Object.assign(carry, {
+      [key]: optionsWithCounts
+    });
+  }, {})
 );
+
+export const getMultipleChoiceCountsList = createSelector(getMultipleChoiceCounts, objectToList);
 
 /**
  * Return an array of emoji multiple-choice answer objects with `.answer` and

@@ -1,6 +1,6 @@
 import React from 'react';
+import twemoji from 'twemoji';
 
-const twemoji = require('twemoji');
 const emojiSVGs = require.context('../assets/twemoji');
 
 export const emojiSVGUrl = (emojiUnicode) => {
@@ -25,7 +25,9 @@ export const inlineEmoji = (emojiUnicode) => {
     __html: twemoji.parse(emojiUnicode, icon => emojiSVGUrl(icon))
   };
 
+  /* eslint-disable react/no-danger */
   return (
     <span dangerouslySetInnerHTML={html} />
   );
-}
+  /* eslint-enable react/no-danger */
+};

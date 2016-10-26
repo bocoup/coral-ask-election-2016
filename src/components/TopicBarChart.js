@@ -27,7 +27,9 @@ class TopicBarChart extends PureComponent {
 
     const emojiImageElement = selected && inlineEmoji(selected.answer);
 
+    /* eslint-disable no-confusing-arrow */
     const pluralizePeople = count => (count === 1) ? 'person' : 'people';
+    /* eslint-enable no-confusing-arrow */
 
     return (
       <div className={'topic-bar-chart'}>
