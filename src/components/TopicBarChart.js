@@ -33,15 +33,11 @@ class TopicBarChart extends PureComponent {
 
     return (
       <div className={'topic-bar-chart'}>
-        <h3>Topics</h3>
+        <h3>Filter by Topics</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Quisque eu velit orci. Donec in aliquet nunc. Duis pretium
-          vulputate nunc id elementum. Vivamus commodo eros nisl,
-          vel pretium lectus ultricies id. Curabitur eu dui malesuada,
-          rutrum libero at, lacinia mauris.
+         Which issue should be highest on the new president’s agenda?
         </p>
-        <div className="bar-group-container" style={containerStyles}>
+        <div className="bar-group-container">
           <p className="note">
             {selected && `${responseCount} ${pluralizePeople(responseCount)} said `}
             {selected && emojiImageElement}

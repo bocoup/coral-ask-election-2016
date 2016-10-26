@@ -194,7 +194,6 @@ class EmojiBubbleChart extends PureComponent {
         <div
           style={{
             position: 'relative',
-            border: '1px solid red',
             width: `${width}px`,
             height: `${height}px`
           }}
