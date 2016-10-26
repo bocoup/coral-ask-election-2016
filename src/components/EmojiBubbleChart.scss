@@ -1,5 +1,4 @@
 .emojis-bubble-chart {
-  position: relative;
 
   .emoji {
     position: absolute;
@@ -12,5 +11,9 @@
     position: absolute;
     text-align: center;
   }
+}
+
+.emojis-bubble-chart > div {
+  margin: auto;
 }
 
