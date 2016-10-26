@@ -1,7 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react';
-import twemoji from 'twemoji';
 import d3 from '../d3';
-import { emojiSVGUrl } from '../utils/emoji';
+import { inlineEmoji } from '../utils/emoji';
 
 import './TopicBarChart.scss';
 
@@ -26,10 +25,7 @@ class TopicBarChart extends PureComponent {
 
     const responseCount = d3.sum(topics, d => d.count);
 
-    const emojiImage = selected && twemoji.parse(selected.answer, icon => emojiSVGUrl(icon));
-    const emojiImageElement = emojiImage && <span dangerouslySetInnerHTML={{
-      __html: emojiImage
-    }} />;
+    const emojiImageElement = selected && inlineEmoji(selected.answer);
 
     const pluralizePeople = count => (count === 1) ? 'person' : 'people';
 
