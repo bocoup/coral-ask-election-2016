@@ -87,8 +87,7 @@ class EmojiBarChart extends PureComponent {
 
     bars
       .style('top', d => `${maxBarHeight - heightScale(d.count)}px`)
-      .style('width', `${barWidth}px`)
-      .style('left', `${(emojiHeight - barWidth) / 2}px`);
+      .style('width', `${barWidth}px`);
 
     entering.append('div')
       .classed('emoji', true)
@@ -113,11 +112,7 @@ class EmojiBarChart extends PureComponent {
           <span className={'selectedTopic'}> {topic} </span>
           feel:
         </p>
-        <div
-          style={{
-            position: 'relative'
-          }}
-          ref={(node) => { this.root = node; }}
+        <div className={'emoji-bar-wrapper'} ref={(node) => { this.root = node; }}
         />
       </div>
     );
