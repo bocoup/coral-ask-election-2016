@@ -26,6 +26,16 @@
     display: inline-block;
   }
 
+  @media only screen and (min-width: 48em) { 
+    .bar-group {
+      width: 48%;
+    }
+
+    .bar-group:nth-child(odd) {
+      float: right;
+    }
+  }
+
   .topic-name {
     display: inline-block;
     float: left;
