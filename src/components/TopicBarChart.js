@@ -4,7 +4,6 @@ import { inlineEmoji } from '../utils/emoji';
 
 import './TopicBarChart.scss';
 
-
 class TopicBarChart extends PureComponent {
   static propTypes = {
     topics: PropTypes.array,
