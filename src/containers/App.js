@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import TextComponent from '../containers/TextComponent';
+import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
 // import EmojiGrid from '../components/EmojiGrid';
 // import EmojiFilter from '../components/EmojiFilter';
@@ -67,7 +67,7 @@ class App extends Component {
       <div className="App" ref={(node) => { this.root = node; }}>
 
         <h1 className={'intro-title'}>
-          <TextComponent
+          <GoogleSheetFieldComponent
             fieldId={'elc-text-title'}
             defaultValue={'Word to the President'}
           />
@@ -75,7 +75,7 @@ class App extends Component {
         </h1>
 
         <div className={'intro-blurb'}>
-          <TextComponent
+          <GoogleSheetFieldComponent
             fieldId={'elc-text-intro-blurb'}
             defaultValue={'The election is over. It’s time to plan for a new administration.'}
           />

@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 /**
  * Component that renders fields from a Google Sheet
  */
-class TextComponent extends PureComponent {
+class GoogleSheetFieldComponent extends PureComponent {
   static propTypes = {
     defaultValue: PropTypes.string,
     dispatch: PropTypes.func,
@@ -55,4 +55,4 @@ class TextComponent extends PureComponent {
   }
 }
 
-export default connect(mapStateToProps)(TextComponent);
+export default connect(mapStateToProps)(GoogleSheetFieldComponent);
