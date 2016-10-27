@@ -8,16 +8,11 @@ import './TopicBarChart.scss';
 class TopicBarChart extends PureComponent {
   static propTypes = {
     topics: PropTypes.array,
-    selected: PropTypes.object,
-    width: PropTypes.number
+    selected: PropTypes.object
   }
 
   render() {
-    const { topics, selected, width } = this.props;
-
-    const containerStyles = width ? {
-      maxWidth: `${width}px`
-    } : null;
+    const { topics, selected } = this.props;
 
     if (!topics || !topics.length) {
       return null;
