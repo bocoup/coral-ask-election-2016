@@ -23,14 +23,14 @@ import {
   getEmojiCounts,
   // getEmojiQuestion,
   getMultipleChoiceCounts,
-  getFieldsDictionary
+  getFieldsDictionary,
   // getResponsesList,
-  // getSelectedEmoji
+  getSelectedEmoji
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
   emoji: getEmojiCounts(state),
-  // selectedEmoji: getSelectedEmoji(state),
+  selectedEmoji: getSelectedEmoji(state),
   // emojiQuestion: getEmojiQuestion(state),
   mcQuestions: getMultipleChoiceCounts(state),
   // responses: getResponsesList(state),
@@ -51,7 +51,8 @@ class App extends Component {
     dispatch: PropTypes.func,
 
     // google spreadhseet fields
-    fields: PropTypes.object
+    fields: PropTypes.object,
+    selectedEmoji: PropTypes.object
   }
 
   componentWillMount() {
@@ -66,7 +67,7 @@ class App extends Component {
       emoji,
       // responses,
       aggregations,
-      // selectedEmoji,
+      selectedEmoji,
       // emojiQuestion,
       mcQuestions,
       fields,
@@ -100,9 +101,10 @@ class App extends Component {
         <div className="container">
           {emoji && <EmojiBubbleChart
             emoji={emoji}
+            selectedEmoji={selectedEmoji}
             onSelect={emoji => dispatch(selectEmoji(emoji))}
             width={400}
-            height={300}
+            height={400}
           />}
           {/*
             emojiQuestion && <EmojiGrid questionKey={emojiQuestion.id} responses={responses} width={400} height={300} />

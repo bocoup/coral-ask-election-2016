@@ -45,13 +45,13 @@ export const getMultipleChoiceCounts = createSelector(
   getMultipleChoiceQuestions,
   getSelected,
   getAggregations,
-  (mcQuestions, selectedEmojiId, aggregations) => Object.keys(mcQuestions).reduce((carry, key) => {
+  (mcQuestions, selected, aggregations) => Object.keys(mcQuestions).reduce((carry, key) => {
     const question = mcQuestions[key];
     const optionsWithCounts = question.options.map((option) => {
       let optionCount = 0;
 
-      if (selectedEmojiId) {
-        optionCount = aggregations[selectedEmojiId][question.id][option.id];
+      if (selected.emoji) {
+        optionCount = aggregations[selected.emoji][question.id][option.id];
       } else if (aggregations) {
         optionCount = Object.keys(aggregations)
           .reduce((count, groupKey) => {
@@ -109,7 +109,23 @@ export const getEmojiCounts = createSelector(
 export const getSelectedEmoji = createSelector(
   getEmojiQuestion,
   getSelected,
-  (question, selectedEmojiId) => question && question.options.find(option => option.id === selectedEmojiId)
+  (question, selected) => question && question.options.find(option => option.id === selected.emoji)
+);
+
+export const getSelectedTopic = createSelector(
+  getMultipleChoiceQuestions,
+  getSelected,
+  (mcQuestions, selected) => {
+    const questionIds = Object.keys(mcQuestions);
+    for (let i = 0; i < questionIds.length; i += 1) {
+      const question = mcQuestions[questionIds[i]];
+      const match = question && question.options.find(option => option.id === selected.topic);
+      if (match) {
+        return match;
+      }
+    }
+    return null;
+  }
 );
 
 export const getFieldsDictionary = createSelector(

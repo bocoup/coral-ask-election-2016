@@ -52,12 +52,30 @@ export const fields = handleActions({
 
 export const selected = handleActions({
   SELECT_EMOJI: (state, action) => {
-    if (state === action.payload) {
-      return null;
+    if (state.emoji === action.payload) {
+      return Object.assign({}, state, {
+        emoji: null
+      });
     }
-    return action.payload;
+    return Object.assign({}, state, {
+      emoji: action.payload
+    });
+  },
+
+  SELECT_TOPIC: (state, action) => {
+    if (state.topic === action.payload) {
+      return Object.assign({}, state, {
+        topic: null
+      });
+    }
+    return Object.assign({}, state, {
+      topic: action.payload
+    });
   }
-}, null);
+}, {
+  emoji: null,
+  topic: null
+});
 
 export const responses = handleActions({
   // Not yet called

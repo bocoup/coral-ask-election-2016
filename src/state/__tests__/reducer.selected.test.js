@@ -16,35 +16,73 @@ describe('reducers', () => {
 
     it('sets the correct default state', () => {
       const result = selected(undefined, irrelevantAction);
-      expect(result).toBeNull();
+      expect(result).toEqual({
+        emoji: null,
+        topic: null
+      });
     });
 
     it('is represented in the combined default state', () => {
-      expect(combinedReducerDefaultState.selected).toBeNull();
+      expect(combinedReducerDefaultState.selected).toEqual({
+        emoji: null,
+        topic: null
+      });
     });
 
     it('can set the selected emoji', () => {
-      const result = selected(null, {
+      const result = selected({}, {
         type: 'SELECT_EMOJI',
         payload: '✨'
       });
-      expect(result).toBe('✨');
+      expect(result.emoji).toBe('✨');
     });
 
     it('can change the selected emoji', () => {
-      const result = selected('✨', {
+      const result = selected({
+        emoji: '✨'
+      }, {
         type: 'SELECT_EMOJI',
         payload: '❄'
       });
-      expect(result).toBe('❄');
+      expect(result.emoji).toBe('❄');
     });
 
     it('can deselect the current emoji', () => {
-      const result = selected('✨', {
+      const result = selected({
+        emoji: '✨'
+      }, {
         type: 'SELECT_EMOJI',
         payload: '✨'
       });
-      expect(result).toBe(null);
+      expect(result.emoji).toBe(null);
+    });
+
+    it('can set the selected topic', () => {
+      const result = selected({}, {
+        type: 'SELECT_TOPIC',
+        payload: 'Education'
+      });
+      expect(result.topic).toBe('Education');
+    });
+
+    it('can change the selected topic', () => {
+      const result = selected({
+        topic: 'Education'
+      }, {
+        type: 'SELECT_TOPIC',
+        payload: 'Economy'
+      });
+      expect(result.topic).toBe('Economy');
+    });
+
+    it('can deselect the current topic', () => {
+      const result = selected({
+        topic: 'Education'
+      }, {
+        type: 'SELECT_TOPIC',
+        payload: 'Education'
+      });
+      expect(result.topic).toBe(null);
     });
   });
 

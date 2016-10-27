@@ -1,16 +1,52 @@
+$transition-speed-in: 50ms;
+$transition-speed-out: 200ms;
+
 .emojis-bubble-chart {
   position: relative;
+  border: 1px solid red;
 
-  .emoji {
+  .emoji-container {
     position: absolute;
     cursor: pointer;
     text-align: center;
-    transition: width 200ms, height 200ms, left 200ms;
+    transition: width 200ms, height 200ms;
+    > img {
+      max-width: 90%;
+    }
+
+    &:hover,
+    &.selected {
+      .emoji-image {
+        margin: -2px;
+        transition: margin $transition-speed-out;
+      }
+      .emoji-label {
+        top: 100%;
+        font-size: 0.7em;
+        transition: top $transition-speed-out, font-size $transition-speed-out;
+      }
+    }
+  }
+
+  .emoji-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    transition: margin $transition-speed-in;
+    margin: 0;
   }
 
   .emoji-label {
     position: absolute;
-    text-align: center;
+    margin: auto;
+    top: 98%;
+    left: 0;
+    width: 100%;
+    display: inline-block;
+    font-size: 0.8em;
+    transition: top $transition-speed-in, font-size $transition-speed-in;
   }
 }
-

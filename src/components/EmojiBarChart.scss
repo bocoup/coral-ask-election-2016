@@ -1,33 +1,53 @@
 @import '../shared/shared.scss';
 
 .emoji-bar-chart {
-  display: inline-block;
+  width: 100%;
 
   .selectedTopic {
     font-weight: bold;
   }
 
-  .emoji-bar-container {
-    display: inline-block;
-    float: left;
-    margin-right: 20px;
+  .emoji-bar-wrapper {
+    text-align: center;
+    
+    .emoji-bar-container {
+      display: inline-block;
+      width: 20%;
 
-    .bar {
-      position: relative;
-      .inner-bar {
-        position: absolute;
-        bottom: 0;
-        background-color: $medgrey;
+      .bar {
+        position: relative;
+
+        .inner-bar {
+          position: absolute;
+          bottom: 0;
+          background-color: $medgrey;
+          left: 0 !important;
+          right: 0;
+          margin: auto;
+        }
+      }
+
+      .emoji {
+        width: $small-emoji-size;
+        margin: .25em auto 0;
+      }
+
+      .label {
+        text-align: center;
       }
     }
 
-    .emoji {
-      width: $small-emoji-size;
-      margin-top: 5px;
+    @media only screen and (min-width: 31em) { 
+      .emoji-bar-container { 
+        width: 15%;
+      }
     }
 
-    .label {
-      text-align: center;
+    @media only screen and (min-width: 40em) { 
+      .emoji-bar-container { 
+        width: 11%;
+      }
     }
+
   }
 }

@@ -127,18 +127,13 @@ class EmojiBarChart extends PureComponent {
     const { topic } = this.props;
 
     return (
-      <div className={'emoji-bar-chart'}>
+      <div className="emoji-bar-chart">
         <p>
           People who care about
-          <span className={'selectedTopic'}> {topic} </span>
+          <span className="selectedTopic"> {topic} </span>
           feel:
         </p>
-        <div
-          style={{
-            position: 'relative'
-          }}
-          ref={(node) => { this.root = node; }}
-        />
+        <div className="emoji-bar-wrapper" ref={(node) => { this.root = node; }} />
       </div>
     );
   }
