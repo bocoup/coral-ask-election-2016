@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import log from '../utils/log';
 
-import TextComponent from '../components/TextComponent';
+import TextComponent from '../containers/TextComponent';
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
 // import EmojiGrid from '../components/EmojiGrid';
 // import EmojiFilter from '../components/EmojiFilter';
@@ -13,7 +12,6 @@ import EmojiBarChart from '../components/EmojiBarChart';
 
 import {
   fetchDataIfNeeded,
-  fetchFieldsIfNeeded,
   fetchQuestions,
   selectEmoji
 } from '../state/actions';
@@ -23,7 +21,6 @@ import {
   getEmojiCounts,
   // getEmojiQuestion,
   getMultipleChoiceCounts,
-  getFieldsData,
   // getResponsesList,
   getSelectedEmoji
 } from '../state/selectors';
@@ -34,10 +31,7 @@ const mapStateToProps = state => ({
   // emojiQuestion: getEmojiQuestion(state),
   mcQuestions: getMultipleChoiceCounts(state),
   // responses: getResponsesList(state),
-  aggregations: getAggregations(state),
-
-  // google spreadsheet fields
-  fields: getFieldsData(state)
+  aggregations: getAggregations(state)
 });
 
 class App extends Component {
@@ -49,15 +43,11 @@ class App extends Component {
     mcQuestions: PropTypes.object,
     // selectedEmoji: PropTypes.object,
     dispatch: PropTypes.func,
-
-    // google spreadhseet fields
-    fields: PropTypes.object,
     selectedEmoji: PropTypes.object
   }
 
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(fetchFieldsIfNeeded());
     dispatch(fetchDataIfNeeded());
     dispatch(fetchQuestions());
   }
@@ -70,17 +60,14 @@ class App extends Component {
       selectedEmoji,
       // emojiQuestion,
       mcQuestions,
-      fields,
       dispatch
     } = this.props;
 
-    log(['We got fields!', fields]);
     return (
       <div className="App" ref={(node) => { this.root = node; }}>
 
         <h1 className={'intro-title'}>
           <TextComponent
-            fields={fields}
             fieldId={'elc-text-title'}
             defaultValue={'Word to the President'}
           />
@@ -89,7 +76,6 @@ class App extends Component {
 
         <div className={'intro-blurb'}>
           <TextComponent
-            fields={fields}
             fieldId={'elc-text-intro-blurb'}
             defaultValue={'The election is over. It’s time to plan for a new administration.'}
           />
