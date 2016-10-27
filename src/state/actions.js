@@ -1,6 +1,5 @@
 import { createAction } from 'redux-actions';
 import * as api from '../api/api';
-import * as content from '../api/content';
 
 /**
  * Action creators for requesting and receiving data.
@@ -63,7 +62,7 @@ function shouldFetchFields(state) {
  */
 const fetchFields = () => (dispatch) => {
   dispatch(requestFields());
-  return content.getFields().then(data => dispatch(receiveFields(data)));
+  return api.getContent().then(data => dispatch(receiveFields(data)));
 };
 
 /**

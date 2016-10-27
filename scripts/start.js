@@ -21,6 +21,10 @@ var config = require('../config/webpack.config.dev');
 var paths = require('../config/paths');
 
 // Warn and crash if required files are missing
+if (!checkRequiredFiles([paths.appConfig])) {
+  console.log(chalk.red('\nMissing config.json. See README for instructions.'));
+  process.exit(1);
+}
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
