@@ -36,7 +36,7 @@ p {
   margin-bottom: 0;
 }
 
-@media only screen and (min-width: 25em) {  
+@media only screen and (min-width: 25em) {
   .container {
     padding: 2em;
     margin: auto;
@@ -48,7 +48,7 @@ p {
   }
 }
 
-@media only screen and (min-width: 40em) { 
+@media only screen and (min-width: 40em) {
   .container {
     padding: 2.5em;
   }
@@ -56,4 +56,16 @@ p {
   .container > div {
     margin-bottom: 2.5em;
   }
+}
+
+// button elements have no intrinsic style so that they may be used
+// as interactable containers within visualizations. To get visual
+// button styling, use `<button className="button">`
+button {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }

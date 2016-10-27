@@ -16,18 +16,21 @@ export const emojiSVGUrl = (emojiUnicode) => {
   return emojiUrl;
 };
 
-export const inlineEmoji = (emojiUnicode) => {
+export const emojiSVGImageTag = emojiUnicode => twemoji
+  .parse(emojiUnicode, icon => emojiSVGUrl(icon));
+
+export const inlineEmoji = (emojiUnicode, props) => {
   if (!emojiUnicode) {
     return null;
   }
 
   const html = {
-    __html: twemoji.parse(emojiUnicode, icon => emojiSVGUrl(icon))
+    __html: emojiSVGImageTag(emojiUnicode)
   };
 
   /* eslint-disable react/no-danger */
   return (
-    <span dangerouslySetInnerHTML={html} />
+    <span {...props} dangerouslySetInnerHTML={html} />
   );
   /* eslint-enable react/no-danger */
 };

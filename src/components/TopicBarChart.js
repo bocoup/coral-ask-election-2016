@@ -4,20 +4,21 @@ import { inlineEmoji } from '../utils/emoji';
 
 import './TopicBarChart.scss';
 
-
 class TopicBarChart extends PureComponent {
   static propTypes = {
     topics: PropTypes.array,
-    selected: PropTypes.object,
-    width: PropTypes.number
+    selectedEmoji: PropTypes.object,
+    selectedTopic: PropTypes.object,
+    onSelect: PropTypes.func
   }
 
   render() {
-    const { topics, selected, width } = this.props;
-
-    const containerStyles = width ? {
-      maxWidth: `${width}px`
-    } : null;
+    const {
+      onSelect,
+      selectedEmoji,
+      selectedTopic,
+      topics
+    } = this.props;
 
     if (!topics || !topics.length) {
       return null;
@@ -25,7 +26,7 @@ class TopicBarChart extends PureComponent {
 
     const responseCount = d3.sum(topics, d => d.count);
 
-    const emojiImageElement = selected && inlineEmoji(selected.answer);
+    const emojiImageElement = selectedEmoji && inlineEmoji(selectedEmoji.answer);
 
     /* eslint-disable no-confusing-arrow */
     const pluralizePeople = count => (count === 1) ? 'person' : 'people';
@@ -39,16 +40,21 @@ class TopicBarChart extends PureComponent {
         </p>
         <div className="bar-group-container">
           <p className="note">
-            {selected && `${responseCount} ${pluralizePeople(responseCount)} said `}
-            {selected && emojiImageElement}
-            {!selected && `${responseCount} total responses`}
+            {selectedEmoji && `${responseCount} ${pluralizePeople(responseCount)} said `}
+            {selectedEmoji && emojiImageElement}
+            {!selectedEmoji && `${responseCount} total responses`}
           </p>
           {topics.map((topic) => {
             const percentage = topic.count ?
               d3.format('.0%')(topic.count / responseCount) :
               0;
             return (
-              <div key={topic.answer} className="bar-group">
+              <button
+                aria-pressed={selectedTopic && (topic.id === selectedTopic.id)}
+                onClick={() => onSelect(topic.id)}
+                key={topic.answer}
+                className="bar-group"
+              >
                 <div className="topic-detail-container">
                   <div className="topic-name">{topic.answer}</div>
                   <div className="percentage">{percentage}</div>
@@ -56,7 +62,7 @@ class TopicBarChart extends PureComponent {
                 <div className="topic-bar-container">
                   <div className="topic-bar" style={{ width: percentage }} />
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>

@@ -13,6 +13,7 @@ export const receiveQuestions = createAction('RECEIVE_QUESTIONS');
  * Action creator for selecting an emoji filter. Identity used for payload
  */
 export const selectEmoji = createAction('SELECT_EMOJI');
+export const selectTopic = createAction('SELECT_TOPIC');
 
 /**
  * Action creator to fetch questions (form digest) from the API
