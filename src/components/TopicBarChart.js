@@ -35,9 +35,9 @@ class TopicBarChart extends PureComponent {
     return (
       <div className={'topic-bar-chart'}>
         <h3>Filter by Topics</h3>
-        <p>
+        <h5>
          Which issue should be highest on the new president’s agenda?
-        </p>
+        </h5>
         <div className="bar-group-container">
           <p className="note">
             {selectedEmoji && `${responseCount} ${pluralizePeople(responseCount)} said `}

@@ -1,10 +1,7 @@
 @import '../shared/shared.scss';
 
 .topic-bar-chart {
-
-  .bar-group-container {
-    margin-bottom: 1em;
-  }
+  border-top: 6px solid white;
 
   .note {
     display: block;
@@ -22,8 +19,8 @@
   .bar-group {
     width: 100%;
     cursor: pointer;
-    box-sizing: border-box;
     display: inline-block;
+    margin-bottom: .9em;
   }
 
   @media only screen and (min-width: 48em) { 
@@ -34,6 +31,11 @@
     .bar-group:nth-child(odd) {
       float: right;
     }
+  }
+
+  .topic-detail-container {
+    overflow: auto;
+    margin-bottom: .2em;
   }
 
   .topic-name {

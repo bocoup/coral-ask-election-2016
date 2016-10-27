@@ -1,21 +1,39 @@
 @import './skeleton/normalize.css';
-@import './skeleton/skeleton.css';
 @import './charts.scss';
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
 body {
   background: #fff;
-  color: #191919;
+  color: #4A4A4A;
   font-family: 'Roboto', sans-serif;
+  font-size: 17px;
+  letter-spacing: .01em;
 }
 
 input, select {
   background-color: #282828;
-  color: #999;
   border-color: transparent;
 }
 
-h1, h2, h3, h4, h5 {
-  font-weight: 600;
+h1, h2, h3, h4 {
+  margin: 0 0 .75em;
+  font-weight: bold;
+}
+
+h3 { 
+  font-size: 1.75em;
+}
+
+h5 {
+  margin: 0 0 .75em;
+  font-size: 1.1em;
+  font-weight: normal;
+  letter-spacing: .01em;
 }
 
 p {
@@ -24,37 +42,42 @@ p {
 
 .container {
   background: #F5F5F5;
-  padding: 1em;
-  max-width: 850px
+  max-width: 850px;
+  padding: 0;
 }
 
 .container > div {
-  margin-bottom: 1.5em;
+  padding: 0 1.5em 1em 1em; 
 }
 
-.container > div:last-child {
-  margin-bottom: 0;
+.container > div.topic-bar-chart { 
+  padding-top: 1em;
 }
 
 @media only screen and (min-width: 25em) {
   .container {
-    padding: 2em;
     margin: auto;
     width: 92%;
   }
 
   .container > div {
-    margin-bottom: 2em;
+    padding: 0 2em 2em; 
   }
+
+  .container > div.topic-bar-chart { 
+    padding-top: 2em;
+  }
+
 }
 
 @media only screen and (min-width: 40em) {
-  .container {
-    padding: 2.5em;
-  }
 
   .container > div {
-    margin-bottom: 2.5em;
+    padding: 0 2.5em 2.5em; 
+  }
+
+  .container > div.topic-bar-chart { 
+    padding-top: 2.5em;
   }
 }
 
