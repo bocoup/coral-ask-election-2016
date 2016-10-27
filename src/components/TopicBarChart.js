@@ -10,8 +10,7 @@ class TopicBarChart extends PureComponent {
     topics: PropTypes.array,
     selectedEmoji: PropTypes.object,
     selectedTopic: PropTypes.object,
-    onSelect: PropTypes.func,
-    width: PropTypes.number
+    onSelect: PropTypes.func
   }
 
   render() {
@@ -19,13 +18,8 @@ class TopicBarChart extends PureComponent {
       onSelect,
       selectedEmoji,
       selectedTopic,
-      topics,
-      width
+      topics
     } = this.props;
-
-    const containerStyles = width ? {
-      maxWidth: `${width}px`
-    } : null;
 
     if (!topics || !topics.length) {
       return null;

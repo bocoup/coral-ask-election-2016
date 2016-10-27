@@ -49,7 +49,6 @@ class FilterableBarChart extends PureComponent {
         topics={questionOptions}
         selectedEmoju={selectedEmoji}
         selectedTopic={selectedTopic}
-        width={400}
       />
     );
   }
