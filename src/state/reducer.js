@@ -33,6 +33,23 @@ export const questions = handleActions({
   isFetching: false
 });
 
+/**
+ * Google spreadsheet fields
+ */
+export const fields = handleActions({
+  REQUEST_FIELDS: state => Object.assign({}, state, {
+    isFetching: true
+  }),
+
+  RECEIVE_FIELDS: (state, action) => ({
+    data: action.payload,
+    isFetching: false
+  })
+}, {
+  data: {},
+  isFetching: false
+});
+
 export const selected = handleActions({
   SELECT_EMOJI: (state, action) => {
     if (state === action.payload) {
@@ -63,6 +80,7 @@ export const responses = handleActions({
 
 export default combineReducers({
   summary,
+  fields,
   selected,
   questions,
   responses

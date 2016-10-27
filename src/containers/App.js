@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import log from '../utils/log';
+import fieldValue from '../utils/fields';
 
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
 // import EmojiGrid from '../components/EmojiGrid';
@@ -11,6 +13,7 @@ import EmojiBarChart from '../components/EmojiBarChart';
 
 import {
   fetchDataIfNeeded,
+  fetchFieldsIfNeeded,
   fetchQuestions,
   selectEmoji
 } from '../state/actions';
@@ -19,7 +22,8 @@ import {
   getAggregations,
   getEmojiCounts,
   // getEmojiQuestion,
-  getMultipleChoiceCounts
+  getMultipleChoiceCounts,
+  getFieldsDictionary
   // getResponsesList,
   // getSelectedEmoji
 } from '../state/selectors';
@@ -30,7 +34,10 @@ const mapStateToProps = state => ({
   // emojiQuestion: getEmojiQuestion(state),
   mcQuestions: getMultipleChoiceCounts(state),
   // responses: getResponsesList(state),
-  aggregations: getAggregations(state)
+  aggregations: getAggregations(state),
+
+  // google spreadsheet fields
+  fields: getFieldsDictionary(state)
 });
 
 class App extends Component {
@@ -41,11 +48,15 @@ class App extends Component {
     // responses: PropTypes.array,
     mcQuestions: PropTypes.object,
     // selectedEmoji: PropTypes.object,
-    dispatch: PropTypes.func
+    dispatch: PropTypes.func,
+
+    // google spreadhseet fields
+    fields: PropTypes.object
   }
 
   componentWillMount() {
     const { dispatch } = this.props;
+    dispatch(fetchFieldsIfNeeded());
     dispatch(fetchDataIfNeeded());
     dispatch(fetchQuestions());
   }
@@ -58,10 +69,34 @@ class App extends Component {
       // selectedEmoji,
       // emojiQuestion,
       mcQuestions,
+      fields,
       dispatch
     } = this.props;
+
+    log(['We got fields!', fields]);
     return (
-      <div className="App">
+      <div className="App" ref={(node) => { this.root = node; }}>
+
+        <h1 className={'intro-title'}>
+          {
+            fieldValue(
+              fields,
+              'elc-text-title',
+              'Word to the President'
+            )
+          }
+        </h1>
+
+        <div className={'intro-blurb'}>
+          {
+            fieldValue(
+              fields,
+              'elc-text-intro-blurb',
+              'The election is over. It’s time to plan for a new administration.'
+            )
+          }
+        </div>
+
         <div className="container">
           {emoji && <EmojiBubbleChart
             emoji={emoji}
