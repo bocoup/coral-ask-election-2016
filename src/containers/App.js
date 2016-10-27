@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import log from '../utils/log';
-import fieldValue from '../utils/fields';
 
+import TextComponent from '../components/TextComponent';
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
 // import EmojiGrid from '../components/EmojiGrid';
 // import EmojiFilter from '../components/EmojiFilter';
@@ -79,23 +79,20 @@ class App extends Component {
       <div className="App" ref={(node) => { this.root = node; }}>
 
         <h1 className={'intro-title'}>
-          {
-            fieldValue(
-              fields,
-              'elc-text-title',
-              'Word to the President'
-            )
-          }
+          <TextComponent
+            fields={fields}
+            key={'elc-text-title'}
+            defaultValue={'Word to the President'}
+          />
+
         </h1>
 
         <div className={'intro-blurb'}>
-          {
-            fieldValue(
-              fields,
-              'elc-text-intro-blurb',
-              'The election is over. It’s time to plan for a new administration.'
-            )
-          }
+          <TextComponent
+            fields={fields}
+            key={'elc-text-intro-blurb'}
+            defaultValue={'The election is over. It’s time to plan for a new administration.'}
+          />
         </div>
 
         <div className="container">
