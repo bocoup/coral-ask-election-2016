@@ -1,4 +1,7 @@
 .letter {
+  background: white;
+  padding: 1.5em 1em;
+
   .emoji {
     width: 20px;
     height: 20px;
@@ -6,5 +9,17 @@
 
   .achieve {
     font-weight: bold;
+  }
+}
+
+@media only screen and (min-width: 31em) {  
+  .letter {
+    padding: 2em;
+  }
+}
+
+@media only screen and (min-width: 40em) {  
+  .letter {
+    padding: 4em 3em;
   }
 }

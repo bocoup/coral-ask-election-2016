@@ -6,8 +6,7 @@ import './Letter.scss';
 
 class Letter extends PureComponent {
   static propTypes = {
-    response: PropTypes.array,
-    width: PropTypes.number
+    response: PropTypes.array
   };
 
   static defaultProps = {
@@ -20,7 +19,6 @@ class Letter extends PureComponent {
 
   render() {
     let { response } = this.props;
-    const { width } = this.props;
 
     // order significant!
     response = [
@@ -33,13 +31,7 @@ class Letter extends PureComponent {
 
     return (
       <div className={'letter'}>
-        <div
-          style={{
-            position: 'relative',
-            width: `${width}px`
-          }}
-          ref={(node) => { this.root = node; }}
-        >
+        <div ref={(node) => { this.root = node; }}>
           <p>
             Dear [Secretary Clinton/Mr. Trump],
           </p>

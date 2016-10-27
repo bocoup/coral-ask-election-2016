@@ -5,6 +5,7 @@
 body {
   background: #fff;
   color: #191919;
+  font-family: 'Roboto', sans-serif;
 }
 
 input, select {
@@ -13,8 +14,46 @@ input, select {
   border-color: transparent;
 }
 
-
 h1, h2, h3, h4, h5 {
-  text-transform: uppercase;
   font-weight: 600;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+.container {
+  background: #F5F5F5;
+  padding: 1em;
+  max-width: 850px
+}
+
+.container > div {
+  margin-bottom: 1.5em;
+}
+
+.container > div:last-child {
+  margin-bottom: 0;
+}
+
+@media only screen and (min-width: 25em) {  
+  .container {
+    padding: 2em;
+    margin: auto;
+    width: 92%;
+  }
+
+  .container > div {
+    margin-bottom: 2em;
+  }
+}
+
+@media only screen and (min-width: 40em) { 
+  .container {
+    padding: 2.5em;
+  }
+
+  .container > div {
+    margin-bottom: 2.5em;
+  }
 }
