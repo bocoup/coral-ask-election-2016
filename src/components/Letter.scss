@@ -1,6 +1,15 @@
 .letter {
-  background: white;
-  padding: 1.5em 1em;
+  font-family: 'Georgia', serif;
+
+  div {
+    background: white;
+    padding: 1.5em 1em;
+    box-shadow: -8px 9px 0px #e8e8e8;
+  }
+
+  p {
+     line-height: 1.5;
+  }
 
   .emoji {
     width: 20px;
@@ -12,14 +21,18 @@
   }
 }
 
-@media only screen and (min-width: 31em) {  
-  .letter {
+@media only screen and (min-width: 25em) {  
+  .letter div {
     padding: 2em;
   }
 }
 
 @media only screen and (min-width: 40em) {  
-  .letter {
+  .letter div {
     padding: 4em 3em;
+
+    p {
+      font-size: 1.1em;
+    }
   }
 }

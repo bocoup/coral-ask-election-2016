@@ -128,11 +128,11 @@ class EmojiBarChart extends PureComponent {
 
     return (
       <div className="emoji-bar-chart">
-        <p>
+        <h5>
           People who care about
           <span className="selectedTopic"> {topic} </span>
           feel:
-        </p>
+        </h5>
         <div className="emoji-bar-wrapper" ref={(node) => { this.root = node; }} />
       </div>
     );
