@@ -75,6 +75,7 @@
     "redux-logger": "^2.7.0",
     "redux-thunk": "^2.1.0",
     "reselect": "^2.5.4",
+    "tabletop": "^1.4.3",
     "twemoji": "^2.2.0"
   },
   "scripts": {

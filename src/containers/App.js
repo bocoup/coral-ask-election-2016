@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
 // import EmojiGrid from '../components/EmojiGrid';
 // import EmojiFilter from '../components/EmojiFilter';
@@ -40,8 +41,9 @@ class App extends Component {
     // emojiQuestion: PropTypes.object,
     // responses: PropTypes.array,
     mcQuestions: PropTypes.object,
-    selectedEmoji: PropTypes.object,
-    dispatch: PropTypes.func
+    // selectedEmoji: PropTypes.object,
+    dispatch: PropTypes.func,
+    selectedEmoji: PropTypes.object
   }
 
   componentWillMount() {
@@ -60,8 +62,25 @@ class App extends Component {
       mcQuestions,
       dispatch
     } = this.props;
+
     return (
-      <div className="App">
+      <div className="App" ref={(node) => { this.root = node; }}>
+
+        <h1 className={'intro-title'}>
+          <GoogleSheetFieldComponent
+            fieldId={'elc-text-title'}
+            defaultValue={'Word to the President'}
+          />
+
+        </h1>
+
+        <div className={'intro-blurb'}>
+          <GoogleSheetFieldComponent
+            fieldId={'elc-text-intro-blurb'}
+            defaultValue={'The election is over. It’s time to plan for a new administration.'}
+          />
+        </div>
+
         <div className="container">
           {emoji && <EmojiBubbleChart
             emoji={emoji}

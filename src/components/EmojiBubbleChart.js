@@ -1,5 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react';
 import d3 from '../d3';
+import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 
 import { inlineEmoji } from '../utils/emoji';
 
@@ -79,40 +80,54 @@ export default class EmojiBubbleChart extends PureComponent {
     };
 
     return (
-      <div className="emojis-bubble-chart" style={chartStyle}>
-        {root.children.map((d) => {
-          const wPct = val => `${(val / width) * 100}%`;
-          const hPct = val => `${(val / height) * 100}%`;
-          const containerStyle = {
-            top: hPct(d.y - ((d.r * scaler) / 2)),
-            left: wPct(d.x - ((d.r * scaler) / 2)),
-            width: wPct(d.r * scaler),
-            height: hPct(d.r * scaler)
-          };
-          const percent = d3.format('0.0%')(d.value / sumValues);
-          const id = getEmojiId(d.id);
-          const isSelected = selectedEmoji && (id === selectedEmoji.id);
-          const classNames = isSelected ?
-            'emoji-container selected' :
-            'emoji-container';
-          const onClick = () => onSelect(id);
+      <div>
 
-          return (
-            <button
-              type="button"
-              className={classNames}
-              key={`bubble${id}`}
-              onClick={onClick}
-              aria-pressed={isSelected}
-              style={containerStyle}
-            >
-              {inlineEmoji(d.id, {
-                className: 'emoji-image'
-              })}
-              <span className="emoji-label">{percent}</span>
-            </button>
-          );
-        })}
+        <h3>
+          <GoogleSheetFieldComponent
+            fieldId={'elc-text-filter-by-feeling-header'}
+            defaultValue={'Filter by Feelings'}
+          />
+        </h3>
+        <GoogleSheetFieldComponent
+          fieldId={'elc-text-filter-by-feeling-blurb'}
+          defaultValue={'<p>Select an emoji to see related responses</p>'}
+        />
+
+        <div className="emojis-bubble-chart" style={chartStyle}>
+          {root.children.map((d) => {
+            const wPct = val => `${(val / width) * 100}%`;
+            const hPct = val => `${(val / height) * 100}%`;
+            const containerStyle = {
+              top: hPct(d.y - ((d.r * scaler) / 2)),
+              left: wPct(d.x - ((d.r * scaler) / 2)),
+              width: wPct(d.r * scaler),
+              height: hPct(d.r * scaler)
+            };
+            const percent = d3.format('0.0%')(d.value / sumValues);
+            const id = getEmojiId(d.id);
+            const isSelected = selectedEmoji && (id === selectedEmoji.id);
+            const classNames = isSelected ?
+              'emoji-container selected' :
+              'emoji-container';
+            const onClick = () => onSelect(id);
+
+            return (
+              <button
+                type="button"
+                className={classNames}
+                key={`bubble${id}`}
+                onClick={onClick}
+                aria-pressed={isSelected}
+                style={containerStyle}
+              >
+                {inlineEmoji(d.id, {
+                  className: 'emoji-image'
+                })}
+                <span className="emoji-label">{percent}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     );
   }

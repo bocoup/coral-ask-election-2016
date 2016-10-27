@@ -1,22 +1,24 @@
 // Use createSelector for any reducer which returns a computed object
 import { createSelector } from 'reselect';
-
 import objectToList from '../utils/object-to-list';
+import listToObject from '../utils/list-to-object';
 
 export const getResponses = state => state.responses.dictionary;
 export const getSelected = state => state.selected;
 export const getAggregations = state => state.summary.aggregations;
 export const getQuestions = state => state.questions.dictionary;
+export const getFields = state => state.fields.data;
 
 export const getIsFetching = state => [
   'questions',
   'responses',
-  'summary'
+  'summary',
+  'fields'
 ].reduce((isFetching, storeKey) => isFetching || state[storeKey].isFetching, false);
 
 export const getQuestionsList = createSelector(getQuestions, objectToList);
-
 export const getResponsesList = createSelector(getResponses, objectToList);
+export const getFieldsData = createSelector(getFields, listToObject('field-id (don\'t change!)'));
 
 // This app makes an assumption only Emoji questions will be used to group_by
 export const getEmojiQuestion = createSelector(

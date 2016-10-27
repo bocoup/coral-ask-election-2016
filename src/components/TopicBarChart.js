@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import d3 from '../d3';
 import { inlineEmoji } from '../utils/emoji';
+import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 
 import './TopicBarChart.scss';
 
@@ -34,10 +35,17 @@ class TopicBarChart extends PureComponent {
 
     return (
       <div className={'topic-bar-chart'}>
-        <h3>Filter by Topics</h3>
-        <p>
-         Which issue should be highest on the new president’s agenda?
-        </p>
+        <h3>
+          <GoogleSheetFieldComponent
+            fieldId={'elc-text-filter-by-topics-header'}
+            defaultValue={'Filter by Topics'}
+          />
+        </h3>
+        <GoogleSheetFieldComponent
+          fieldId={'elc-text-filter-by-topics-blurb'}
+          defaultValue={'<p>Which issue should be highest on the new president’s agenda?</p>'}
+        />
+
         <div className="bar-group-container">
           <p className="note">
             {selectedEmoji && `${responseCount} ${pluralizePeople(responseCount)} said `}
