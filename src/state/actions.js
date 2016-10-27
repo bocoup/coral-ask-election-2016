@@ -39,7 +39,7 @@ const fetchData = () => (dispatch) => {
  * Helper to check if we have already fetched the data or not
  */
 function shouldFetchData(state) {
-  return !state.summary.payload || !state.summary.isFetching;
+  return !state.summary.payload && !state.summary.isFetching;
 }
 
 /**
@@ -54,7 +54,7 @@ export const fetchDataIfNeeded = () => (dispatch, getState) => (
  * fields
  */
 function shouldFetchFields(state) {
-  return !Object.keys(state.fields.data).length || !state.fields.isFetching;
+  return !Object.keys(state.fields.data).length && !state.fields.isFetching;
 }
 
 /**
