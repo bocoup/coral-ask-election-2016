@@ -68,7 +68,7 @@ class App extends Component {
             selectedEmoji={selectedEmoji}
             onSelect={emoji => dispatch(selectEmoji(emoji))}
             width={400}
-            height={300}
+            height={400}
           />}
           {/*
             emojiQuestion && <EmojiGrid questionKey={emojiQuestion.id} responses={responses} width={400} height={300} />
