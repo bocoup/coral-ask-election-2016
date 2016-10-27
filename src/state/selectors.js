@@ -2,7 +2,6 @@
 import { createSelector } from 'reselect';
 import objectToList from '../utils/object-to-list';
 import listToObject from '../utils/list-to-object';
-import log from '../utils/log';
 
 export const getResponses = state => state.responses.dictionary;
 export const getSelected = state => state.selected;

@@ -1,7 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import fieldValue from '../utils/fields';
-import log from '../utils/log';
 
 import {
   fetchFieldsIfNeeded
