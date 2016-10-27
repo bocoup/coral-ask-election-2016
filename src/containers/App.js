@@ -81,7 +81,7 @@ class App extends Component {
         <h1 className={'intro-title'}>
           <TextComponent
             fields={fields}
-            key={'elc-text-title'}
+            fieldId={'elc-text-title'}
             defaultValue={'Word to the President'}
           />
 
@@ -90,7 +90,7 @@ class App extends Component {
         <div className={'intro-blurb'}>
           <TextComponent
             fields={fields}
-            key={'elc-text-intro-blurb'}
+            fieldId={'elc-text-intro-blurb'}
             defaultValue={'The election is over. It’s time to plan for a new administration.'}
           />
         </div>
