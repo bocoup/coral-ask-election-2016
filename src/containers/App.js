@@ -23,7 +23,7 @@ import {
   getEmojiCounts,
   // getEmojiQuestion,
   getMultipleChoiceCounts,
-  getFieldsDictionary,
+  getFieldsData,
   // getResponsesList,
   getSelectedEmoji
 } from '../state/selectors';
@@ -37,7 +37,7 @@ const mapStateToProps = state => ({
   aggregations: getAggregations(state),
 
   // google spreadsheet fields
-  fields: getFieldsDictionary(state)
+  fields: getFieldsData(state)
 });
 
 class App extends Component {

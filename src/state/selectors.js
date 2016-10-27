@@ -127,10 +127,3 @@ export const getSelectedTopic = createSelector(
     return null;
   }
 );
-
-export const getFieldsDictionary = createSelector(
-  getFieldsData,
-  (data) => {
-    log(data);
-    return data;
-  });

@@ -1,3 +1,9 @@
+/**
+ * Converts an array of objects into an object keyed
+ * on a specific property.
+ * @param  {String} key Name of property to map to
+ * @return {Object} resulting map
+ */
 export default function listToObject(key) {
   return (data) => {
     if (!data) {
