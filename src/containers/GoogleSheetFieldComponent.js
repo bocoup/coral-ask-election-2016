@@ -45,7 +45,6 @@ class GoogleSheetFieldComponent extends PureComponent {
     const { fields, fieldId, defaultValue } = this.props;
     const content = fieldValue(fields, fieldId, defaultValue);
 
-    log(['We got fields!', fields]);
     /* eslint-disable react/no-danger */
     return (
       <div className={'text-component'}>

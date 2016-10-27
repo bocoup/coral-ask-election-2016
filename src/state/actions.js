@@ -54,7 +54,7 @@ export const fetchDataIfNeeded = () => (dispatch, getState) => (
  * fields
  */
 function shouldFetchFields(state) {
-  return !state.fields.data || !state.fields.isFetching;
+  return !Object.keys(state.fields.data).length || !state.fields.isFetching;
 }
 
 /**
