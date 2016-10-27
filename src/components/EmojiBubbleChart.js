@@ -1,41 +1,13 @@
 import React, { PureComponent, PropTypes } from 'react';
-import addComputedProps from 'react-computed-props';
 import d3 from '../d3';
 
 import { inlineEmoji } from '../utils/emoji';
 
 import './EmojiBubbleChart.scss';
 
-const computeProps = (props) => {
-  const { emoji, maxRadius, minRadius } = props;
-
-  if (!emoji || !emoji.length) {
-    return {};
-  }
-
-  const sizeScale = d3.scaleSqrt()
-    .range([minRadius, maxRadius])
-    .domain(d3.extent(emoji, d => d.count));
-
-  const emojiTree = [{
-    parent: '',
-    name: 'root'
-  }].concat(emoji.map(emojiGroup => ({
-    id: emojiGroup.id,
-    parent: 'root',
-    name: emojiGroup.answer,
-    val: sizeScale(emojiGroup.count)
-  })));
-
-  return {
-    emojiTree
-  };
-};
-
-class EmojiBubbleChart extends PureComponent {
+export default class EmojiBubbleChart extends PureComponent {
   static propTypes = {
     emoji: PropTypes.array,
-    emojiTree: PropTypes.array,
     selectedEmoji: PropTypes.object,
     onSelect: PropTypes.func,
     width: PropTypes.number,
@@ -51,29 +23,43 @@ class EmojiBubbleChart extends PureComponent {
 
   render() {
     const {
-      emojiTree,
+      emoji,
       onSelect,
       selectedEmoji,
+      maxRadius,
+      minRadius,
       width,
       height
     } = this.props;
 
-    if (!emojiTree) {
+    if (!emoji || !emoji.length) {
       return null;
     }
 
-    const w = this.props.width;
-    const h = this.props.height;
+    const sizeScale = d3.scaleSqrt()
+      .range([minRadius, maxRadius])
+      .domain(d3.extent(emoji, d => d.count));
 
-    const pack = d3.pack()
-      .size([w, h])
-      .padding(5);
+    // Create the array of tree nodes to feed into D3 pack layout
+    const emojiTree = [{
+      parent: '',
+      name: 'root'
+    }].concat(emoji.map(emojiGroup => ({
+      id: emojiGroup.id,
+      parent: 'root',
+      name: emojiGroup.answer,
+      val: sizeScale(emojiGroup.count)
+    })));
 
     const root = d3.stratify()
       .id(d => d.name)
       .parentId(d => d.parent)(emojiTree)
       // use the value to render items
       .sum(d => d.val);
+
+    const pack = d3.pack()
+      .size([width, height])
+      .padding(5);
 
     pack(root);
 
@@ -131,7 +117,3 @@ class EmojiBubbleChart extends PureComponent {
     );
   }
 }
-
-export default addComputedProps(computeProps, {
-  changeInclude: ['emoji', 'minRadius', 'maxRadius']
-})(EmojiBubbleChart);
