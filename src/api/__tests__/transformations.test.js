@@ -3,7 +3,7 @@ import { simplifyAggregations } from '../transformations';
 const json = {
   aggregations: {
     '9f27d5a6ed65c4938ede65e536e5f6d4': {
-      mc: {
+      MultipleChoice: {
         'c873a345-185c-cdb1-aeeb-32b04cf4fc9a': {
           question: 'Which issue should be highest on the new presidentâ€™s agenda?',
           answers: {
@@ -21,7 +21,7 @@ const json = {
       count: 3
     },
     'd1bccc85fc14440d4201e4fa2a7a88a2': {
-      mc: {
+      MultipleChoice: {
         'c873a345-185c-cdb1-aeeb-32b04cf4fc9a': {
           question: 'Which issue should be highest on the new presidentâ€™s agenda?',
           answers: {
