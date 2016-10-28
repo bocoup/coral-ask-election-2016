@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import where from '../utils/where-properties-match';
@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
   selectedEmoji: getSelectedEmoji(state)
 });
 
-class FilterByEmojiVis extends Component {
+class FilterByEmojiVis extends PureComponent {
   static propTypes = {
     emoji: PropTypes.array,
     emojiQuestion: PropTypes.object,
