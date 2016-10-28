@@ -18,10 +18,18 @@ const populatedState = {
       emoji: 'emoji',
       topic: 'focus'
     },
+    order: ['emoji', 'focus', 'text'],
     dictionary: {
+      text: {
+        id: 'text',
+        type: 'TextField',
+        order: 2,
+        group_by: false
+      },
       emoji: {
         id: 'emoji',
         type: 'MultipleChoice',
+        order: 0,
         group_by: true,
         options: [
           { id: 'happy', value: '✨' },
@@ -31,6 +39,7 @@ const populatedState = {
       focus: {
         id: 'focus',
         type: 'MultipleChoice',
+        order: 1,
         group_by: true,
         options: [
           { id: 'econ', value: 'Economy' },
@@ -92,11 +101,8 @@ const populatedState = {
     isFetching: false
   },
   responses: {
+    order: [ 'aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff' ],
     dictionary: {
-      aaa: {
-        id: 'aaa',
-        emoji: '🚌'
-      },
       bbb: {
         id: 'bbb',
         emoji: '🍩'
@@ -104,6 +110,10 @@ const populatedState = {
       ccc: {
         id: 'ccc',
         emoji: '🍸'
+      },
+      aaa: {
+        id: 'aaa',
+        emoji: '🚌'
       },
       ddd: {
         id: 'ddd',
@@ -220,12 +230,32 @@ describe('getQuestions', () => {
     expect(result.emoji).toEqual({
       id: 'emoji',
       type: 'MultipleChoice',
+      order: 0,
       group_by: true,
       options: [
         { id: 'happy', value: '✨' },
         { id: 'hungry', value: '🍩' }
       ]
     });
+  });
+});
+
+describe('getQuestionsList', () => {
+  const { getQuestionsList } = selectors;
+
+  it('is a defined function', () => {
+    expect(getQuestionsList).toBeDefined();
+    expect(getQuestionsList).toBeInstanceOf(Function);
+  });
+
+  it('returns the proper value from the default state', () => {
+    const result = getQuestionsList(defaultState);
+    expect(result).toEqual([]);
+  });
+
+  it('returns the questions in order', () => {
+    const result = getQuestionsList(populatedState);
+    expect(result.map(result => result.id)).toEqual(['emoji', 'focus', 'text']);
   });
 });
 
@@ -291,35 +321,17 @@ describe('getResponsesList', () => {
     expect(getResponsesList).toBeInstanceOf(Function);
   });
 
-  it('returns an array of all available responses', () => {
+  it('returns an array of all available responses, in order', () => {
     const result = getResponsesList(populatedState);
     expect(result).toBeInstanceOf(Array);
-    // Do not depend on the ordering of object keys: validate length & contents
-    expect(result.length).toEqual(Object.keys(populatedState.responses.dictionary).length);
-    expect(result).toContainEqual({
-      id: 'aaa',
-      emoji: '🚌'
-    });
-    expect(result).toContainEqual({
-      id: 'bbb',
-      emoji: '🍩'
-    });
-    expect(result).toContainEqual({
-      id: 'ccc',
-      emoji: '🍸'
-    });
-    expect(result).toContainEqual({
-      id: 'ddd',
-      emoji: '🍸'
-    });
-    expect(result).toContainEqual({
-      id: 'eee',
-      emoji: '🍩'
-    });
-    expect(result).toContainEqual({
-      id: 'fff',
-      emoji: '🍩'
-    });
+    expect(result).toEqual([
+      { id: 'aaa', emoji: '🚌' },
+      { id: 'bbb', emoji: '🍩' },
+      { id: 'ccc', emoji: '🍸' },
+      { id: 'ddd', emoji: '🍸' },
+      { id: 'eee', emoji: '🍩' },
+      { id: 'fff', emoji: '🍩' }
+    ]);
   });
 
 });
@@ -428,6 +440,7 @@ describe('getEmojiQuestion', () => {
       id: 'emoji',
       type: 'MultipleChoice',
       group_by: true,
+      order: 0,
       options: [
         { id: 'happy', value: '✨' },
         { id: 'hungry', value: '🍩' }
@@ -454,6 +467,7 @@ describe('getTopicQuestion', () => {
     expect(result).toEqual({
       id: 'focus',
       type: 'MultipleChoice',
+      order: 1,
       group_by: true,
       options: [
         { id: 'econ', value: 'Economy' },
