@@ -1,6 +1,5 @@
 // Use createSelector for any reducer which returns a computed object
 import { createSelector } from 'reselect';
-import objectToList from '../utils/object-to-list';
 import listToObject from '../utils/list-to-object';
 import safeDeepAccess from '../utils/safe-deep-access';
 
@@ -9,6 +8,7 @@ export const getResponseOrder = state => state.responses.order;
 export const getSelected = state => state.selected;
 export const getAggregations = state => state.summary.aggregations;
 export const getQuestions = state => state.questions.dictionary;
+export const getQuestionsOrder = state => state.questions.order;
 export const getFilterQuestions = state => state.questions.filters;
 export const getContentFields = state => state.fields.data;
 
@@ -24,6 +24,12 @@ export const getIsFetching = state => [
   'summary',
   'fields'
 ].reduce((isFetching, storeKey) => isFetching || state[storeKey].isFetching, false);
+
+export const getQuestionsList = createSelector(
+  getQuestions,
+  getQuestionsOrder,
+  (questions, order) => order.map(id => questions[id])
+);
 
 export const getResponsesList = createSelector(
   getResponses,
