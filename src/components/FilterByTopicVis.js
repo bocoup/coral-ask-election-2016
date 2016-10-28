@@ -46,13 +46,9 @@ class FilterByTopicVis extends Component {
       return null;
     }
 
-    console.log(responses);
-
     const matchingResponses = selectedTopic ? where(responses, {
       [selectedTopic.id]: selectedTopic.value
     }) : [];
-
-    console.log(matchingResponses.length);
 
     return (
       <div>
