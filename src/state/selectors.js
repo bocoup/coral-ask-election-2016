@@ -1,84 +1,62 @@
 // Use createSelector for any reducer which returns a computed object
 import { createSelector } from 'reselect';
-import objectToList from '../utils/object-to-list';
 import listToObject from '../utils/list-to-object';
+import safeDeepAccess from '../utils/safe-deep-access';
 
 export const getResponses = state => state.responses.dictionary;
+export const getResponseOrder = state => state.responses.order;
 export const getSelected = state => state.selected;
 export const getAggregations = state => state.summary.aggregations;
 export const getQuestions = state => state.questions.dictionary;
+export const getQuestionsOrder = state => state.questions.order;
+export const getFilterQuestions = state => state.questions.filters;
 export const getContentFields = state => state.fields.data;
 
+/**
+ * This selector can be used to display a global fetching-state indicator,
+ * such as an activity spinner.
+ *
+ * @param {Object} state The state
+ * @returns {Boolean} Whether any AJAX request is in progress.
+ */
 export const getIsFetching = state => [
-  'questions',
   'responses',
   'summary',
   'fields'
 ].reduce((isFetching, storeKey) => isFetching || state[storeKey].isFetching, false);
 
-export const getQuestionsList = createSelector(getQuestions, objectToList);
-export const getResponsesList = createSelector(getResponses, objectToList);
+export const getQuestionsList = createSelector(
+  getQuestions,
+  getQuestionsOrder,
+  (questions, order) => order.map(id => questions[id])
+);
+
+export const getResponsesList = createSelector(
+  getResponses,
+  getResponseOrder,
+  (responses, order) => order.map(id => responses[id])
+);
+
 export const getContentFieldsData = createSelector(getContentFields, listToObject('field-id (don\'t change!)'));
 
-// This app makes an assumption only Emoji questions will be used to group_by
 export const getEmojiQuestion = createSelector(
-  getQuestionsList,
-  questions => questions.find(question => question.group_by)
-);
-
-export const getMultipleChoiceQuestions = createSelector(
   getQuestions,
-  getEmojiQuestion,
-  (questions, emojiQuestion) => Object.keys(questions).reduce((mcQuestions, key) => {
-    const question = questions[key];
-    if (question.type !== 'MultipleChoice' || question.id === emojiQuestion.id) {
-      return mcQuestions;
-    }
-    return Object.assign(mcQuestions, {
-      [key]: question
-    });
-  }, {})
+  getFilterQuestions,
+  (questions, filterQuestions) => questions && questions[filterQuestions.emoji]
 );
 
-export const getMultipleChoiceCounts = createSelector(
-  getMultipleChoiceQuestions,
-  getSelected,
-  getAggregations,
-  (mcQuestions, selected, aggregations) => Object.keys(mcQuestions).reduce((carry, key) => {
-    const question = mcQuestions[key];
-    const optionsWithCounts = question.options.map((option) => {
-      let optionCount = 0;
-
-      if (selected.emoji) {
-        optionCount = aggregations[selected.emoji][question.id][option.id];
-      } else if (aggregations) {
-        optionCount = Object.keys(aggregations)
-          .reduce((count, groupKey) => {
-            if (aggregations[groupKey][question.id][option.id]) {
-              return count + aggregations[groupKey][question.id][option.id];
-            }
-            return count;
-          }, 0);
-      }
-
-      return Object.assign({
-        count: optionCount
-      }, option);
-    });
-    return Object.assign(carry, {
-      [key]: optionsWithCounts
-    });
-  }, {})
+export const getTopicQuestion = createSelector(
+  getQuestions,
+  getFilterQuestions,
+  (questions, filterQuestions) => questions && questions[filterQuestions.topic]
 );
-
-export const getMultipleChoiceCountsList = createSelector(getMultipleChoiceCounts, objectToList);
 
 /**
- * Return an array of emoji multiple-choice answer objects with `.answer` and
+ * Return an array of emoji multiple-choice question objects with `.value` and
  * `.id` keys
  *
  * @param {Object} state The state object
- * @returns {Object[]} An array of `{ answer, id }` objects
+ * @returns {Object[]} An array of `{ value, id }` objects
  */
 export const getEmojiList = createSelector(
   getEmojiQuestion,
@@ -86,11 +64,35 @@ export const getEmojiList = createSelector(
 );
 
 /**
- * Return an array of emoji multiple-choice answer objects with counts for
+ * Return an array of topic (or focus area; "non-emoji") multiple-choice
+ * question objects with `.value` and `.id` keys
+ *
+ * @param {Object} state The state object
+ * @returns {Object[]} An array of `{ value, id }` objects
+ */
+export const getTopicList = createSelector(
+  getTopicQuestion,
+  topicQuestion => (topicQuestion && topicQuestion.options) || []
+);
+
+export const getSelectedEmoji = createSelector(
+  getEmojiList,
+  getSelected,
+  (emojiList, selected) => emojiList.find(emoji => emoji.id === selected.emoji)
+);
+
+export const getSelectedTopic = createSelector(
+  getTopicList,
+  getSelected,
+  (topicList, selected) => topicList.find(topic => topic.id === selected.topic)
+);
+
+/**
+ * Return an array of emoji multiple-choice question objects with counts for
  * how often each emoji occurs in the response data
  *
  * @param {Object} state The state object
- * @returns {Object[]} An array of `{ answer, id, count }` objects
+ * @returns {Object[]} An array of `{ value, id, count }` objects
  */
 export const getEmojiCounts = createSelector(
   getEmojiList,
@@ -105,24 +107,47 @@ export const getEmojiCounts = createSelector(
   }
 );
 
-export const getSelectedEmoji = createSelector(
-  getEmojiQuestion,
-  getSelected,
-  (question, selected) => question && question.options.find(option => option.id === selected.emoji)
+/**
+ * Return an array of topic multiple-choice question objects ("topic" is the
+ * grouping question that isn't emoji) with counts for how often each emoji
+ * occurs in the response data
+ *
+ * @param {Object} state The state object
+ * @returns {Object[]} An array of `{ value, id, count }` objects
+ */
+export const getTopicCounts = createSelector(
+  getTopicList,
+  getAggregations,
+  (topicList, aggregations) => topicList.map(option => Object.assign({
+    count: aggregations[option.id].count
+  }, option))
 );
 
-export const getSelectedTopic = createSelector(
-  getMultipleChoiceQuestions,
-  getSelected,
-  (mcQuestions, selected) => {
-    const questionIds = Object.keys(mcQuestions);
-    for (let i = 0; i < questionIds.length; i += 1) {
-      const question = mcQuestions[questionIds[i]];
-      const match = question && question.options.find(option => option.id === selected.topic);
-      if (match) {
-        return match;
-      }
+/**
+ * Return an array of emoji multiple-choice question objects with counts for
+ * how often each emoji occurs in the selected topic
+ *
+ * @param {Object} state The state object
+ * @returns {Object[]} An array of `{ value, id, count }` objects
+ */
+export const getEmojiCountsFilteredByTopic = createSelector(
+  getSelectedTopic,
+  getFilterQuestions,
+  getEmojiList,
+  getAggregations,
+  (selectedTopic, filterQuestions, emojiList, aggregations) => {
+    if (!selectedTopic) {
+      return null;
     }
-    return null;
+
+    return emojiList.map((option) => {
+      const count = safeDeepAccess(aggregations, [
+        selectedTopic.id,
+        filterQuestions.emoji,
+        option.id
+      ]) || 0;
+
+      return Object.assign({ count }, option);
+    });
   }
 );

@@ -2,13 +2,10 @@ import { createAction } from 'redux-actions';
 import * as api from '../api/api';
 
 /**
- * Action creators for requesting and receiving data.
- * Identity used for payload
+ * Action creators for requesting and receiving data. Identity used for payload
  */
-export const requestSummary = createAction('REQUEST_AGGREGATIONS');
-export const receiveSummary = createAction('RECEIVE_AGGREGATIONS');
-export const requestQuestions = createAction('REQUEST_QUESTIONS');
-export const receiveQuestions = createAction('RECEIVE_QUESTIONS');
+export const requestFormDigest = createAction('REQUEST_FORM_DIGEST');
+export const receiveFormDigest = createAction('RECEIVE_FORM_DIGEST');
 export const requestFields = createAction('REQUEST_FIELDS');
 export const receiveFields = createAction('RECEIVE_FIELDS');
 
@@ -19,33 +16,26 @@ export const selectEmoji = createAction('SELECT_EMOJI');
 export const selectTopic = createAction('SELECT_TOPIC');
 
 /**
- * Action creator to fetch questions (form digest) from the API
+ * Action creator to fetch aggregated form data from the API
  */
-export const fetchQuestions = () => (dispatch) => {
-  dispatch(requestQuestions());
-  return api.getQuestions().then(data => dispatch(receiveQuestions(data)));
+const fetchFormDigest = () => (dispatch) => {
+  dispatch(requestFormDigest());
+  return api.getAggregations().then(data => dispatch(receiveFormDigest(data)));
 };
 
 /**
- * Action creator to fetch summary data from the API
+ * Helper to check if we have already fetched the aggregation data or not
  */
-const fetchData = () => (dispatch) => {
-  dispatch(requestSummary());
-  return api.getSummary().then(data => dispatch(receiveSummary(data)));
-};
-
-/**
- * Helper to check if we have already fetched the data or not
- */
-function shouldFetchData(state) {
-  return !state.summary.payload && !state.summary.isFetching;
+function shouldFetchFormDigest(state) {
+  return !state.summary.aggregations && !state.summary.isFetching;
 }
 
 /**
- * Action creator to fetch data only if we haven't fetched it before.
+ * Action creator to fetch root aggregation data only if we haven't fetched it
+ * before (it can be considered static for the lifetime of one page/app view).
  */
-export const fetchDataIfNeeded = () => (dispatch, getState) => (
-  shouldFetchData(getState()) ? dispatch(fetchData()) : Promise.resolve()
+export const fetchFormDigestIfNeeded = () => (dispatch, getState) => (
+  shouldFetchFormDigest(getState()) ? dispatch(fetchFormDigest()) : Promise.resolve()
 );
 
 /**
@@ -53,7 +43,7 @@ export const fetchDataIfNeeded = () => (dispatch, getState) => (
  * fields
  */
 function shouldFetchFields(state) {
-  return !Object.keys(state.fields.data).length && !state.fields.isFetching;
+  return !state.fields.data && !state.fields.isFetching;
 }
 
 /**

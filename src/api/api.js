@@ -1,25 +1,21 @@
 import fetch from 'isomorphic-fetch';
 import Tabletop from 'tabletop';
-import log from '../utils/log';
-import { simplifyAggregations } from './transformations';
+import { simplifyAggregations, applyArbitraryIds } from './transformations';
 import config from '../config';
 
-const publicRoot = process.env.PUBLIC_URL;
+// Ensure trailing slash on the jsonURI
+const jsonLocation = config.jsonURI.replace(/\/*$/, '/');
+const digestFile = `${jsonLocation}form-${config.formId}-aggregation-digest.json`;
 
-export function getSummary() {
-  return fetch(`${publicRoot}/data/mock-data.json`)
+export function getAggregations() {
+  return fetch(digestFile)
     .then(response => response.json())
     .then(response => ({
+      questions: response.questions,
+      count: response.aggregations.all.count,
       aggregations: simplifyAggregations(response.aggregations),
-      submissions: response.submissions
+      submissions: applyArbitraryIds(response.submissions)
     }));
-}
-
-export function getQuestions() {
-  return fetch(`${publicRoot}/data/questions.json`)
-    .then(response => response.json())
-    .then(response => response.questions)
-    .then(log);
 }
 
 /**

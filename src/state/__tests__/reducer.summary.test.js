@@ -10,6 +10,7 @@ describe('reducers', () => {
 
   describe('summary', () => {
     const defaultState = {
+      count: 0,
       aggregations: null,
       isFetching: false
     };
@@ -30,14 +31,14 @@ describe('reducers', () => {
 
     it('sets isFetching on data request', () => {
       const result = summary(defaultState, {
-        type: 'REQUEST_AGGREGATIONS'
+        type: 'REQUEST_FORM_DIGEST'
       });
       expect(result.isFetching).toBe(true);
     });
 
     it('clears isFetching when data is received', () => {
       const result = summary(defaultState, {
-        type: 'RECEIVE_AGGREGATIONS',
+        type: 'RECEIVE_FORM_DIGEST',
         payload: {}
       });
       expect(result.isFetching).toBe(false);
@@ -45,7 +46,7 @@ describe('reducers', () => {
 
     it('populates the aggregations from the action payload', () => {
       const result = summary(defaultState, {
-        type: 'RECEIVE_AGGREGATIONS',
+        type: 'RECEIVE_FORM_DIGEST',
         payload: {
           aggregations: {
             dictionary: 'object'
@@ -69,7 +70,7 @@ describe('reducers', () => {
         aggregations,
         isFetching: false
       }, {
-        type: 'REQUEST_AGGREGATIONS'
+        type: 'REQUEST_FORM_DIGEST'
       });
       expect(result.aggregations).toEqual(aggregations);
     });
@@ -81,7 +82,7 @@ describe('reducers', () => {
         },
         isFetching: true
       }, {
-        type: 'RECEIVE_AGGREGATIONS',
+        type: 'RECEIVE_FORM_DIGEST',
         payload: {
           aggregations: {
             different: 'aggregation dictionary'
@@ -99,7 +100,7 @@ describe('reducers', () => {
 
 //     it('populates the state when data is received', () => {
 //       const result = summary({}, {
-//         type: 'RECEIVE_AGGREGATIONS',
+//         type: 'RECEIVE_FORM_DIGEST',
 //         payload: {
 //           latest: [
 //             {
