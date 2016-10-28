@@ -2,6 +2,7 @@
 import { createSelector } from 'reselect';
 import objectToList from '../utils/object-to-list';
 import listToObject from '../utils/list-to-object';
+import safeDeepAccess from '../utils/safe-deep-access';
 
 export const getResponses = state => state.responses.dictionary;
 export const getSelected = state => state.selected;
@@ -123,4 +124,33 @@ export const getTopicCounts = createSelector(
   (topicList, aggregations) => topicList.map(option => Object.assign({
     count: aggregations[option.id].count
   }, option))
+);
+
+/**
+ * Return an array of emoji multiple-choice question objects with counts for
+ * how often each emoji occurs in the selected topic
+ *
+ * @param {Object} state The state object
+ * @returns {Object[]} An array of `{ value, id, count }` objects
+ */
+export const getEmojiCountsFilteredByTopic = createSelector(
+  getSelectedTopic,
+  getFilterQuestions,
+  getEmojiList,
+  getAggregations,
+  (selectedTopic, filterQuestions, emojiList, aggregations) => {
+    if (!selectedTopic) {
+      return null;
+    }
+
+    return emojiList.map((option) => {
+      const count = safeDeepAccess(aggregations, [
+        selectedTopic.id,
+        filterQuestions.emoji,
+        option.id
+      ]) || 0;
+
+      return Object.assign({ count }, option);
+    });
+  }
 );

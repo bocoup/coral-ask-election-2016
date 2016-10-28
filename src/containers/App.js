@@ -20,12 +20,16 @@ import {
   getEmojiCounts,
   // getEmojiQuestion,
   // getResponsesList,
+  getEmojiCountsFilteredByTopic,
+  getSelectedTopic,
   getSelectedEmoji
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
   emoji: getEmojiCounts(state),
   selectedEmoji: getSelectedEmoji(state),
+  selectedTopic: getSelectedTopic(state),
+  filteredEmojiCounts: getEmojiCountsFilteredByTopic(state),
   // emojiQuestion: getEmojiQuestion(state),
   // responses: getResponsesList(state),
   aggregations: getAggregations(state)
@@ -38,7 +42,9 @@ class App extends Component {
     // emojiQuestion: PropTypes.object,
     // responses: PropTypes.array,
     // selectedEmoji: PropTypes.object,
+    filteredEmojiCounts: PropTypes.array,
     dispatch: PropTypes.func,
+    selectedTopic: PropTypes.object,
     selectedEmoji: PropTypes.object
   }
 
@@ -52,7 +58,9 @@ class App extends Component {
       emoji,
       // responses,
       aggregations,
+      selectedTopic,
       selectedEmoji,
+      filteredEmojiCounts,
       // emojiQuestion,
       dispatch
     } = this.props;
@@ -94,7 +102,7 @@ class App extends Component {
             emoji && <EmojiFilter emoji={emoji} onSelect={emoji => dispatch(selectEmoji(emoji))} />
           */}
           <FilterableBarChart />
-          <EmojiBarChart height={70} emoji={[]} topic={'Health Care'} />
+          {selectedTopic && <EmojiBarChart height={70} emoji={filteredEmojiCounts} topic={selectedTopic} />}
           {aggregations && <Letter response={[]} width={400} />}
           {/* summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} /> */}
         </div>
