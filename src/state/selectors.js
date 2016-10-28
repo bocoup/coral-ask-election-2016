@@ -7,7 +7,7 @@ export const getResponses = state => state.responses.dictionary;
 export const getSelected = state => state.selected;
 export const getAggregations = state => state.summary.aggregations;
 export const getQuestions = state => state.questions.dictionary;
-export const getFields = state => state.fields.data;
+export const getContentFields = state => state.fields.data;
 
 export const getIsFetching = state => [
   'questions',
@@ -18,7 +18,7 @@ export const getIsFetching = state => [
 
 export const getQuestionsList = createSelector(getQuestions, objectToList);
 export const getResponsesList = createSelector(getResponses, objectToList);
-export const getFieldsData = createSelector(getFields, listToObject('field-id (don\'t change!)'));
+export const getContentFieldsData = createSelector(getContentFields, listToObject('field-id (don\'t change!)'));
 
 // This app makes an assumption only Emoji questions will be used to group_by
 export const getEmojiQuestion = createSelector(

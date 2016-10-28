@@ -1,20 +1,21 @@
 import Tabletop from 'tabletop';
+import config from '../config';
 
-export function getFields() {
-  return (
-    new Promise((resolve) => {
-      Tabletop.init({
-
-        // google spreadsheet key.
-        // TODO: this will need to come from some place else
-        // since people will clone their own.
-        key: '18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I',
-        callback: (data, tb) => {
-          // extract fields, and only pass those.
-          resolve(tb.sheets('Fields').all());
-        },
-        simpleSheet: true
-      });
-    })
-  );
+/**
+ * Retrieve content from a Google Sheets Spreadsheet, which we use as as a
+ * lightweight CMS for content we can't get from Ask's JSON export
+ *
+ * @returns {Promise} A promise to a Tabletop sheets response object
+ */
+export function getContent() {
+  return new Promise((resolve) => {
+    Tabletop.init({
+      key: config.googleSheetId,
+      callback: (data, tb) => {
+        // extract fields, and only pass those.
+        resolve(tb.sheets('Fields').all());
+      },
+      simpleSheet: true
+    });
+  });
 }

@@ -6,7 +6,6 @@ import Redbox from 'redbox-react';
 import store from './state/store';
 import Root from './containers/Root';
 
-
 ReactDOM.render(
   <AppContainer errorReporter={Redbox}>
     <Root store={store} />

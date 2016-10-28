@@ -63,7 +63,7 @@ function shouldFetchFields(state) {
  */
 const fetchFields = () => (dispatch) => {
   dispatch(requestFields());
-  return content.getFields().then(data => dispatch(receiveFields(data)));
+  return content.getContent().then(data => dispatch(receiveFields(data)));
 };
 
 /**

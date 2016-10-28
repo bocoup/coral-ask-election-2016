@@ -7,12 +7,12 @@ import {
 } from '../state/actions';
 
 import {
-  getFieldsData
+  getContentFieldsData
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
   // google spreadsheet fields
-  fields: getFieldsData(state)
+  fields: getContentFieldsData(state)
 });
 
 /**
