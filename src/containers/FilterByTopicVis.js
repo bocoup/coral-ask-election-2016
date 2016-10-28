@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import TopicBarChart from '../components/TopicBarChart';
@@ -28,7 +28,7 @@ const mapStateToProps = state => ({
   responses: getResponsesList(state)
 });
 
-class FilterByTopicVis extends Component {
+class FilterByTopicVis extends PureComponent {
   static propTypes = {
     questionsOrder: PropTypes.array,
     selectedTopic: PropTypes.object,
