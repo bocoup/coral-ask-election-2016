@@ -6,48 +6,37 @@ import TopicBarChart from '../components/TopicBarChart';
 import { selectTopic } from '../state/actions';
 
 import {
-  getAggregations,
-  getMultipleChoiceCounts,
-  getSelectedEmoji,
+  getTopicCounts,
   getSelectedTopic
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
-  aggregations: getAggregations(state),
-  mcQuestions: getMultipleChoiceCounts(state),
-  selectedEmoji: getSelectedEmoji(state),
+  topics: getTopicCounts(state),
   selectedTopic: getSelectedTopic(state)
 });
 
 class FilterableBarChart extends PureComponent {
   static propTypes = {
-    questionId: PropTypes.string,
-    mcQuestions: PropTypes.object,
-    selectedEmoji: PropTypes.object,
+    topics: PropTypes.array,
     selectedTopic: PropTypes.object,
     dispatch: PropTypes.func
   }
 
   render() {
     const {
-      mcQuestions,
-      questionId,
-      selectedEmoji,
+      topics,
       selectedTopic,
       dispatch
     } = this.props;
 
-    if (!questionId || !mcQuestions) {
+    if (!topics.length) {
       return null;
     }
-
-    const questionOptions = mcQuestions[questionId];
 
     return (
       <TopicBarChart
         onSelect={topicId => dispatch(selectTopic(topicId))}
-        topics={questionOptions}
-        selectedEmoju={selectedEmoji}
+        topics={topics}
         selectedTopic={selectedTopic}
       />
     );

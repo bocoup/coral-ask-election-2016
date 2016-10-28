@@ -7,6 +7,7 @@ export const getResponses = state => state.responses.dictionary;
 export const getSelected = state => state.selected;
 export const getAggregations = state => state.summary.aggregations;
 export const getQuestions = state => state.questions.dictionary;
+export const getFilterQuestions = state => state.questions.filters;
 export const getContentFields = state => state.fields.data;
 
 /**
@@ -26,10 +27,16 @@ export const getQuestionsList = createSelector(getQuestions, objectToList);
 export const getResponsesList = createSelector(getResponses, objectToList);
 export const getContentFieldsData = createSelector(getContentFields, listToObject('field-id (don\'t change!)'));
 
-// This app makes an assumption only Emoji questions will be used to group_by
 export const getEmojiQuestion = createSelector(
-  getQuestionsList,
-  questions => questions.find(question => question.group_by)
+  getQuestions,
+  getFilterQuestions,
+  (questions, filterQuestions) => questions && questions[filterQuestions.emoji]
+);
+
+export const getTopicQuestion = createSelector(
+  getQuestions,
+  getFilterQuestions,
+  (questions, filterQuestions) => questions && questions[filterQuestions.topic]
 );
 
 export const getMultipleChoiceQuestions = createSelector(
@@ -46,43 +53,12 @@ export const getMultipleChoiceQuestions = createSelector(
   }, {})
 );
 
-export const getMultipleChoiceCounts = createSelector(
-  getMultipleChoiceQuestions,
-  getSelected,
-  getAggregations,
-  (mcQuestions, selected, aggregations) => Object.keys(mcQuestions).reduce((carry, key) => {
-    const question = mcQuestions[key];
-    const optionsWithCounts = question.options.map((option) => {
-      let optionCount = 0;
-
-      if (selected.emoji) {
-        optionCount = aggregations[selected.emoji][question.id][option.id];
-      } else if (aggregations) {
-        optionCount = Object.keys(aggregations)
-          .reduce((count, groupKey) => {
-            if (aggregations[groupKey][question.id][option.id]) {
-              return count + aggregations[groupKey][question.id][option.id];
-            }
-            return count;
-          }, 0);
-      }
-
-      return Object.assign({
-        count: optionCount
-      }, option);
-    });
-    return Object.assign(carry, {
-      [key]: optionsWithCounts
-    });
-  }, {})
-);
-
 /**
- * Return an array of emoji multiple-choice answer objects with `.answer` and
+ * Return an array of emoji multiple-choice question objects with `.value` and
  * `.id` keys
  *
  * @param {Object} state The state object
- * @returns {Object[]} An array of `{ answer, id }` objects
+ * @returns {Object[]} An array of `{ value, id }` objects
  */
 export const getEmojiList = createSelector(
   getEmojiQuestion,
@@ -90,11 +66,35 @@ export const getEmojiList = createSelector(
 );
 
 /**
- * Return an array of emoji multiple-choice answer objects with counts for
+ * Return an array of topic (or focus area; "non-emoji") multiple-choice
+ * question objects with `.value` and `.id` keys
+ *
+ * @param {Object} state The state object
+ * @returns {Object[]} An array of `{ value, id }` objects
+ */
+export const getTopicList = createSelector(
+  getTopicQuestion,
+  topicQuestion => (topicQuestion && topicQuestion.options) || []
+);
+
+export const getSelectedEmoji = createSelector(
+  getEmojiList,
+  getSelected,
+  (emojiList, selected) => emojiList.find(emoji => emoji.id === selected.emoji)
+);
+
+export const getSelectedTopic = createSelector(
+  getTopicList,
+  getSelected,
+  (topicList, selected) => topicList.find(topic => topic.id === selected.topic)
+);
+
+/**
+ * Return an array of emoji multiple-choice question objects with counts for
  * how often each emoji occurs in the response data
  *
  * @param {Object} state The state object
- * @returns {Object[]} An array of `{ answer, id, count }` objects
+ * @returns {Object[]} An array of `{ value, id, count }` objects
  */
 export const getEmojiCounts = createSelector(
   getEmojiList,
@@ -109,24 +109,18 @@ export const getEmojiCounts = createSelector(
   }
 );
 
-export const getSelectedEmoji = createSelector(
-  getEmojiQuestion,
-  getSelected,
-  (question, selected) => question && question.options.find(option => option.id === selected.emoji)
-);
-
-export const getSelectedTopic = createSelector(
-  getMultipleChoiceQuestions,
-  getSelected,
-  (mcQuestions, selected) => {
-    const questionIds = Object.keys(mcQuestions);
-    for (let i = 0; i < questionIds.length; i += 1) {
-      const question = mcQuestions[questionIds[i]];
-      const match = question && question.options.find(option => option.id === selected.topic);
-      if (match) {
-        return match;
-      }
-    }
-    return null;
-  }
+/**
+ * Return an array of topic multiple-choice question objects ("topic" is the
+ * grouping question that isn't emoji) with counts for how often each emoji
+ * occurs in the response data
+ *
+ * @param {Object} state The state object
+ * @returns {Object[]} An array of `{ value, id, count }` objects
+ */
+export const getTopicCounts = createSelector(
+  getTopicList,
+  getAggregations,
+  (topicList, aggregations) => topicList.map(option => Object.assign({
+    count: aggregations[option.id].count
+  }, option))
 );

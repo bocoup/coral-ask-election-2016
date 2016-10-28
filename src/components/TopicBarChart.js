@@ -1,6 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
 import d3 from '../d3';
-import { inlineEmoji } from '../utils/emoji';
 import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 
 import './TopicBarChart.scss';
@@ -8,7 +7,6 @@ import './TopicBarChart.scss';
 class TopicBarChart extends PureComponent {
   static propTypes = {
     topics: PropTypes.array,
-    selectedEmoji: PropTypes.object,
     selectedTopic: PropTypes.object,
     onSelect: PropTypes.func
   }
@@ -16,7 +14,6 @@ class TopicBarChart extends PureComponent {
   render() {
     const {
       onSelect,
-      selectedEmoji,
       selectedTopic,
       topics
     } = this.props;
@@ -26,12 +23,6 @@ class TopicBarChart extends PureComponent {
     }
 
     const responseCount = d3.sum(topics, d => d.count);
-
-    const emojiImageElement = selectedEmoji && inlineEmoji(selectedEmoji.answer);
-
-    /* eslint-disable no-confusing-arrow */
-    const pluralizePeople = count => (count === 1) ? 'person' : 'people';
-    /* eslint-enable no-confusing-arrow */
 
     return (
       <div className={'topic-bar-chart'}>
@@ -48,9 +39,7 @@ class TopicBarChart extends PureComponent {
 
         <div className="bar-group-container">
           <p className="note">
-            {selectedEmoji && `${responseCount} ${pluralizePeople(responseCount)} said `}
-            {selectedEmoji && emojiImageElement}
-            {!selectedEmoji && `${responseCount} total responses`}
+            {responseCount} total responses
           </p>
           {topics.map((topic) => {
             const percentage = topic.count ?
@@ -60,11 +49,11 @@ class TopicBarChart extends PureComponent {
               <button
                 aria-pressed={selectedTopic && (topic.id === selectedTopic.id)}
                 onClick={() => onSelect(topic.id)}
-                key={topic.answer}
+                key={topic.value}
                 className="bar-group"
               >
                 <div className="topic-detail-container">
-                  <div className="topic-name">{topic.answer}</div>
+                  <div className="topic-name">{topic.value}</div>
                   <div className="percentage">{percentage}</div>
                 </div>
                 <div className="topic-bar-container">
