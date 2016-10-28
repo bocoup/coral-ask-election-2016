@@ -228,7 +228,7 @@ describe('get____Counts', () => {
   const state = {
     selected: {
       emoji: null,
-      topic: 'env'
+      topic: 'econ'
     },
     questions: {
       filters: {
@@ -363,6 +363,43 @@ describe('get____Counts', () => {
         id: 'hungry',
         answer: '🍩',
         count: 7
+      }]);
+    });
+
+  });
+
+  describe('getEmojiCountsFilteredByTopic', () => {
+    const { getEmojiCountsFilteredByTopic } = selectors;
+
+    it('is a defined function', () => {
+      expect(getEmojiCountsFilteredByTopic).toBeDefined();
+      expect(getEmojiCountsFilteredByTopic).toBeInstanceOf(Function);
+    });
+
+    it('returns an array', () => {
+      const result = getEmojiCountsFilteredByTopic(state);
+      expect(result).toBeInstanceOf(Array);
+    });
+
+    it('does not blow up if no emoji are loaded', () => {
+      expect(getEmojiCountsFilteredByTopic({
+        summary: {
+          aggregations: null
+        },
+        questions: {}
+      })).toEqual(null);
+    });
+
+    it('returns a list of the emoji specified in the grouping question', () => {
+      const result = getEmojiCountsFilteredByTopic(state);
+      expect(result).toEqual([{
+        id: 'happy',
+        answer: '✨',
+        count: 2
+      }, {
+        id: 'hungry',
+        answer: '🍩',
+        count: 1
       }]);
     });
 

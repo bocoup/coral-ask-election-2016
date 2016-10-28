@@ -9,7 +9,7 @@ class EmojiBarChart extends PureComponent {
   static propTypes = {
     emoji: PropTypes.array,
     height: PropTypes.number,
-    topic: PropTypes.string
+    topic: PropTypes.object
   }
 
   static defaultProps = {
@@ -22,6 +22,7 @@ class EmojiBarChart extends PureComponent {
    */
   componentDidMount() {
     this.update();
+    twemoji.parse(this.root, icon => emojiSVGUrl(icon));
   }
 
   /**
@@ -33,19 +34,7 @@ class EmojiBarChart extends PureComponent {
   }
 
   update() {
-    let { emoji } = this.props;
-    // TODO: mock data, remove.
-    emoji = [
-      { id: '02612e1975f186b11bfb968ca2cf33bd', name: '😍', count: 20 },
-      { id: '2a02eac39d716a70ecf37579185927b6', name: '😀', count: 5 },
-      { id: '9f27d5a6ed65c4938ede65e536e5f6d4', name: '😐', count: 15 },
-      { id: 'bd33d344f8a02afe447fdb64efa32a21', name: '😟', count: 10 },
-      { id: '67ec4b5359a5d238ede933a346d04a86', name: '😡', count: 30 },
-      { id: 'd1bccc85fc14440d4201e4fa2a7a88a2', name: '😳', count: 20 },
-      { id: '6552ee09f5283674b630d0859b2ab68a', name: '😞', count: 14 },
-      { id: '07b60a7aea9a8b1079a450cf21ab8f16', name: '🤔', count: 25 },
-      { id: '86d88d9e4e39979f13b822d1643a95f4', name: '🇺🇸', count: 3 }
-    ];
+    const { emoji } = this.props;
 
     if (!emoji) {
       return;
@@ -102,7 +91,7 @@ class EmojiBarChart extends PureComponent {
     // 2. emoji
     entering.append('div')
       .classed('emoji', true)
-      .text(d => d.name)
+      .text(d => d.value)
       .style('opacity', 0);
 
     // on update, animate opacity
@@ -130,7 +119,7 @@ class EmojiBarChart extends PureComponent {
       <div className="emoji-bar-chart">
         <h5>
           People who care about
-          <span className="selectedTopic"> {topic} </span>
+          <span className="selectedTopic"> {topic.value} </span>
           feel:
         </h5>
         <div className="emoji-bar-wrapper" ref={(node) => { this.root = node; }} />
