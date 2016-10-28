@@ -9,8 +9,14 @@ export const getAggregations = state => state.summary.aggregations;
 export const getQuestions = state => state.questions.dictionary;
 export const getContentFields = state => state.fields.data;
 
+/**
+ * This selector can be used to display a global fetching-state indicator,
+ * such as an activity spinner.
+ *
+ * @param {Object} state The state
+ * @returns {Boolean} Whether any AJAX request is in progress.
+ */
 export const getIsFetching = state => [
-  'questions',
   'responses',
   'summary',
   'fields'

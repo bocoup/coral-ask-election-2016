@@ -129,7 +129,6 @@ describe('getIsFetching', () => {
   it('returns false if no fetches are in progress', () => {
     const store = {
       fields: { isFetching: false },
-      questions: { isFetching: false },
       responses: { isFetching: false },
       summary: { isFetching: false }
     };
@@ -139,19 +138,7 @@ describe('getIsFetching', () => {
 
   it('returns true if a fields fetch is in progress', () => {
     const store = {
-      fields: { isFetching: false },
-      questions: { isFetching: true },
-      responses: { isFetching: false },
-      summary: { isFetching: false }
-    };
-    const result = getIsFetching(store);
-    expect(result).toBe(true);
-  });
-
-  it('returns true if a questions fetch is in progress', () => {
-    const store = {
-      fields: { isFetching: false },
-      questions: { isFetching: true },
+      fields: { isFetching: true },
       responses: { isFetching: false },
       summary: { isFetching: false }
     };
@@ -162,7 +149,6 @@ describe('getIsFetching', () => {
   it('returns true if a responses fetch is in progress', () => {
     const store = {
       fields: { isFetching: false },
-      questions: { isFetching: false },
       responses: { isFetching: true },
       summary: { isFetching: false }
     };
@@ -173,7 +159,6 @@ describe('getIsFetching', () => {
   it('returns true if a summary fetch is in progress', () => {
     const store = {
       fields: { isFetching: false },
-      questions: { isFetching: false },
       responses: { isFetching: false },
       summary: { isFetching: true }
     };
@@ -183,8 +168,7 @@ describe('getIsFetching', () => {
 
   it('returns true if multiple fetches are in progress', () => {
     const store = {
-      fields: { isFetching: false },
-      questions: { isFetching: true },
+      fields: { isFetching: true },
       responses: { isFetching: false },
       summary: { isFetching: true }
     };
