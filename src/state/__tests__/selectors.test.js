@@ -92,11 +92,8 @@ const populatedState = {
     isFetching: false
   },
   responses: {
+    order: [ 'aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff' ],
     dictionary: {
-      aaa: {
-        id: 'aaa',
-        emoji: '🚌'
-      },
       bbb: {
         id: 'bbb',
         emoji: '🍩'
@@ -104,6 +101,10 @@ const populatedState = {
       ccc: {
         id: 'ccc',
         emoji: '🍸'
+      },
+      aaa: {
+        id: 'aaa',
+        emoji: '🚌'
       },
       ddd: {
         id: 'ddd',
@@ -291,35 +292,17 @@ describe('getResponsesList', () => {
     expect(getResponsesList).toBeInstanceOf(Function);
   });
 
-  it('returns an array of all available responses', () => {
+  it('returns an array of all available responses, in order', () => {
     const result = getResponsesList(populatedState);
     expect(result).toBeInstanceOf(Array);
-    // Do not depend on the ordering of object keys: validate length & contents
-    expect(result.length).toEqual(Object.keys(populatedState.responses.dictionary).length);
-    expect(result).toContainEqual({
-      id: 'aaa',
-      emoji: '🚌'
-    });
-    expect(result).toContainEqual({
-      id: 'bbb',
-      emoji: '🍩'
-    });
-    expect(result).toContainEqual({
-      id: 'ccc',
-      emoji: '🍸'
-    });
-    expect(result).toContainEqual({
-      id: 'ddd',
-      emoji: '🍸'
-    });
-    expect(result).toContainEqual({
-      id: 'eee',
-      emoji: '🍩'
-    });
-    expect(result).toContainEqual({
-      id: 'fff',
-      emoji: '🍩'
-    });
+    expect(result).toEqual([
+      { id: 'aaa', emoji: '🚌' },
+      { id: 'bbb', emoji: '🍩' },
+      { id: 'ccc', emoji: '🍸' },
+      { id: 'ddd', emoji: '🍸' },
+      { id: 'eee', emoji: '🍩' },
+      { id: 'fff', emoji: '🍩' }
+    ]);
   });
 
 });
