@@ -43,7 +43,7 @@ export const fetchFormDigestIfNeeded = () => (dispatch, getState) => (
  * fields
  */
 function shouldFetchFields(state) {
-  return !Object.keys(state.fields.data).length && !state.fields.isFetching;
+  return !state.fields.data && !state.fields.isFetching;
 }
 
 /**
