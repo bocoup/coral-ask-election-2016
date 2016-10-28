@@ -5,6 +5,7 @@ import listToObject from '../utils/list-to-object';
 import safeDeepAccess from '../utils/safe-deep-access';
 
 export const getResponses = state => state.responses.dictionary;
+export const getResponseOrder = state => state.responses.order;
 export const getSelected = state => state.selected;
 export const getAggregations = state => state.summary.aggregations;
 export const getQuestions = state => state.questions.dictionary;
@@ -24,7 +25,12 @@ export const getIsFetching = state => [
   'fields'
 ].reduce((isFetching, storeKey) => isFetching || state[storeKey].isFetching, false);
 
-export const getResponsesList = createSelector(getResponses, objectToList);
+export const getResponsesList = createSelector(
+  getResponses,
+  getResponseOrder,
+  (responses, order) => order.map(id => responses[id])
+);
+
 export const getContentFieldsData = createSelector(getContentFields, listToObject('field-id (don\'t change!)'));
 
 export const getEmojiQuestion = createSelector(
