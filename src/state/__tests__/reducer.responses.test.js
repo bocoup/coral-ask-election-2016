@@ -33,7 +33,7 @@ describe('reducers', () => {
         dictionary: {},
         isFetching: false
       }, {
-        type: 'RECEIVE_AGGREGATIONS',
+        type: 'RECEIVE_FORM_DIGEST',
         payload: {
           submissions: [
             {

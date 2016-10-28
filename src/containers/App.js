@@ -11,8 +11,7 @@ import EmojiBarChart from '../components/EmojiBarChart';
 // import ShortAnswerList from '../components/ShortAnswerList';
 
 import {
-  fetchDataIfNeeded,
-  fetchQuestions,
+  fetchFormDigestIfNeeded,
   selectEmoji
 } from '../state/actions';
 
@@ -48,8 +47,7 @@ class App extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(fetchDataIfNeeded());
-    dispatch(fetchQuestions());
+    dispatch(fetchFormDigestIfNeeded());
   }
 
   render() {

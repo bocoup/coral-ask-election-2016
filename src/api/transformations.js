@@ -36,17 +36,24 @@ export const simplifyAggregations = aggregations => Object.keys(aggregations)
   .reduce((carry, groupKey) => {
     const group = aggregations[groupKey];
 
+    if (groupKey === 'all') {
+      // The "all" key is omitted from these results; only the count is
+      // exposed on the store, and that assignment is done directly in the
+      // API response processing chain.
+      return carry;
+    }
+
     // Create a new object with the key "count", and with a string key for
     // each non-grouping multiple choice question ID
     return Object.assign(carry, {
       // Keyed by Answer ID for the Grouping Question
-      [groupKey]: Object.keys(group.mc)
+      [groupKey]: Object.keys(group.MultipleChoice)
         .reduce((carry, mcQId) => Object.assign(carry, {
           // Keyed by Non-Grouping Multiple Choice Question Id
-          [mcQId]: Object.keys(group.mc[mcQId].answers)
+          [mcQId]: Object.keys(group.MultipleChoice[mcQId].answers)
             .reduce((carry, answerId) => Object.assign(carry, {
               // Keyed by Answer ID for that Multiple Choice Question
-              [answerId]: group.mc[mcQId].answers[answerId].count
+              [answerId]: group.MultipleChoice[mcQId].answers[answerId].count
             }), {})
         }), {
           count: group.count
