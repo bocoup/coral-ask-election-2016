@@ -195,6 +195,10 @@ describe('getEmojiList', () => {
   it('returns a list of the emoji specified in the grouping question', () => {
     const result = getEmojiList({
       questions: {
+        filters: {
+          emoji: 'emojiQ',
+          topic: 'someOtherQ'
+        },
         dictionary: {
           emojiQ: {
             group_by: true,
@@ -220,28 +224,31 @@ describe('getEmojiList', () => {
 
 });
 
-describe('getMultipleChoiceCounts', () => {
-  const { getMultipleChoiceCounts } = selectors;
+describe('get____Counts', () => {
   const state = {
     selected: {
       emoji: null,
-      topic: null
+      topic: 'env'
     },
     questions: {
+      filters: {
+        emoji: 'emoji',
+        topic: 'focus'
+      },
       dictionary: {
         emoji: {
           id: 'emoji',
           type: 'MultipleChoice',
           group_by: true,
           options: [
-            { id: 'happy', answer: ':)' },
-            { id: 'sad', answer: ':(' }
+            { id: 'happy', answer: '✨' },
+            { id: 'hungry', answer: '🍩' }
           ]
         },
         focus: {
           id: 'focus',
           type: 'MultipleChoice',
-          group_by: false,
+          group_by: true,
           options: [
             { id: 'econ', answer: 'Economy' },
             { id: 'edu', answer: 'Education' },
@@ -253,115 +260,112 @@ describe('getMultipleChoiceCounts', () => {
     summary: {
       aggregations: {
         happy: {
-          count: 11,
+          count: 12,
           focus: {
-            econ: 1,
+            econ: 2,
             env: 6,
             edu: 4
           }
         },
-        sad: {
+        hungry: {
           count: 7,
           focus: {
             econ: 1,
             env: 6
+          }
+        },
+        econ: {
+          count: 3,
+          emoji: {
+            happy: 2,
+            hungry: 1
+          }
+        },
+        edu: {
+          count: 4,
+          emoji: {
+            happy: 4
+          }
+        },
+        env: {
+          count: 12,
+          emoji: {
+            happy: 6,
+            hungry: 6
           }
         }
       }
     }
   };
 
-  it('is a defined function', () => {
-    expect(getMultipleChoiceCounts).toBeDefined();
-    expect(getMultipleChoiceCounts).toBeInstanceOf(Function);
-  });
+  describe('getTopicCounts', () => {
+    const { getTopicCounts } = selectors;
 
-  it('returns an object', () => {
-    const result = getMultipleChoiceCounts(state);
-    expect(result).toBeInstanceOf(Object);
-  });
+    it('is a defined function', () => {
+      expect(getTopicCounts).toBeDefined();
+      expect(getTopicCounts).toBeInstanceOf(Function);
+    });
 
-  it('returns a dictionary by question ID of topic object lists, with counts', () => {
-    const result = getMultipleChoiceCounts(state);
-    expect(result).toEqual({
-      focus: [
-        { id: 'econ', answer: 'Economy', count: 2 },
+    it('returns an array', () => {
+      const result = getTopicCounts(state);
+      expect(result).toBeInstanceOf(Array);
+    });
+
+    it('does not blow up if no emoji are loaded', () => {
+      expect(getTopicCounts({
+        summary: {
+          aggregations: null
+        },
+        questions: {}
+      })).toEqual([]);
+    });
+
+    it('returns a dictionary by question ID of topic object lists, with counts', () => {
+      const result = getTopicCounts(state);
+      expect(result).toEqual([
+        { id: 'econ', answer: 'Economy', count: 3 },
         { id: 'edu', answer: 'Education', count: 4 },
         { id: 'env', answer: 'Environment', count: 12 }
-      ]
+      ]);
     });
+
   });
 
-  it('filters the returned results based on selected emoji', () => {
-    const result = getMultipleChoiceCounts(Object.assign({}, state, {
-      selected: {
-        emoji: 'happy'
-      }
-    }));
-    expect(result).toEqual({
-      focus: [
-        { id: 'econ', answer: 'Economy', count: 1 },
-        { id: 'edu', answer: 'Education', count: 4 },
-        { id: 'env', answer: 'Environment', count: 6 }
-      ]
+  describe('getEmojiCounts', () => {
+    const { getEmojiCounts } = selectors;
+
+    it('is a defined function', () => {
+      expect(getEmojiCounts).toBeDefined();
+      expect(getEmojiCounts).toBeInstanceOf(Function);
     });
+
+    it('returns an array', () => {
+      const result = getEmojiCounts(state);
+      expect(result).toBeInstanceOf(Array);
+    });
+
+    it('does not blow up if no emoji are loaded', () => {
+      expect(getEmojiCounts({
+        summary: {
+          aggregations: null
+        },
+        questions: {}
+      })).toEqual([]);
+    });
+
+    it('returns a list of the emoji specified in the grouping question', () => {
+      const result = getEmojiCounts(state);
+      expect(result).toEqual([{
+        id: 'happy',
+        answer: '✨',
+        count: 12
+      }, {
+        id: 'hungry',
+        answer: '🍩',
+        count: 7
+      }]);
+    });
+
   });
 
 });
-
-describe('getEmojiCounts', () => {
-  const { getEmojiCounts } = selectors;
-
-  it('is a defined function', () => {
-    expect(getEmojiCounts).toBeDefined();
-    expect(getEmojiCounts).toBeInstanceOf(Function);
-  });
-
-  it('does not blow up if no emoji are loaded', () => {
-    expect(getEmojiCounts({
-      summary: {
-        aggregations: null
-      },
-      questions: {}
-    })).toEqual([]);
-  });
-
-  it('returns a list of the emoji specified in the grouping question', () => {
-    const result = getEmojiCounts({
-      summary: {
-        aggregations: {
-          a: {
-            count: 2
-          },
-          b: {
-            count: 1
-          }
-        }
-      },
-      questions: {
-        dictionary: {
-          emojiQ: {
-            group_by: true,
-            options: [{
-              id: 'a',
-              answer: '✨'
-            }, {
-              id: 'b',
-              answer: '🍩'
-            }]
-          }
-        }
-      }
-    });
-    expect(result).toEqual([{
-      id: 'a',
-      answer: '✨',
-      count: 2
-    }, {
-      id: 'b',
-      answer: '🍩',
-      count: 1
-    }]);
-  });
-
-})

@@ -55,7 +55,7 @@ export default class EmojiBubbleChart extends PureComponent {
     }].concat(emoji.map(emojiGroup => ({
       id: emojiGroup.id,
       parent: 'root',
-      name: emojiGroup.answer,
+      name: emojiGroup.value,
       val: sizeScale(emojiGroup.count)
     })));
 
