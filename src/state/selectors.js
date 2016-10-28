@@ -24,7 +24,6 @@ export const getIsFetching = state => [
   'fields'
 ].reduce((isFetching, storeKey) => isFetching || state[storeKey].isFetching, false);
 
-export const getQuestionsList = createSelector(getQuestions, objectToList);
 export const getResponsesList = createSelector(getResponses, objectToList);
 export const getContentFieldsData = createSelector(getContentFields, listToObject('field-id (don\'t change!)'));
 
@@ -38,20 +37,6 @@ export const getTopicQuestion = createSelector(
   getQuestions,
   getFilterQuestions,
   (questions, filterQuestions) => questions && questions[filterQuestions.topic]
-);
-
-export const getMultipleChoiceQuestions = createSelector(
-  getQuestions,
-  getEmojiQuestion,
-  (questions, emojiQuestion) => Object.keys(questions).reduce((mcQuestions, key) => {
-    const question = questions[key];
-    if (question.type !== 'MultipleChoice' || question.id === emojiQuestion.id) {
-      return mcQuestions;
-    }
-    return Object.assign(mcQuestions, {
-      [key]: question
-    });
-  }, {})
 );
 
 /**
