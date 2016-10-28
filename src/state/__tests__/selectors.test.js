@@ -18,10 +18,18 @@ const populatedState = {
       emoji: 'emoji',
       topic: 'focus'
     },
+    order: ['emoji', 'focus', 'text'],
     dictionary: {
+      text: {
+        id: 'text',
+        type: 'TextField',
+        order: 2,
+        group_by: false
+      },
       emoji: {
         id: 'emoji',
         type: 'MultipleChoice',
+        order: 0,
         group_by: true,
         options: [
           { id: 'happy', value: '✨' },
@@ -31,6 +39,7 @@ const populatedState = {
       focus: {
         id: 'focus',
         type: 'MultipleChoice',
+        order: 1,
         group_by: true,
         options: [
           { id: 'econ', value: 'Economy' },
@@ -221,12 +230,32 @@ describe('getQuestions', () => {
     expect(result.emoji).toEqual({
       id: 'emoji',
       type: 'MultipleChoice',
+      order: 0,
       group_by: true,
       options: [
         { id: 'happy', value: '✨' },
         { id: 'hungry', value: '🍩' }
       ]
     });
+  });
+});
+
+describe('getQuestionsList', () => {
+  const { getQuestionsList } = selectors;
+
+  it('is a defined function', () => {
+    expect(getQuestionsList).toBeDefined();
+    expect(getQuestionsList).toBeInstanceOf(Function);
+  });
+
+  it('returns the proper value from the default state', () => {
+    const result = getQuestionsList(defaultState);
+    expect(result).toEqual([]);
+  });
+
+  it('returns the questions in order', () => {
+    const result = getQuestionsList(populatedState);
+    expect(result.map(result => result.id)).toEqual(['emoji', 'focus', 'text']);
   });
 });
 
@@ -411,6 +440,7 @@ describe('getEmojiQuestion', () => {
       id: 'emoji',
       type: 'MultipleChoice',
       group_by: true,
+      order: 0,
       options: [
         { id: 'happy', value: '✨' },
         { id: 'hungry', value: '🍩' }
@@ -437,6 +467,7 @@ describe('getTopicQuestion', () => {
     expect(result).toEqual({
       id: 'focus',
       type: 'MultipleChoice',
+      order: 1,
       group_by: true,
       options: [
         { id: 'econ', value: 'Economy' },
