@@ -108,7 +108,7 @@ export const fields = handleActions({
     isFetching: false
   })
 }, {
-  data: {},
+  data: null,
   isFetching: false
 });
 
@@ -146,14 +146,19 @@ export const responses = handleActions({
   }),
 
   // Does not currently impact the isFetching state
-  RECEIVE_FORM_DIGEST: (state, action) => ({
-    dictionary: action.payload.submissions
-      .reduce((carry, response) => Object.assign({}, carry, {
-        [response.id]: response
-      }), state.dictionary),
-    isFetching: state.isFetching
-  })
+  RECEIVE_FORM_DIGEST: (state, action) => {
+    const { submissions } = action.payload;
+    const order = submissions.map(s => s.id);
+    const dictionary = submissions.reduce((dict, response) => Object.assign(dict, {
+      [response.id]: response
+    }), state.dictionary);
+    return Object.assign({}, state, {
+      order,
+      dictionary
+    });
+  }
 }, {
+  order: [],
   dictionary: {},
   isFetching: false
 });

@@ -1,12 +1,14 @@
 // Use createSelector for any reducer which returns a computed object
 import { createSelector } from 'reselect';
-import objectToList from '../utils/object-to-list';
 import listToObject from '../utils/list-to-object';
+import safeDeepAccess from '../utils/safe-deep-access';
 
 export const getResponses = state => state.responses.dictionary;
+export const getResponseOrder = state => state.responses.order;
 export const getSelected = state => state.selected;
 export const getAggregations = state => state.summary.aggregations;
 export const getQuestions = state => state.questions.dictionary;
+export const getQuestionsOrder = state => state.questions.order;
 export const getFilterQuestions = state => state.questions.filters;
 export const getContentFields = state => state.fields.data;
 
@@ -23,8 +25,18 @@ export const getIsFetching = state => [
   'fields'
 ].reduce((isFetching, storeKey) => isFetching || state[storeKey].isFetching, false);
 
-export const getQuestionsList = createSelector(getQuestions, objectToList);
-export const getResponsesList = createSelector(getResponses, objectToList);
+export const getQuestionsList = createSelector(
+  getQuestions,
+  getQuestionsOrder,
+  (questions, order) => order.map(id => questions[id])
+);
+
+export const getResponsesList = createSelector(
+  getResponses,
+  getResponseOrder,
+  (responses, order) => order.map(id => responses[id])
+);
+
 export const getContentFieldsData = createSelector(getContentFields, listToObject('field-id (don\'t change!)'));
 
 export const getEmojiQuestion = createSelector(
@@ -37,20 +49,6 @@ export const getTopicQuestion = createSelector(
   getQuestions,
   getFilterQuestions,
   (questions, filterQuestions) => questions && questions[filterQuestions.topic]
-);
-
-export const getMultipleChoiceQuestions = createSelector(
-  getQuestions,
-  getEmojiQuestion,
-  (questions, emojiQuestion) => Object.keys(questions).reduce((mcQuestions, key) => {
-    const question = questions[key];
-    if (question.type !== 'MultipleChoice' || question.id === emojiQuestion.id) {
-      return mcQuestions;
-    }
-    return Object.assign(mcQuestions, {
-      [key]: question
-    });
-  }, {})
 );
 
 /**
@@ -123,4 +121,33 @@ export const getTopicCounts = createSelector(
   (topicList, aggregations) => topicList.map(option => Object.assign({
     count: aggregations[option.id].count
   }, option))
+);
+
+/**
+ * Return an array of emoji multiple-choice question objects with counts for
+ * how often each emoji occurs in the selected topic
+ *
+ * @param {Object} state The state object
+ * @returns {Object[]} An array of `{ value, id, count }` objects
+ */
+export const getEmojiCountsFilteredByTopic = createSelector(
+  getSelectedTopic,
+  getFilterQuestions,
+  getEmojiList,
+  getAggregations,
+  (selectedTopic, filterQuestions, emojiList, aggregations) => {
+    if (!selectedTopic) {
+      return null;
+    }
+
+    return emojiList.map((option) => {
+      const count = safeDeepAccess(aggregations, [
+        selectedTopic.id,
+        filterQuestions.emoji,
+        option.id
+      ]) || 0;
+
+      return Object.assign({ count }, option);
+    });
+  }
 );
