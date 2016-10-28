@@ -5,9 +5,7 @@ import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
 // import EmojiGrid from '../components/EmojiGrid';
 // import EmojiFilter from '../components/EmojiFilter';
-import FilterableBarChart from '../components/FilterableBarChart';
-import Letter from '../components/Letter';
-import EmojiBarChart from '../components/EmojiBarChart';
+import FilterByTopicVis from '../components/FilterByTopicVis';
 // import ShortAnswerList from '../components/ShortAnswerList';
 
 import {
@@ -16,35 +14,23 @@ import {
 } from '../state/actions';
 
 import {
-  getAggregations,
   getEmojiCounts,
-  // getEmojiQuestion,
   // getResponsesList,
-  getEmojiCountsFilteredByTopic,
-  getSelectedTopic,
   getSelectedEmoji
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
   emoji: getEmojiCounts(state),
-  selectedEmoji: getSelectedEmoji(state),
-  selectedTopic: getSelectedTopic(state),
-  filteredEmojiCounts: getEmojiCountsFilteredByTopic(state),
-  // emojiQuestion: getEmojiQuestion(state),
   // responses: getResponsesList(state),
-  aggregations: getAggregations(state)
+  selectedEmoji: getSelectedEmoji(state)
 });
 
 class App extends Component {
   static propTypes = {
     emoji: PropTypes.array,
-    aggregations: PropTypes.object,
-    // emojiQuestion: PropTypes.object,
     // responses: PropTypes.array,
     // selectedEmoji: PropTypes.object,
-    filteredEmojiCounts: PropTypes.array,
     dispatch: PropTypes.func,
-    selectedTopic: PropTypes.object,
     selectedEmoji: PropTypes.object
   }
 
@@ -57,11 +43,7 @@ class App extends Component {
     const {
       emoji,
       // responses,
-      aggregations,
-      selectedTopic,
       selectedEmoji,
-      filteredEmojiCounts,
-      // emojiQuestion,
       dispatch
     } = this.props;
 
@@ -95,15 +77,7 @@ class App extends Component {
             width={400}
             height={400}
           />}
-          {/*
-            emojiQuestion && <EmojiGrid questionKey={emojiQuestion.id} responses={responses} width={400} height={300} />
-          */}
-          {/*
-            emoji && <EmojiFilter emoji={emoji} onSelect={emoji => dispatch(selectEmoji(emoji))} />
-          */}
-          <FilterableBarChart />
-          {selectedTopic && <EmojiBarChart height={70} emoji={filteredEmojiCounts} topic={selectedTopic} />}
-          {aggregations && <Letter response={[]} width={400} />}
+          <FilterByTopicVis />
           {/* summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} /> */}
         </div>
       </div>
