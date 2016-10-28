@@ -59,7 +59,7 @@ class FilterByTopicVis extends PureComponent {
     }) : responses;
 
     return (
-      <div>
+      <div className="filter-by-topic">
         <TopicBarChart
           onSelect={topicId => dispatch(selectTopic(topicId))}
           topics={topics}
