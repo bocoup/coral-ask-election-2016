@@ -1,0 +1,5 @@
+{
+  "jsonURI": "Copy the URI where the JSON files are available here",
+  "formId": "Copy the Ask form ID (e.g. 581118892b74a9ceb5c309ab) into this field",
+  "googleSheetId": "Copy the ID of the Google Spreadsheet (e.g. 18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I) here"
+}
