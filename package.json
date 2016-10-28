@@ -64,6 +64,7 @@
     "d3-transition": "^1.0.2",
     "d3-voronoi": "^1.0.2",
     "isomorphic-fetch": "^2.2.1",
+    "node-uuid": "^1.4.7",
     "react": "^15.3.2",
     "react-computed-props": "^0.1.1",
     "react-dom": "^15.3.2",
