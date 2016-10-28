@@ -108,7 +108,7 @@ export const fields = handleActions({
     isFetching: false
   })
 }, {
-  data: {},
+  data: null,
   isFetching: false
 });
 
