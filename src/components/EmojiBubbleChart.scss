@@ -1,5 +1,4 @@
-$transition-speed-in: 50ms;
-$transition-speed-out: 200ms;
+$emoji-pop-in-transition-timing: cubic-bezier(0.960, -0.115, 0.480, 1.625);
 
 .emojis-bubble-chart {
   position: relative;
@@ -13,16 +12,26 @@ $transition-speed-out: 200ms;
       max-width: 90%;
     }
 
+    &.visible {
+      .emoji-image {
+        margin: 0;
+      }
+      .emoji-label {
+        opacity: 1;
+        font-size: 0.8em;
+      }
+    }
+
     &:hover,
     &.selected {
       .emoji-image {
-        margin: -2px;
-        transition: margin $transition-speed-out;
+        margin: -3px;
+        transition: margin 200ms;
       }
       .emoji-label {
         top: 100%;
         font-size: 0.7em;
-        transition: top $transition-speed-out, font-size $transition-speed-out;
+        transition: top 200ms, font-size 200ms;
       }
     }
   }
@@ -34,8 +43,10 @@ $transition-speed-out: 200ms;
     right: 0;
     bottom: 0;
     display: block;
-    transition: margin $transition-speed-in;
-    margin: 0;
+    transition: margin 550ms $emoji-pop-in-transition-timing;
+    transition-timing-function: $emoji-pop-in-transition-timing;
+    // Completely hide the image by default by compressing it down to no space
+    margin: 50%;
   }
 
   .emoji-label {
@@ -45,7 +56,10 @@ $transition-speed-out: 200ms;
     left: 0;
     width: 100%;
     display: inline-block;
-    font-size: 0.8em;
-    transition: top $transition-speed-in, font-size $transition-speed-in;
+    transition: top 200ms, font-size 200ms, opacity 200ms;
+    // Completely hide the label by default; label & image are revealed by adding
+    // a class to the parent container element
+    opacity: 0;
+    font-size: 0;
   }
 }

@@ -22,6 +22,13 @@ export default class EmojiBubbleChart extends PureComponent {
     minRadius: 20
   }
 
+  componentDidUpdate() {
+    d3.selectAll('.emoji-container').each(function staggeredPopIn(d, i) {
+      const container = d3.select(this);
+      setTimeout(() => container.classed('visible', true), i * 100);
+    });
+  }
+
   render() {
     const {
       emoji,
