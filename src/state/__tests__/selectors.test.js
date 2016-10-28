@@ -128,6 +128,7 @@ describe('getIsFetching', () => {
 
   it('returns false if no fetches are in progress', () => {
     const store = {
+      fields: { isFetching: false },
       questions: { isFetching: false },
       responses: { isFetching: false },
       summary: { isFetching: false }
@@ -136,8 +137,9 @@ describe('getIsFetching', () => {
     expect(result).toBe(false);
   });
 
-  it('returns true if a questions fetch is in progress', () => {
+  it('returns true if a fields fetch is in progress', () => {
     const store = {
+      fields: { isFetching: false },
       questions: { isFetching: true },
       responses: { isFetching: false },
       summary: { isFetching: false }
@@ -148,6 +150,18 @@ describe('getIsFetching', () => {
 
   it('returns true if a questions fetch is in progress', () => {
     const store = {
+      fields: { isFetching: false },
+      questions: { isFetching: true },
+      responses: { isFetching: false },
+      summary: { isFetching: false }
+    };
+    const result = getIsFetching(store);
+    expect(result).toBe(true);
+  });
+
+  it('returns true if a responses fetch is in progress', () => {
+    const store = {
+      fields: { isFetching: false },
       questions: { isFetching: false },
       responses: { isFetching: true },
       summary: { isFetching: false }
@@ -158,6 +172,7 @@ describe('getIsFetching', () => {
 
   it('returns true if a summary fetch is in progress', () => {
     const store = {
+      fields: { isFetching: false },
       questions: { isFetching: false },
       responses: { isFetching: false },
       summary: { isFetching: true }
@@ -168,6 +183,7 @@ describe('getIsFetching', () => {
 
   it('returns true if multiple fetches are in progress', () => {
     const store = {
+      fields: { isFetching: false },
       questions: { isFetching: true },
       responses: { isFetching: false },
       summary: { isFetching: true }
@@ -222,7 +238,10 @@ describe('getEmojiList', () => {
 
 describe('getMultipleChoice...', () => {
   const state = {
-    selected: null,
+    selected: {
+      emoji: null,
+      topic: null
+    },
     questions: {
       dictionary: {
         emoji: {
@@ -293,7 +312,9 @@ describe('getMultipleChoice...', () => {
 
     it('filters the returned results based on selected emoji', () => {
       const result = getMultipleChoiceCounts(Object.assign({}, state, {
-        selected: 'happy'
+        selected: {
+          emoji: 'happy'
+        }
       }));
       expect(result).toEqual({
         focus: [
@@ -330,7 +351,9 @@ describe('getMultipleChoice...', () => {
 
     it('filters the returned results based on selected emoji', () => {
       const result = getMultipleChoiceCountsList(Object.assign({}, state, {
-        selected: 'happy'
+        selected: {
+          emoji: 'happy'
+        }
       }));
       expect(result).toEqual([[
         { id: 'econ', answer: 'Economy', count: 1 },
