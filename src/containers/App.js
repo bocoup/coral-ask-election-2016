@@ -2,36 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
-import EmojiBubbleChart from '../components/EmojiBubbleChart';
-// import EmojiGrid from '../components/EmojiGrid';
-// import EmojiFilter from '../components/EmojiFilter';
-import FilterByTopicVis from '../components/FilterByTopicVis';
+import FilterByEmojiVis from './FilterByEmojiVis';
+import FilterByTopicVis from './FilterByTopicVis';
 // import ShortAnswerList from '../components/ShortAnswerList';
 
-import {
-  fetchFormDigestIfNeeded,
-  selectEmoji
-} from '../state/actions';
-
-import {
-  getEmojiCounts,
-  // getResponsesList,
-  getSelectedEmoji
-} from '../state/selectors';
-
-const mapStateToProps = state => ({
-  emoji: getEmojiCounts(state),
-  // responses: getResponsesList(state),
-  selectedEmoji: getSelectedEmoji(state)
-});
+import { fetchFormDigestIfNeeded } from '../state/actions';
 
 class App extends Component {
   static propTypes = {
-    emoji: PropTypes.array,
-    // responses: PropTypes.array,
-    // selectedEmoji: PropTypes.object,
-    dispatch: PropTypes.func,
-    selectedEmoji: PropTypes.object
+    dispatch: PropTypes.func
   }
 
   componentWillMount() {
@@ -40,13 +19,6 @@ class App extends Component {
   }
 
   render() {
-    const {
-      emoji,
-      // responses,
-      selectedEmoji,
-      dispatch
-    } = this.props;
-
     return (
       <div className="App" ref={(node) => { this.root = node; }}>
 
@@ -70,13 +42,7 @@ class App extends Component {
         </div>
 
         <div className="container">
-          {emoji && <EmojiBubbleChart
-            emoji={emoji}
-            selectedEmoji={selectedEmoji}
-            onSelect={emoji => dispatch(selectEmoji(emoji))}
-            width={400}
-            height={400}
-          />}
+          <FilterByEmojiVis />
           <FilterByTopicVis />
           {/* summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} /> */}
         </div>
@@ -85,4 +51,4 @@ class App extends Component {
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(() => ({}))(App);
