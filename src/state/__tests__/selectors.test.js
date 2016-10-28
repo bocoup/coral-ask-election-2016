@@ -383,6 +383,9 @@ describe('get____Counts', () => {
 
     it('does not blow up if no emoji are loaded', () => {
       expect(getEmojiCountsFilteredByTopic({
+        selected: {
+          topic: null
+        },
         summary: {
           aggregations: null
         },
