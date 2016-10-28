@@ -77,8 +77,6 @@ export const getMultipleChoiceCounts = createSelector(
   }, {})
 );
 
-export const getMultipleChoiceCountsList = createSelector(getMultipleChoiceCounts, objectToList);
-
 /**
  * Return an array of emoji multiple-choice answer objects with `.answer` and
  * `.id` keys

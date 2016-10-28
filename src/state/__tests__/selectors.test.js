@@ -220,7 +220,8 @@ describe('getEmojiList', () => {
 
 });
 
-describe('getMultipleChoice...', () => {
+describe('getMultipleChoiceCounts', () => {
+  const { getMultipleChoiceCounts } = selectors;
   const state = {
     selected: {
       emoji: null,
@@ -270,82 +271,40 @@ describe('getMultipleChoice...', () => {
     }
   };
 
-  describe('getMultipleChoiceCounts', () => {
-    const { getMultipleChoiceCounts } = selectors;
-
-    it('is a defined function', () => {
-      expect(getMultipleChoiceCounts).toBeDefined();
-      expect(getMultipleChoiceCounts).toBeInstanceOf(Function);
-    });
-
-    it('returns an object', () => {
-      const result = getMultipleChoiceCounts(state);
-      expect(result).toBeInstanceOf(Object);
-    });
-
-    it('returns a dictionary by question ID of topic object lists, with counts', () => {
-      const result = getMultipleChoiceCounts(state);
-      expect(result).toEqual({
-        focus: [
-          { id: 'econ', answer: 'Economy', count: 2 },
-          { id: 'edu', answer: 'Education', count: 4 },
-          { id: 'env', answer: 'Environment', count: 12 }
-        ]
-      });
-    });
-
-    it('filters the returned results based on selected emoji', () => {
-      const result = getMultipleChoiceCounts(Object.assign({}, state, {
-        selected: {
-          emoji: 'happy'
-        }
-      }));
-      expect(result).toEqual({
-        focus: [
-          { id: 'econ', answer: 'Economy', count: 1 },
-          { id: 'edu', answer: 'Education', count: 4 },
-          { id: 'env', answer: 'Environment', count: 6 }
-        ]
-      });
-    });
-
+  it('is a defined function', () => {
+    expect(getMultipleChoiceCounts).toBeDefined();
+    expect(getMultipleChoiceCounts).toBeInstanceOf(Function);
   });
 
-  describe('getMultipleChoiceCountsList', () => {
-    const { getMultipleChoiceCountsList } = selectors;
+  it('returns an object', () => {
+    const result = getMultipleChoiceCounts(state);
+    expect(result).toBeInstanceOf(Object);
+  });
 
-    it('is a defined function', () => {
-      expect(getMultipleChoiceCountsList).toBeDefined();
-      expect(getMultipleChoiceCountsList).toBeInstanceOf(Function);
-    });
-
-    it('returns an array', () => {
-      const result = getMultipleChoiceCountsList(state);
-      expect(result).toBeInstanceOf(Array);
-    });
-
-    it('returns a list of topic object lists, with counts', () => {
-      const result = getMultipleChoiceCountsList(state);
-      expect(result).toEqual([[
+  it('returns a dictionary by question ID of topic object lists, with counts', () => {
+    const result = getMultipleChoiceCounts(state);
+    expect(result).toEqual({
+      focus: [
         { id: 'econ', answer: 'Economy', count: 2 },
         { id: 'edu', answer: 'Education', count: 4 },
         { id: 'env', answer: 'Environment', count: 12 }
-      ]]);
+      ]
     });
+  });
 
-    it('filters the returned results based on selected emoji', () => {
-      const result = getMultipleChoiceCountsList(Object.assign({}, state, {
-        selected: {
-          emoji: 'happy'
-        }
-      }));
-      expect(result).toEqual([[
+  it('filters the returned results based on selected emoji', () => {
+    const result = getMultipleChoiceCounts(Object.assign({}, state, {
+      selected: {
+        emoji: 'happy'
+      }
+    }));
+    expect(result).toEqual({
+      focus: [
         { id: 'econ', answer: 'Economy', count: 1 },
         { id: 'edu', answer: 'Education', count: 4 },
         { id: 'env', answer: 'Environment', count: 6 }
-      ]]);
+      ]
     });
-
   });
 
 });
