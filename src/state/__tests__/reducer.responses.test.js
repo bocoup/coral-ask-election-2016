@@ -11,6 +11,7 @@ describe('reducers', () => {
   describe('responses', () => {
     const defaultState = {
       dictionary: {},
+      order: [],
       isFetching: false
     };
 
@@ -57,6 +58,11 @@ describe('reducers', () => {
           '56789': { id: '56789', sentiment: 'woo' },
           '10111': { id: '10111', sentiment: 'boo' }
         },
+        order: [
+          '01234',
+          '56789',
+          '10111'
+        ],
         isFetching: false
       });
     });

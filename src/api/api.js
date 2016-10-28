@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import Tabletop from 'tabletop';
-import { simplifyAggregations } from './transformations';
+import { simplifyAggregations, applyArbitraryIds } from './transformations';
 import config from '../config';
 
 // Ensure trailing slash on the jsonURI
@@ -14,7 +14,7 @@ export function getAggregations() {
       questions: response.questions,
       count: response.aggregations.all.count,
       aggregations: simplifyAggregations(response.aggregations),
-      submissions: response.submissions
+      submissions: applyArbitraryIds(response.submissions)
     }));
 }
 

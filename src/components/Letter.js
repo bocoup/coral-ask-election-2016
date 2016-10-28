@@ -6,28 +6,39 @@ import './Letter.scss';
 
 class Letter extends PureComponent {
   static propTypes = {
-    response: PropTypes.array
+    questionsOrder: PropTypes.array,
+    responses: PropTypes.array
   };
 
   static defaultProps = {
-    response: {}
+    responses: []
   };
 
   componentDidMount() {
-    twemoji.parse(this.root, icon => emojiSVGUrl(icon));
+    this.parseEmoji();
+  }
+
+  componentDidUpdate() {
+    this.parseEmoji();
+  }
+
+  parseEmoji() {
+    if (this.root) {
+      twemoji.parse(this.root, icon => emojiSVGUrl(icon));
+    }
   }
 
   render() {
-    let { response } = this.props;
+    const { responses, questionsOrder } = this.props;
 
-    // order significant!
-    response = [
-      { id: 'abc', answer: '😡' },
-      { id: 'wetwet', answer: 'Health Care' },
-      { id: '325jkhet', answer: 'Lowering the cost of healthcare for everyone' },
-      { id: 'ewtwg', answer: 'Irene' },
-      { id: 'wetywy', answer: 'Boston' }
-    ];
+    const response = responses[Math.floor(Math.random(responses.length))];
+
+    if (!response) {
+      return null;
+    }
+
+    // Helper method to treat the question ordering like array indexes
+    const responseField = idx => response[questionsOrder[idx]] || {};
 
     return (
       <div className={'letter'}>
@@ -37,17 +48,22 @@ class Letter extends PureComponent {
           </p>
 
           <p>
-            As you prepare to become president I am feeling <span className="emoji">{response[0].answer}</span>.
-            I think your top priority should be <span className="achieve">{response[1].answer}</span>.
+            As you prepare to become president I am feeling <span className="emoji">
+              {responseField(0)}
+            </span>.
+            I think your top priority should be <span className="achieve">
+              {responseField(1)}
+            </span>.
           </p>
           <p>
             If you achieve one thing in the next four years, I want it to
-            be: <span className="achieve">{response[2].answer}</span>.
+            be: <span className="achieve">
+              {responseField(2)}
+            </span>.
           </p>
 
           <p>
-            Thank you and good luck. <br />
-            {response[3].answer}, {response[4].answer}
+            Thank you and good luck. <br /> {responseField(3)}, {responseField(4)}
           </p>
         </div>
       </div>
