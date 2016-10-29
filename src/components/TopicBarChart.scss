@@ -1,7 +1,7 @@
 @import '../shared/shared.scss';
 
 .topic-bar-chart {
-  border-top: 6px solid white;
+  margin-bottom: 10px;
 
   .note {
     display: block;
@@ -23,7 +23,7 @@
     margin-bottom: .9em;
   }
 
-  @media only screen and (min-width: 48em) { 
+  @media only screen and (min-width: 48em) {
     .bar-group {
       width: 48%;
     }

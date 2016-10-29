@@ -2,6 +2,7 @@
 
 .emoji-bar-chart {
   width: 100%;
+  margin-bottom: 20px;
 
   .selectedTopic {
     font-weight: bold;
@@ -9,7 +10,7 @@
 
   .emoji-bar-wrapper {
     text-align: center;
-    
+
     .emoji-bar-container {
       display: inline-block;
       width: 20%;
@@ -37,14 +38,14 @@
       }
     }
 
-    @media only screen and (min-width: 31em) { 
-      .emoji-bar-container { 
+    @media only screen and (min-width: 31em) {
+      .emoji-bar-container {
         width: 15%;
       }
     }
 
-    @media only screen and (min-width: 40em) { 
-      .emoji-bar-container { 
+    @media only screen and (min-width: 40em) {
+      .emoji-bar-container {
         width: 11%;
       }
     }
