@@ -38,6 +38,7 @@ class App extends Component {
                 defaultValue={'The election is over. It’s time to plan for a new administration.'}
               />
             </div>
+            <button className={'btn'}>Tell the president-elect what you think</button>
           </div>
         </div>
 

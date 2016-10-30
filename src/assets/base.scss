@@ -53,6 +53,41 @@ p {
   padding: 1em; 
 }
 
+.btn {
+  background: #4A90E2;
+  color: white;
+  border-radius: 38px;
+  padding: .9em 1.2em;
+  font-size: 1.05em
+}
+
+.btn:hover {
+  background: #3f7cc3;
+}
+
+.emoji-container.selected.visible {
+  background: #e6e6e6;
+  border-radius: 5px;
+  
+  .emoji-image {
+    padding: .2em;
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 2em;
+
+  a {
+    color: #4A90E2;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
 @media only screen and (min-width: 25em) {
   .intro-container, .container {
     margin: auto;
@@ -89,4 +124,8 @@ button {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  
+  outline: none !important;
+  // box-shadow: none !important;
+  // background-image: none !important;
 }

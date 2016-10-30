@@ -1,10 +1,10 @@
 .letter {
-  font-family: 'Georgia', serif;
 
   div {
     background: white;
     padding: 1.5em 1em;
     box-shadow: -8px 9px 0px #e8e8e8;
+    font-family: 'Georgia', serif;
   }
 
   p {
@@ -12,12 +12,27 @@
   }
 
   .emoji {
-    width: 20px;
-    height: 20px;
+    height: 30px;
+    vertical-align: bottom;
   }
 
   .achieve {
     font-weight: bold;
+  }
+
+  .btn {
+    background: #D9D9D9;
+    color: #616161;
+    margin: 2em auto 0;
+    display: block;
+  } 
+
+  .btn:hover {
+    background: #cccccc;
+  }
+
+  .btn .emoji {
+    margin-bottom: -3px;
   }
 }
 
