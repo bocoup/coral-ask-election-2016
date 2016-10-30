@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 import FilterByEmojiVis from './FilterByEmojiVis';
 import FilterByTopicVis from './FilterByTopicVis';
+import Footer from '../components/Footer';
+
 // import ShortAnswerList from '../components/ShortAnswerList';
 
 import { fetchFormDigestIfNeeded } from '../state/actions';
@@ -21,7 +23,6 @@ class App extends Component {
   render() {
     return (
       <div className="App" ref={(node) => { this.root = node; }}>
-
         <div className={'intro-container'}>
           <div>
             <h1 className={'intro-title'}>
@@ -46,6 +47,8 @@ class App extends Component {
           <FilterByTopicVis />
           {/* summary && <ShortAnswerList selectedEmoji={selectedEmojiGroup} /> */}
         </div>
+
+        <Footer />
       </div>
     );
   }
