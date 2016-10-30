@@ -71,6 +71,14 @@ p {
   }
 }
 
+@media only screen and (min-width: 47em) {
+
+  .filter-by-feeling, .filter-by-topic {
+    overflow: auto;
+  }
+
+}
+
 // button elements have no intrinsic style so that they may be used
 // as interactable containers within visualizations. To get visual
 // button styling, use `<button className="button">`

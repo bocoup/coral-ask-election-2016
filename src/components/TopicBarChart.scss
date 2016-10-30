@@ -22,16 +22,6 @@
     margin-bottom: .9em;
   }
 
-  @media only screen and (min-width: 48em) { 
-    .bar-group {
-      width: 48%;
-    }
-
-    .bar-group:nth-child(odd) {
-      float: right;
-    }
-  }
-
   .topic-detail-container {
     overflow: auto;
     margin-bottom: .2em;
@@ -66,3 +56,20 @@
     }
   }
 }
+
+  @media only screen and (min-width: 47em) { 
+    // .bar-group {
+    //   width: 48%;
+    // }
+
+    // .bar-group:nth-child(odd) {
+    //   float: right;
+    // }
+
+    .topic-bar-chart {
+      width: 50%;
+      float: left;
+      padding-right: 3em;
+    }
+  }
+

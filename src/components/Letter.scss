@@ -22,6 +22,7 @@
 }
 
 @media only screen and (min-width: 25em) {  
+
   .letter div {
     padding: 2em;
   }
@@ -34,5 +35,14 @@
     p {
       font-size: 1.1em;
     }
+  }
+}
+
+@media only screen and (min-width: 47em) { 
+  
+  .letter {
+    width: 50%;
+    margin-top: 2.5em;
+    float: right;
   }
 }
