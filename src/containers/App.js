@@ -41,4 +41,5 @@ class App extends Component {
   }
 }
 
+// Use connect() with no argument to get props.dispatch()
 export default connect()(App);
