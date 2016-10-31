@@ -28,27 +28,6 @@ class App extends Component {
       <div className="App" ref={(node) => { this.root = node; }}>
 
         <EmbeddedAskForm formScript={config.formScript} />
-
-        <div className={'intro-container'}>
-          <div>
-            <h1 className={'intro-title'}>
-              <GoogleSheetFieldComponent
-                fieldId={'elc-text-title'}
-                defaultValue={'Word to the President'}
-              />
-
-            </h1>
-
-            <div className={'intro-blurb'}>
-              <GoogleSheetFieldComponent
-                fieldId={'elc-text-intro-blurb'}
-                defaultValue={'The election is over. It’s time to plan for a new administration.'}
-              />
-            </div>
-            <button className={'btn'}>Tell the president-elect what you think</button>
-          </div>
-        </div>
-
         <div className="container">
           <FilterByEmojiVis />
           <FilterByTopicVis />
