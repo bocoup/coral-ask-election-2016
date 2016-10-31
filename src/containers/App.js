@@ -26,9 +26,6 @@ class App extends Component {
   render() {
     return (
       <div className="App" ref={(node) => { this.root = node; }}>
-
-
-
         <div className={'intro-container'}>
           <div>
             <h1 className={'intro-title'}>
