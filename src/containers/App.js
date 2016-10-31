@@ -27,25 +27,6 @@ class App extends Component {
     return (
       <div className="App" ref={(node) => { this.root = node; }}>
 
-        <div className={'intro-container'}>
-          <div>
-            <h1 className={'intro-title'}>
-              <GoogleSheetFieldComponent
-                fieldId={'elc-text-title'}
-                defaultValue={'Word to the President'}
-              />
-
-            </h1>
-
-            <div className={'intro-blurb'}>
-              <GoogleSheetFieldComponent
-                fieldId={'elc-text-intro-blurb'}
-                defaultValue={'The election is over. It’s time to plan for a new administration.'}
-              />
-            </div>
-          </div>
-        </div>
-
         <EmbeddedAskForm formScript={config.formScript} />
 
         <div className="container">
