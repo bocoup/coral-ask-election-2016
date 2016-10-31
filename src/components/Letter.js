@@ -30,8 +30,7 @@ class Letter extends PureComponent {
 
   render() {
     const { responses, questionsOrder } = this.props;
-
-    const response = responses[Math.floor(Math.random(responses.length))];
+    const response = responses[0];
 
     if (!response) {
       return null;

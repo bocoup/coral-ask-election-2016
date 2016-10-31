@@ -1,38 +1,34 @@
 import React, { PropTypes, PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import where from '../utils/where-properties-match';
-
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
 import Letter from '../components/Letter';
 
 import {
   selectEmoji,
+  showNextLetter,
   fetchResponsesIfNeeded
 } from '../state/actions';
 
 import {
   getEmojiCounts,
-  getEmojiQuestion,
+  getEmojiLetter,
   getQuestionsOrder,
-  getResponsesList,
   getSelectedEmoji
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
   emoji: getEmojiCounts(state),
-  emojiQuestion: getEmojiQuestion(state),
+  currentLetter: getEmojiLetter(state),
   questionsOrder: getQuestionsOrder(state),
-  responses: getResponsesList(state),
   selectedEmoji: getSelectedEmoji(state)
 });
 
 class FilterByEmojiVis extends PureComponent {
   static propTypes = {
     emoji: PropTypes.array,
-    emojiQuestion: PropTypes.object,
+    currentLetter: PropTypes.object,
     questionsOrder: PropTypes.array,
-    responses: PropTypes.array,
     selectedEmoji: PropTypes.object,
     dispatch: PropTypes.func
   }
@@ -40,16 +36,13 @@ class FilterByEmojiVis extends PureComponent {
   render() {
     const {
       emoji,
-      emojiQuestion,
-      responses,
+      currentLetter,
       questionsOrder,
       selectedEmoji,
       dispatch
     } = this.props;
 
-    const matchingResponses = selectedEmoji ? where(responses, {
-      [emojiQuestion.id]: selectedEmoji.value
-    }) : responses;
+    console.log(currentLetter);
 
     return (
       <div className="filter-by-feeling">
@@ -58,12 +51,19 @@ class FilterByEmojiVis extends PureComponent {
           selectedEmoji={selectedEmoji}
           onSelect={(emojiId) => {
             dispatch(selectEmoji(emojiId));
+            dispatch(showNextLetter(emojiId));
             dispatch(fetchResponsesIfNeeded(emojiId));
           }}
           width={400}
           height={400}
         />}
-        <Letter responses={matchingResponses} questionsOrder={questionsOrder} width={400} />
+        <Letter responses={[currentLetter]} questionsOrder={questionsOrder} width={400} />
+        {selectedEmoji && <button
+          onClick={() => dispatch(showNextLetter(selectedEmoji.id))}
+          type="button"
+        >
+          Show another {selectedEmoji.value} response
+        </button>}
       </div>
     );
   }

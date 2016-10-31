@@ -10,6 +10,8 @@ export const getAggregations = state => state.summary.aggregations;
 export const getQuestions = state => state.questions.dictionary;
 export const getQuestionsOrder = state => state.questions.order;
 export const getFilterQuestions = state => state.questions.filters;
+export const getResponseCollections = state => state.responses.collections;
+export const getSelectedResponses = state => state.responses.selected;
 export const getContentFields = state => state.fields.data;
 
 /**
@@ -131,23 +133,54 @@ export const getTopicCounts = createSelector(
  * @returns {Object[]} An array of `{ value, id, count }` objects
  */
 export const getEmojiCountsFilteredByTopic = createSelector(
-  getSelectedTopic,
+  getSelected,
   getFilterQuestions,
   getEmojiList,
   getAggregations,
-  (selectedTopic, filterQuestions, emojiList, aggregations) => {
-    if (!selectedTopic) {
+  (selected, filterQuestions, emojiList, aggregations) => {
+    const topicId = selected.topic;
+    if (!topicId) {
       return null;
     }
 
     return emojiList.map((option) => {
       const count = safeDeepAccess(aggregations, [
-        selectedTopic.id,
+        topicId,
         filterQuestions.emoji,
         option.id
       ]) || 0;
 
       return Object.assign({ count }, option);
     });
+  }
+);
+
+export const getEmojiLetter = createSelector(
+  getResponses,
+  getSelected,
+  getSelectedResponses,
+  (responses, selected, selectedResponses) => {
+    const emojiId = selected.emoji;
+    if (!emojiId) {
+      return null;
+    }
+    console.log(emojiId);
+    console.log(selectedResponses);
+    const letterId = selectedResponses[emojiId];
+    return responses[letterId];
+  }
+);
+
+export const getTopicLetter = createSelector(
+  getResponses,
+  getSelected,
+  getSelectedResponses,
+  (responses, selected, selectedResponses) => {
+    const topicId = selected.topic;
+    if (!topicId) {
+      return null;
+    }
+    const letterId = selectedResponses[topicId];
+    return responses[letterId];
   }
 );

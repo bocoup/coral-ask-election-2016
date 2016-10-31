@@ -161,6 +161,10 @@ export const responses = handleActions({
       collections: Object.assign({}, state.collections, {
         [action.payload.answerId]: order
       }),
+      selected: Object.assign({}, state.selected, {
+        // Always start w/ the first response
+        [action.payload.answerId]: order[0]
+      }),
       isFetching: Object.assign({}, state.isFetching, {
         [action.payload.answerId]: false
       })
@@ -178,6 +182,20 @@ export const responses = handleActions({
       order,
       isFetching
     });
+  },
+
+  SHOW_NEXT_LETTER: (state, action) => {
+    const answerId = action.payload;
+    const letterId = state.selected[answerId];
+    const collection = state.collections[answerId];
+    const letterIdx = collection.indexOf(letterId);
+    // Wrap around to 0 when done with a collection
+    const nextLetterId = collection[letterIdx + 1] || collection[0];
+    return Object.assign({}, state, {
+      selected: Object.assign({}, state.selected, {
+        [answerId]: nextLetterId
+      })
+    });
   }
 }, {
   // Array of unique, ordered response IDs for _all_ responses
@@ -188,6 +206,9 @@ export const responses = handleActions({
   // containing arrays of unique, ordered response IDs for responses that
   // match that answer ID
   collections: {},
+  // Dictionary of the active (most recently displayed) ID within each
+  // answer-specific collection
+  selected: {},
   // Dictionary of response collections of isFetching booleans for each
   // question response collection, keyed by the same answer IDs
   isFetching: null

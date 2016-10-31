@@ -6,18 +6,16 @@ import EmojiBarChart from '../components/EmojiBarChart';
 import Letter from '../components/Letter';
 // import ShortAnswerList from '../components/ShortAnswerList';
 
-import where from '../utils/where-properties-match';
-
 import {
   selectTopic,
+  showNextLetter,
   fetchResponsesIfNeeded
 } from '../state/actions';
 
 import {
   getEmojiCountsFilteredByTopic,
-  getTopicQuestion,
   getQuestionsOrder,
-  getResponsesList,
+  getTopicLetter,
   getSelectedTopic,
   getTopicCounts
 } from '../state/selectors';
@@ -25,28 +23,25 @@ import {
 const mapStateToProps = state => ({
   questionsOrder: getQuestionsOrder(state),
   selectedTopic: getSelectedTopic(state),
-  topicQuestion: getTopicQuestion(state),
+  topicLetter: getTopicLetter(state),
   topics: getTopicCounts(state),
-  filteredEmojiCounts: getEmojiCountsFilteredByTopic(state),
-  responses: getResponsesList(state)
+  filteredEmojiCounts: getEmojiCountsFilteredByTopic(state)
 });
 
 class FilterByTopicVis extends PureComponent {
   static propTypes = {
     questionsOrder: PropTypes.array,
     selectedTopic: PropTypes.object,
-    topicQuestion: PropTypes.object,
+    topicLetter: PropTypes.object,
     topics: PropTypes.array,
     filteredEmojiCounts: PropTypes.array,
-    responses: PropTypes.array,
     dispatch: PropTypes.func
   }
 
   render() {
     const {
       questionsOrder,
-      responses,
-      topicQuestion,
+      topicLetter,
       topics,
       selectedTopic,
       filteredEmojiCounts,
@@ -56,10 +51,6 @@ class FilterByTopicVis extends PureComponent {
     if (!topics || !topics.length) {
       return null;
     }
-
-    const matchingResponses = selectedTopic ? where(responses, {
-      [topicQuestion.id]: selectedTopic.value
-    }) : responses;
 
     return (
       <div className="filter-by-topic">
@@ -72,7 +63,13 @@ class FilterByTopicVis extends PureComponent {
           selectedTopic={selectedTopic}
         />
         {selectedTopic && <EmojiBarChart height={70} emoji={filteredEmojiCounts} topic={selectedTopic} />}
-        <Letter responses={matchingResponses} questionsOrder={questionsOrder} width={400} />
+        <Letter responses={[topicLetter]} questionsOrder={questionsOrder} width={400} />
+        {selectedTopic && <button
+          onClick={() => dispatch(showNextLetter(selectedTopic.id))}
+          type="button"
+        >
+          Show another {selectedTopic.value} response
+        </button>}
       </div>
     );
   }

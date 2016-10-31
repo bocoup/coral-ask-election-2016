@@ -18,6 +18,12 @@ export const selectEmoji = createAction('SELECT_EMOJI');
 export const selectTopic = createAction('SELECT_TOPIC');
 
 /**
+ * Action creator for showing another letter for a specific response.
+ * Identity used for payload
+ */
+export const showNextLetter = createAction('SHOW_NEXT_LETTER');
+
+/**
  * Action creator to fetch aggregated form data from the API
  */
 const fetchFormDigest = () => (dispatch) => {
