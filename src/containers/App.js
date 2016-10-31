@@ -23,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div className="App" ref={(node) => { this.root = node; }}>
-        {/*
+
         <div className={'intro-container'}>
           <div>
             <h1 className={'intro-title'}>
@@ -42,7 +42,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-        */}
+
         <div className="container">
           <FilterByEmojiVis />
           <FilterByTopicVis />
