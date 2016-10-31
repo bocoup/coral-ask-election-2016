@@ -1,0 +1,946 @@
+{
+	"questions": {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": {
+			"id": "a889cabd-6057-446f-9f3a-ce908230b6c7",
+			"type": "TextField",
+			"title": "Please provide your location for display",
+			"group_by": false,
+			"order": 5
+		},
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": {
+			"id": "bc92bba1-ae82-4dfb-9261-ed062fe8db8b",
+			"type": "TextArea",
+			"title": "If the new president achieves one thing in the next four years, what should it be?",
+			"group_by": false,
+			"order": 3
+		},
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+			"id": "c5dba9b7-ba42-44a4-8466-fc2c667617cd",
+			"type": "MultipleChoice",
+			"title": "How do you feel as the new president prepares to take office?",
+			"group_by": true,
+			"options": [{
+				"id": "02612e1975f186b11bfb968ca2cf33bd",
+				"value": "😍"
+			}, {
+				"id": "2a02eac39d716a70ecf37579185927b6",
+				"value": "😀"
+			}, {
+				"id": "9f27d5a6ed65c4938ede65e536e5f6d4",
+				"value": "😐"
+			}, {
+				"id": "bd33d344f8a02afe447fdb64efa32a21",
+				"value": "😟"
+			}, {
+				"id": "6552ee09f5283674b630d0859b2ab68a",
+				"value": "😞"
+			}, {
+				"id": "67ec4b5359a5d238ede933a346d04a86",
+				"value": "😡"
+			}, {
+				"id": "d1bccc85fc14440d4201e4fa2a7a88a2",
+				"value": "😳"
+			}, {
+				"id": "07b60a7aea9a8b1079a450cf21ab8f16",
+				"value": "🤔"
+			}, {
+				"id": "86d88d9e4e39979f13b822d1643a95f4",
+				"value": "🇺🇸"
+			}],
+			"order": 1
+		},
+		"cceb81a8-7feb-43d8-b285-35217947c592": {
+			"id": "cceb81a8-7feb-43d8-b285-35217947c592",
+			"type": "TextField",
+			"title": "Please provide your name for display",
+			"group_by": false,
+			"order": 4
+		},
+		"e9fbc117-e71e-4b98-a53e-74a897693280": {
+			"id": "e9fbc117-e71e-4b98-a53e-74a897693280",
+			"type": "MultipleChoice",
+			"title": "Which issue should be highest on the new president’s agenda?",
+			"group_by": true,
+			"options": [{
+				"id": "98a6399d1a49d929e8403bf9fce897e5",
+				"value": "The Economy"
+			}, {
+				"id": "4690cd84196b0a4e3f84f2cc3bf79ac7",
+				"value": "Cyber Security"
+			}, {
+				"id": "5f390d80b20daad8f5d2f483fb0ae9d8",
+				"value": "Trade"
+			}, {
+				"id": "de7a22a0c94aa64ba2449e520aa20c99",
+				"value": "Education"
+			}, {
+				"id": "d91b20b62997b6bfe27473dd16675cfb",
+				"value": "Energy and the Environment"
+			}, {
+				"id": "745ce5bc6e3557b01bf4cfbd90721ae7",
+				"value": "Health Care"
+			}, {
+				"id": "c967a0dbb29151be23e4d79805a1da02",
+				"value": "Crime"
+			}, {
+				"id": "e03aac50cc66ce2b2b0eeaf57cb68d0a",
+				"value": "Defense and National Security"
+			}, {
+				"id": "b306b60e6d0b6a265e0914a60ac48867",
+				"value": "Immigration"
+			}, {
+				"id": "8deaa8bde66cc6bf6ffc7d4e48c82f68",
+				"value": "Foreign Policy"
+			}, {
+				"id": "b1cc14fffa31a73de64ba82e99ecfbe6",
+				"value": "Social Issues"
+			}],
+			"order": 2
+		}
+	},
+	"aggregations": {
+		"02612e1975f186b11bfb968ca2cf33bd": {
+			"group": {
+				"group_id": "02612e1975f186b11bfb968ca2cf33bd",
+				"question": "How do you feel as the new president prepares to take office?",
+				"answer": "😍"
+			},
+			"count": 4,
+			"MultipleChoice": {
+				"e9fbc117-e71e-4b98-a53e-74a897693280": {
+					"question": "Which issue should be highest on the new president’s agenda?",
+					"answers": {
+						"4690cd84196b0a4e3f84f2cc3bf79ac7": {
+							"answer": "Cyber Security",
+							"count": 1
+						},
+						"98a6399d1a49d929e8403bf9fce897e5": {
+							"answer": "The Economy",
+							"count": 1
+						},
+						"d91b20b62997b6bfe27473dd16675cfb": {
+							"answer": "Energy and the Environment",
+							"count": 2
+						}
+					}
+				}
+			}
+		},
+		"07b60a7aea9a8b1079a450cf21ab8f16": {
+			"group": {
+				"group_id": "07b60a7aea9a8b1079a450cf21ab8f16",
+				"question": "How do you feel as the new president prepares to take office?",
+				"answer": "🤔"
+			},
+			"count": 4,
+			"MultipleChoice": {
+				"e9fbc117-e71e-4b98-a53e-74a897693280": {
+					"question": "Which issue should be highest on the new president’s agenda?",
+					"answers": {
+						"745ce5bc6e3557b01bf4cfbd90721ae7": {
+							"answer": "Health Care",
+							"count": 1
+						},
+						"98a6399d1a49d929e8403bf9fce897e5": {
+							"answer": "The Economy",
+							"count": 1
+						},
+						"b1cc14fffa31a73de64ba82e99ecfbe6": {
+							"answer": "Social Issues",
+							"count": 1
+						},
+						"d91b20b62997b6bfe27473dd16675cfb": {
+							"answer": "Energy and the Environment",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"2a02eac39d716a70ecf37579185927b6": {
+			"group": {
+				"group_id": "2a02eac39d716a70ecf37579185927b6",
+				"question": "How do you feel as the new president prepares to take office?",
+				"answer": "😀"
+			},
+			"count": 2,
+			"MultipleChoice": {
+				"e9fbc117-e71e-4b98-a53e-74a897693280": {
+					"question": "Which issue should be highest on the new president’s agenda?",
+					"answers": {
+						"4690cd84196b0a4e3f84f2cc3bf79ac7": {
+							"answer": "Cyber Security",
+							"count": 1
+						},
+						"745ce5bc6e3557b01bf4cfbd90721ae7": {
+							"answer": "Health Care",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"4690cd84196b0a4e3f84f2cc3bf79ac7": {
+			"group": {
+				"group_id": "4690cd84196b0a4e3f84f2cc3bf79ac7",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "Cyber Security"
+			},
+			"count": 4,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"02612e1975f186b11bfb968ca2cf33bd": {
+							"answer": "😍",
+							"count": 1
+						},
+						"2a02eac39d716a70ecf37579185927b6": {
+							"answer": "😀",
+							"count": 1
+						},
+						"67ec4b5359a5d238ede933a346d04a86": {
+							"answer": "😡",
+							"count": 1
+						},
+						"bd33d344f8a02afe447fdb64efa32a21": {
+							"answer": "😟",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"5f390d80b20daad8f5d2f483fb0ae9d8": {
+			"group": {
+				"group_id": "5f390d80b20daad8f5d2f483fb0ae9d8",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "Trade"
+			},
+			"count": 1,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"9f27d5a6ed65c4938ede65e536e5f6d4": {
+							"answer": "😐",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"6552ee09f5283674b630d0859b2ab68a": {
+			"group": {
+				"group_id": "6552ee09f5283674b630d0859b2ab68a",
+				"question": "How do you feel as the new president prepares to take office?",
+				"answer": "😞"
+			},
+			"count": 1,
+			"MultipleChoice": {
+				"e9fbc117-e71e-4b98-a53e-74a897693280": {
+					"question": "Which issue should be highest on the new president’s agenda?",
+					"answers": {
+						"b1cc14fffa31a73de64ba82e99ecfbe6": {
+							"answer": "Social Issues",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"67ec4b5359a5d238ede933a346d04a86": {
+			"group": {
+				"group_id": "67ec4b5359a5d238ede933a346d04a86",
+				"question": "How do you feel as the new president prepares to take office?",
+				"answer": "😡"
+			},
+			"count": 2,
+			"MultipleChoice": {
+				"e9fbc117-e71e-4b98-a53e-74a897693280": {
+					"question": "Which issue should be highest on the new president’s agenda?",
+					"answers": {
+						"4690cd84196b0a4e3f84f2cc3bf79ac7": {
+							"answer": "Cyber Security",
+							"count": 1
+						},
+						"e03aac50cc66ce2b2b0eeaf57cb68d0a": {
+							"answer": "Defense and National Security",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"745ce5bc6e3557b01bf4cfbd90721ae7": {
+			"group": {
+				"group_id": "745ce5bc6e3557b01bf4cfbd90721ae7",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "Health Care"
+			},
+			"count": 4,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"07b60a7aea9a8b1079a450cf21ab8f16": {
+							"answer": "🤔",
+							"count": 1
+						},
+						"2a02eac39d716a70ecf37579185927b6": {
+							"answer": "😀",
+							"count": 1
+						},
+						"9f27d5a6ed65c4938ede65e536e5f6d4": {
+							"answer": "😐",
+							"count": 1
+						},
+						"d1bccc85fc14440d4201e4fa2a7a88a2": {
+							"answer": "😳",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"86d88d9e4e39979f13b822d1643a95f4": {
+			"group": {
+				"group_id": "86d88d9e4e39979f13b822d1643a95f4",
+				"question": "How do you feel as the new president prepares to take office?",
+				"answer": "🇺🇸"
+			},
+			"count": 4,
+			"MultipleChoice": {
+				"e9fbc117-e71e-4b98-a53e-74a897693280": {
+					"question": "Which issue should be highest on the new president’s agenda?",
+					"answers": {
+						"b306b60e6d0b6a265e0914a60ac48867": {
+							"answer": "Immigration",
+							"count": 1
+						},
+						"c967a0dbb29151be23e4d79805a1da02": {
+							"answer": "Crime",
+							"count": 1
+						},
+						"de7a22a0c94aa64ba2449e520aa20c99": {
+							"answer": "Education",
+							"count": 1
+						},
+						"e03aac50cc66ce2b2b0eeaf57cb68d0a": {
+							"answer": "Defense and National Security",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"8deaa8bde66cc6bf6ffc7d4e48c82f68": {
+			"group": {
+				"group_id": "8deaa8bde66cc6bf6ffc7d4e48c82f68",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "Foreign Policy"
+			},
+			"count": 2,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"d1bccc85fc14440d4201e4fa2a7a88a2": {
+							"answer": "😳",
+							"count": 2
+						}
+					}
+				}
+			}
+		},
+		"98a6399d1a49d929e8403bf9fce897e5": {
+			"group": {
+				"group_id": "98a6399d1a49d929e8403bf9fce897e5",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "The Economy"
+			},
+			"count": 4,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"02612e1975f186b11bfb968ca2cf33bd": {
+							"answer": "😍",
+							"count": 1
+						},
+						"07b60a7aea9a8b1079a450cf21ab8f16": {
+							"answer": "🤔",
+							"count": 1
+						},
+						"9f27d5a6ed65c4938ede65e536e5f6d4": {
+							"answer": "😐",
+							"count": 1
+						},
+						"bd33d344f8a02afe447fdb64efa32a21": {
+							"answer": "😟",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"9f27d5a6ed65c4938ede65e536e5f6d4": {
+			"group": {
+				"group_id": "9f27d5a6ed65c4938ede65e536e5f6d4",
+				"question": "How do you feel as the new president prepares to take office?",
+				"answer": "😐"
+			},
+			"count": 7,
+			"MultipleChoice": {
+				"e9fbc117-e71e-4b98-a53e-74a897693280": {
+					"question": "Which issue should be highest on the new president’s agenda?",
+					"answers": {
+						"5f390d80b20daad8f5d2f483fb0ae9d8": {
+							"answer": "Trade",
+							"count": 1
+						},
+						"745ce5bc6e3557b01bf4cfbd90721ae7": {
+							"answer": "Health Care",
+							"count": 1
+						},
+						"98a6399d1a49d929e8403bf9fce897e5": {
+							"answer": "The Economy",
+							"count": 1
+						},
+						"b1cc14fffa31a73de64ba82e99ecfbe6": {
+							"answer": "Social Issues",
+							"count": 2
+						},
+						"d91b20b62997b6bfe27473dd16675cfb": {
+							"answer": "Energy and the Environment",
+							"count": 1
+						},
+						"de7a22a0c94aa64ba2449e520aa20c99": {
+							"answer": "Education",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"all": {
+			"group": {
+				"group_id": "all",
+				"question": "all",
+				"answer": "all"
+			},
+			"count": 32,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"02612e1975f186b11bfb968ca2cf33bd": {
+							"answer": "😍",
+							"count": 4
+						},
+						"07b60a7aea9a8b1079a450cf21ab8f16": {
+							"answer": "🤔",
+							"count": 4
+						},
+						"2a02eac39d716a70ecf37579185927b6": {
+							"answer": "😀",
+							"count": 2
+						},
+						"6552ee09f5283674b630d0859b2ab68a": {
+							"answer": "😞",
+							"count": 1
+						},
+						"67ec4b5359a5d238ede933a346d04a86": {
+							"answer": "😡",
+							"count": 2
+						},
+						"86d88d9e4e39979f13b822d1643a95f4": {
+							"answer": "🇺🇸",
+							"count": 4
+						},
+						"9f27d5a6ed65c4938ede65e536e5f6d4": {
+							"answer": "😐",
+							"count": 7
+						},
+						"bd33d344f8a02afe447fdb64efa32a21": {
+							"answer": "😟",
+							"count": 2
+						},
+						"d1bccc85fc14440d4201e4fa2a7a88a2": {
+							"answer": "😳",
+							"count": 6
+						}
+					}
+				},
+				"e9fbc117-e71e-4b98-a53e-74a897693280": {
+					"question": "Which issue should be highest on the new president’s agenda?",
+					"answers": {
+						"4690cd84196b0a4e3f84f2cc3bf79ac7": {
+							"answer": "Cyber Security",
+							"count": 4
+						},
+						"5f390d80b20daad8f5d2f483fb0ae9d8": {
+							"answer": "Trade",
+							"count": 1
+						},
+						"745ce5bc6e3557b01bf4cfbd90721ae7": {
+							"answer": "Health Care",
+							"count": 4
+						},
+						"8deaa8bde66cc6bf6ffc7d4e48c82f68": {
+							"answer": "Foreign Policy",
+							"count": 2
+						},
+						"98a6399d1a49d929e8403bf9fce897e5": {
+							"answer": "The Economy",
+							"count": 4
+						},
+						"b1cc14fffa31a73de64ba82e99ecfbe6": {
+							"answer": "Social Issues",
+							"count": 4
+						},
+						"b306b60e6d0b6a265e0914a60ac48867": {
+							"answer": "Immigration",
+							"count": 2
+						},
+						"c967a0dbb29151be23e4d79805a1da02": {
+							"answer": "Crime",
+							"count": 1
+						},
+						"d91b20b62997b6bfe27473dd16675cfb": {
+							"answer": "Energy and the Environment",
+							"count": 5
+						},
+						"de7a22a0c94aa64ba2449e520aa20c99": {
+							"answer": "Education",
+							"count": 3
+						},
+						"e03aac50cc66ce2b2b0eeaf57cb68d0a": {
+							"answer": "Defense and National Security",
+							"count": 2
+						}
+					}
+				}
+			}
+		},
+		"b1cc14fffa31a73de64ba82e99ecfbe6": {
+			"group": {
+				"group_id": "b1cc14fffa31a73de64ba82e99ecfbe6",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "Social Issues"
+			},
+			"count": 4,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"07b60a7aea9a8b1079a450cf21ab8f16": {
+							"answer": "🤔",
+							"count": 1
+						},
+						"6552ee09f5283674b630d0859b2ab68a": {
+							"answer": "😞",
+							"count": 1
+						},
+						"9f27d5a6ed65c4938ede65e536e5f6d4": {
+							"answer": "😐",
+							"count": 2
+						}
+					}
+				}
+			}
+		},
+		"b306b60e6d0b6a265e0914a60ac48867": {
+			"group": {
+				"group_id": "b306b60e6d0b6a265e0914a60ac48867",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "Immigration"
+			},
+			"count": 2,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"86d88d9e4e39979f13b822d1643a95f4": {
+							"answer": "🇺🇸",
+							"count": 1
+						},
+						"d1bccc85fc14440d4201e4fa2a7a88a2": {
+							"answer": "😳",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"bd33d344f8a02afe447fdb64efa32a21": {
+			"group": {
+				"group_id": "bd33d344f8a02afe447fdb64efa32a21",
+				"question": "How do you feel as the new president prepares to take office?",
+				"answer": "😟"
+			},
+			"count": 2,
+			"MultipleChoice": {
+				"e9fbc117-e71e-4b98-a53e-74a897693280": {
+					"question": "Which issue should be highest on the new president’s agenda?",
+					"answers": {
+						"4690cd84196b0a4e3f84f2cc3bf79ac7": {
+							"answer": "Cyber Security",
+							"count": 1
+						},
+						"98a6399d1a49d929e8403bf9fce897e5": {
+							"answer": "The Economy",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"c967a0dbb29151be23e4d79805a1da02": {
+			"group": {
+				"group_id": "c967a0dbb29151be23e4d79805a1da02",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "Crime"
+			},
+			"count": 1,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"86d88d9e4e39979f13b822d1643a95f4": {
+							"answer": "🇺🇸",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"d1bccc85fc14440d4201e4fa2a7a88a2": {
+			"group": {
+				"group_id": "d1bccc85fc14440d4201e4fa2a7a88a2",
+				"question": "How do you feel as the new president prepares to take office?",
+				"answer": "😳"
+			},
+			"count": 6,
+			"MultipleChoice": {
+				"e9fbc117-e71e-4b98-a53e-74a897693280": {
+					"question": "Which issue should be highest on the new president’s agenda?",
+					"answers": {
+						"745ce5bc6e3557b01bf4cfbd90721ae7": {
+							"answer": "Health Care",
+							"count": 1
+						},
+						"8deaa8bde66cc6bf6ffc7d4e48c82f68": {
+							"answer": "Foreign Policy",
+							"count": 2
+						},
+						"b306b60e6d0b6a265e0914a60ac48867": {
+							"answer": "Immigration",
+							"count": 1
+						},
+						"d91b20b62997b6bfe27473dd16675cfb": {
+							"answer": "Energy and the Environment",
+							"count": 1
+						},
+						"de7a22a0c94aa64ba2449e520aa20c99": {
+							"answer": "Education",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"d91b20b62997b6bfe27473dd16675cfb": {
+			"group": {
+				"group_id": "d91b20b62997b6bfe27473dd16675cfb",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "Energy and the Environment"
+			},
+			"count": 5,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"02612e1975f186b11bfb968ca2cf33bd": {
+							"answer": "😍",
+							"count": 2
+						},
+						"07b60a7aea9a8b1079a450cf21ab8f16": {
+							"answer": "🤔",
+							"count": 1
+						},
+						"9f27d5a6ed65c4938ede65e536e5f6d4": {
+							"answer": "😐",
+							"count": 1
+						},
+						"d1bccc85fc14440d4201e4fa2a7a88a2": {
+							"answer": "😳",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"de7a22a0c94aa64ba2449e520aa20c99": {
+			"group": {
+				"group_id": "de7a22a0c94aa64ba2449e520aa20c99",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "Education"
+			},
+			"count": 3,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"86d88d9e4e39979f13b822d1643a95f4": {
+							"answer": "🇺🇸",
+							"count": 1
+						},
+						"9f27d5a6ed65c4938ede65e536e5f6d4": {
+							"answer": "😐",
+							"count": 1
+						},
+						"d1bccc85fc14440d4201e4fa2a7a88a2": {
+							"answer": "😳",
+							"count": 1
+						}
+					}
+				}
+			}
+		},
+		"e03aac50cc66ce2b2b0eeaf57cb68d0a": {
+			"group": {
+				"group_id": "e03aac50cc66ce2b2b0eeaf57cb68d0a",
+				"question": "Which issue should be highest on the new president’s agenda?",
+				"answer": "Defense and National Security"
+			},
+			"count": 2,
+			"MultipleChoice": {
+				"c5dba9b7-ba42-44a4-8466-fc2c667617cd": {
+					"question": "How do you feel as the new president prepares to take office?",
+					"answers": {
+						"67ec4b5359a5d238ede933a346d04a86": {
+							"answer": "😡",
+							"count": 1
+						},
+						"86d88d9e4e39979f13b822d1643a95f4": {
+							"answer": "🇺🇸",
+							"count": 1
+						}
+					}
+				}
+			}
+		}
+	},
+	"submissions": [{
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Seattle",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "protect gun owners rights",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😳",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Jake",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Immigration",
+		"id": "5816b939d489c974e0cc8c09"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Hanover, NH",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "restore the middle class",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😟",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Jessica",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "The Economy",
+		"id": "5816b922d489c974e0cc8c08"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Oregon",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "universal health care for all",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😳",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Susan R",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health Care",
+		"id": "5816b8f9d489c974e0cc8c07"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "portland, oregon",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "slowing down climate change",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😐",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Susan",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the Environment",
+		"id": "5816b8ebd489c974e0cc8c06"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "New Jersey",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "police and military reform",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🤔",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Jenn",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Social Issues",
+		"id": "5816b8b1d489c974e0cc8c05"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Minnesota",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Fix the bridges",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😞",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Sally",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Social Issues",
+		"id": "5816b8a1d489c974e0cc8c04"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Temple, Florida",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "It's time to make clean energy the defacto standard. We are burning through our atmosphere and killing our planet. ",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😍",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Shirley",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the Environment",
+		"id": "5816b890d489c974e0cc8c03"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Chicago",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Grow more vegetables in the city",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🇺🇸",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Frank",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Crime",
+		"id": "5816b87ed489c974e0cc8c02"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Houston, Tx",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Lower the national debt. It's way toooooooo hiiiiiiiiiighhhhhhh!",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😐",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Nicole",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Trade",
+		"id": "5816b857d489c974e0cc8c01"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Austin, TX",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Close our borders!",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😡",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Joe",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cyber Security",
+		"id": "5816b84bd489c974e0cc8c00"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston, MA",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Equal opportunity for women!",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😍",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Irene",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the Environment",
+		"id": "5816b83dd489c974e0cc8bff"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Queens, NY",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Defending and strengthening parental policies and women's rights",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😳",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Yolanda",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Foreign Policy",
+		"id": "5816b830d489c974e0cc8bfe"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "High score on Ms. Pacman at Gio's Roast Beef & PIzzeria in Weymouth, MA",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😐",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Mike",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Education",
+		"id": "5816b818d489c974e0cc8bfd"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Making the internet free and open globally.",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😟",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Foo Bar",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cyber Security",
+		"id": "5816b7efd489c974e0cc8bfc"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Nashville, TN",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "replace Columbus Day with Indigenous Peoples' Day",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🤔",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Kristen N",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "The Economy",
+		"id": "5816b7ddd489c974e0cc8bfb"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston, MA",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "raise interest rates",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😀",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Samantha J",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cyber Security",
+		"id": "5816b7b7d489c974e0cc8bfa"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "USA",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Universal health care",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😐",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Justin A",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health Care",
+		"id": "5816b7a6d489c974e0cc8bf9"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Arlington VT",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Successfully appointing left-of-center supreme court justices.",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😐",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Tyler K",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Social Issues",
+		"id": "5816b794d489c974e0cc8bf8"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Bean Town",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Balanced budget.",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😍",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Scorps",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cyber Security",
+		"id": "5816b771d489c974e0cc8bf7"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "NYC",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Better healthcare options for the self-employed",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😍",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Emily",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "The Economy",
+		"id": "5816b738d489c974e0cc8bf6"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Seattle",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Clean sheets for hospitals in the country",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😀",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Janet M",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health Care",
+		"id": "5816b714d489c974e0cc8bf5"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Albuquerque, NM",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "ISIS Eradication",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😡",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Monique J",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Defense and National Security",
+		"id": "5816b6fed489c974e0cc8bf4"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Nevada",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "USA! USA! USA!",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🇺🇸",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Patriot69",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Education",
+		"id": "5816b6bbd489c974e0cc8bf3"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Alabama",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Improved national mass-transit infrastructure",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😳",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "T4P",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Foreign Policy",
+		"id": "5816b6a9d489c974e0cc8bf2"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Tomato Sauce",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🤔",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Captain Frog",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the Environment",
+		"id": "5816b695d489c974e0cc8bf1"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "health insurance for all americans ",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🤔",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Jory",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health Care",
+		"id": "5816b680d489c974e0cc8bf0"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Norman",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Legalize marijuana",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😳",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Rachel",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Education",
+		"id": "5816b665d489c974e0cc8bef"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Noble, OK",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "adding more new jobs",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😐",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Josh",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "The Economy",
+		"id": "5816b601d489c974e0cc8bee"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Tallahassee",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Proving America is the greatest nation in the world ",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🇺🇸",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Marilyn D",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Defense and National Security",
+		"id": "5816b5ebd489c974e0cc8bed"
+	}, {
+		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Omaha",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "The refugee crisis ",
+		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🇺🇸",
+		"cceb81a8-7feb-43d8-b285-35217947c592": "Dominic M",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Immigration",
+		"id": "5816b5d1d489c974e0cc8bec"
+	}]
+}
