@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
+import uniq from 'lodash.uniq';
 
 /**
  * Summary reducer
@@ -139,28 +140,71 @@ export const selected = handleActions({
   topic: null
 });
 
+const toDictionaryById = submissions => submissions
+  .reduce((dict, s) => Object.assign(dict, {
+    [s.id]: s
+  }), {});
+
+const getResponseIsFetchingObject = questions => Object.keys(questions)
+  .reduce((isFetching, qId) => {
+    const question = questions[qId];
+    if (!question.group_by || question.type !== 'MultipleChoice') {
+      return isFetching;
+    }
+
+    // Add keys to the dictionary for all group_by question answerIds
+    return question.options.reduce((dict, option) => Object.assign(dict, {
+      [option.id]: false
+    }), isFetching);
+  }, {});
+
 export const responses = handleActions({
-  // Not yet called
-  REQUEST_RESPONSES: state => Object.assign({}, state, {
-    isFetching: true
+  REQUEST_RESPONSES: (state, action) => Object.assign({}, state, {
+    isFetching: Object.assign({}, state.isFetching, {
+      [action.payload]: true
+    })
   }),
+
+  RECEIVE_RESPONSES: (state, action) => {
+    const { submissions } = action.payload;
+    const order = submissions.map(s => s.id);
+    const dictionary = toDictionaryById(submissions);
+    return Object.assign({}, state, {
+      order: uniq(state.order.concat(order)),
+      dictionary: Object.assign({}, state.dictionary, dictionary),
+      collections: Object.assign({}, state.collections, {
+        [action.payload.answerId]: order
+      }),
+      isFetching: Object.assign({}, state.isFetching, {
+        [action.payload.answerId]: false
+      })
+    });
+  },
 
   // Does not currently impact the isFetching state
   RECEIVE_FORM_DIGEST: (state, action) => {
-    const { submissions } = action.payload;
+    const { submissions, questions } = action.payload;
     const order = submissions.map(s => s.id);
-    const dictionary = submissions.reduce((dict, response) => Object.assign(dict, {
-      [response.id]: response
-    }), state.dictionary);
+    const dictionary = toDictionaryById(submissions);
+    const isFetching = getResponseIsFetchingObject(questions);
     return Object.assign({}, state, {
+      dictionary: Object.assign({}, state.dictionary, dictionary),
       order,
-      dictionary
+      isFetching
     });
   }
 }, {
+  // Array of unique, ordered response IDs for _all_ responses
   order: [],
+  // Dictionary of responses, keyed by response ID
   dictionary: {},
-  isFetching: false
+  // Dictionary of the answer IDs for which responses have been returned,
+  // containing arrays of unique, ordered response IDs for responses that
+  // match that answer ID
+  collections: {},
+  // Dictionary of response collections of isFetching booleans for each
+  // question response collection, keyed by the same answer IDs
+  isFetching: null
 });
 
 export default combineReducers({

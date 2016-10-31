@@ -8,6 +8,8 @@ export const requestFormDigest = createAction('REQUEST_FORM_DIGEST');
 export const receiveFormDigest = createAction('RECEIVE_FORM_DIGEST');
 export const requestFields = createAction('REQUEST_FIELDS');
 export const receiveFields = createAction('RECEIVE_FIELDS');
+export const requestResponses = createAction('REQUEST_RESPONSES');
+export const receiveResponses = createAction('RECEIVE_RESPONSES');
 
 /**
  * Action creator for selecting an emoji filter. Identity used for payload
@@ -60,4 +62,32 @@ const fetchFields = () => (dispatch) => {
  */
 export const fetchFieldsIfNeeded = () => (dispatch, getState) => (
   shouldFetchFields(getState()) ? dispatch(fetchFields()) : Promise.resolve()
+);
+
+/**
+ * Action creator to fetch response lists with a specific answer from the API
+ */
+const fetchResponses = answerId => (dispatch) => {
+  dispatch(requestResponses());
+  return api.getResponses(answerId).then(data => dispatch(receiveResponses({
+    submissions: data,
+    answerId
+  })));
+};
+
+/**
+ * Helper to check if we have already fetched the aggregation data or not
+ */
+function shouldFetchResponses(state, answerId) {
+  const { collections, isFetching } = state.responses;
+  return !collections[answerId] && !isFetching[answerId];
+}
+
+/**
+ * Action creator to fetch answer responses only if we haven't fetched them
+ * before for this answer (the data can be considered static for the lifetime
+ * of one page view/app session).
+ */
+export const fetchResponsesIfNeeded = answerId => (dispatch, getState) => (
+  shouldFetchResponses(getState(), answerId) ? dispatch(fetchResponses(answerId)) : Promise.resolve()
 );

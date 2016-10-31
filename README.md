@@ -13,7 +13,7 @@ To get started quickly with local development, just save this JSON as `config.js
 ```json
 {
   "jsonURI": "http://localhost:3000/data/",
-  "formId": "581118892b74a9ceb5c309ab",
+  "formId": "5816b369d489c974e0cc8be8",
   "googleSheetId": "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I"
 }
 ```
@@ -28,9 +28,9 @@ This field holds the URI at which the JSON files output by Ask can be located ov
 
 If you have a local instance of [Coral Ask](https://coralproject.net/products/ask.html) running at, say, localhost:2020, when you're editing the form you wish to use to drive this visualization you will be at a URL similar to this:
 ```
-http://localhost:2020/forms/581118892b74a9ceb5c309ab
+http://localhost:2020/forms/5816b369d489c974e0cc8be8
 ```
-"581118892b74a9ceb5c309ab" is your formId. This ID is combined with the `jsonURI` to locate the JSON data files that will be loaded.
+"5816b369d489c974e0cc8be8" is your formId. This ID is combined with the `jsonURI` to locate the JSON data files that will be loaded.
 
 **googleSheetId**:
 
