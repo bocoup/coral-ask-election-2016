@@ -27,7 +27,7 @@ class App extends Component {
     return (
       <div className="App" ref={(node) => { this.root = node; }}>
 
-        <EmbeddedAskForm formScript={config.formScript} />
+
 
         <div className={'intro-container'}>
           <div>
@@ -47,6 +47,8 @@ class App extends Component {
             </div>
           </div>
         </div>
+
+        <EmbeddedAskForm formScript={config.formScript} />
 
         <div className="container">
           <FilterByEmojiVis />
