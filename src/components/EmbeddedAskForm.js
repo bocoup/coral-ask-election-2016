@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 import './EmbeddedAskForm.scss';
 
-import log from '../utils/log';
-
 export default class EmojiBarChart extends Component {
   static propTypes = {
     formScript: PropTypes.string
