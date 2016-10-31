@@ -1,21 +1,40 @@
 import fetch from 'isomorphic-fetch';
 import Tabletop from 'tabletop';
-import { simplifyAggregations, applyArbitraryIds } from './transformations';
+import { simplifyAggregations } from './transformations';
 import config from '../config';
 
 // Ensure trailing slash on the jsonURI
 const jsonLocation = config.jsonURI.replace(/\/*$/, '/');
-const digestFile = `${jsonLocation}form-${config.formId}-aggregation-digest.json`;
+const jsonAddress = fileName => `${jsonLocation}${fileName}`;
 
+/**
+ * Retrieve the form digest JSON, containing data aggregations, recent
+ * form submissions and a dictionary of form questions
+ *
+ * @returns {Promise} A promise to the JSON data
+ */
 export function getAggregations() {
-  return fetch(digestFile)
+  const fileName = `form-${config.formId}-aggregation-digest.json`;
+  return fetch(jsonAddress(fileName))
     .then(response => response.json())
     .then(response => ({
       questions: response.questions,
       count: response.aggregations.all.count,
       aggregations: simplifyAggregations(response.aggregations),
-      submissions: applyArbitraryIds(response.submissions)
+      submissions: response.submissions
     }));
+}
+
+/**
+ * Retrieve a JSON array of responses matching the provided answer
+ *
+ * @param {answerId} questionId An answer ID for a group_by question
+ * @returns {Promise} A promise to the JSON data
+ */
+export function getResponses(answerId) {
+  const fileName = `form-${config.formId}-group-${answerId}-submissions.json`;
+  return fetch(jsonAddress(fileName))
+    .then(response => response.json());
 }
 
 /**
