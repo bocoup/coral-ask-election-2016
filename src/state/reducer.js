@@ -114,27 +114,13 @@ export const fields = handleActions({
 });
 
 export const selected = handleActions({
-  SELECT_EMOJI: (state, action) => {
-    if (state.emoji === action.payload) {
-      return Object.assign({}, state, {
-        emoji: null
-      });
-    }
-    return Object.assign({}, state, {
-      emoji: action.payload
-    });
-  },
+  SELECT_EMOJI: (state, action) => Object.assign({}, state, {
+    emoji: action.payload
+  }),
 
-  SELECT_TOPIC: (state, action) => {
-    if (state.topic === action.payload) {
-      return Object.assign({}, state, {
-        topic: null
-      });
-    }
-    return Object.assign({}, state, {
-      topic: action.payload
-    });
-  }
+  SELECT_TOPIC: (state, action) => Object.assign({}, state, {
+    topic: action.payload
+  })
 }, {
   emoji: null,
   topic: null

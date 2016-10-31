@@ -47,14 +47,14 @@ describe('reducers', () => {
       expect(result.emoji).toBe('❄');
     });
 
-    it('can deselect the current emoji', () => {
+    it('cannot deselect the current emoji', () => {
       const result = selected({
         emoji: '✨'
       }, {
         type: 'SELECT_EMOJI',
         payload: '✨'
       });
-      expect(result.emoji).toBe(null);
+      expect(result.emoji).toBe('✨');
     });
 
     it('can set the selected topic', () => {
@@ -75,14 +75,14 @@ describe('reducers', () => {
       expect(result.topic).toBe('Economy');
     });
 
-    it('can deselect the current topic', () => {
+    it('cannot deselect the current topic', () => {
       const result = selected({
         topic: 'Education'
       }, {
         type: 'SELECT_TOPIC',
         payload: 'Education'
       });
-      expect(result.topic).toBe(null);
+      expect(result.topic).toBe('Education');
     });
   });
 
