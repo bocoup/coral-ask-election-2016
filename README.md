@@ -14,7 +14,7 @@ To get started quickly with local development, just save this JSON as `config.js
 {
   "jsonURI": "http://localhost:3000/data/",
   "formId": "5816b369d489c974e0cc8be8",
-  "formScript": 'http://localhost:3000/data/5816b369d489c974e0cc8be8.js',
+  "formScript": "http://localhost:3000/data/5816b369d489c974e0cc8be8.js",
   "googleSheetId": "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I"
 }
 ```
