@@ -8,7 +8,10 @@ import Letter from '../components/Letter';
 
 import where from '../utils/where-properties-match';
 
-import { selectTopic } from '../state/actions';
+import {
+  selectTopic,
+  fetchResponsesIfNeeded
+} from '../state/actions';
 
 import {
   getEmojiCountsFilteredByTopic,
@@ -61,7 +64,10 @@ class FilterByTopicVis extends PureComponent {
     return (
       <div className="filter-by-topic">
         <TopicBarChart
-          onSelect={topicId => dispatch(selectTopic(topicId))}
+          onSelect={(topicId) => {
+            dispatch(selectTopic(topicId));
+            dispatch(fetchResponsesIfNeeded(topicId));
+          }}
           topics={topics}
           selectedTopic={selectedTopic}
         />

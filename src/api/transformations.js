@@ -1,5 +1,3 @@
-import uuid from 'node-uuid';
-
 /**
  * Convert a full nested aggregations object into a simpler subset that
  * can be more easily queried for specific results, by removing intermediate
@@ -62,7 +60,3 @@ export const simplifyAggregations = aggregations => Object.keys(aggregations)
         })
     });
   }, {});
-
-export const applyArbitraryIds = submissions => submissions.map(s => Object.assign({}, s, {
-  id: uuid.v1()
-}));

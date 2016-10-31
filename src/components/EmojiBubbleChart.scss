@@ -11,12 +11,23 @@ $emoji-pop-in-transition-timing: cubic-bezier(0.960, -0.115, 0.480, 1.625);
 
 .emojis-group-container {
   position: relative;
+  margin-bottom: 20px;
 
   .emoji-container {
     position: absolute;
     cursor: pointer;
     text-align: center;
     transition: width 200ms, height 200ms;
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
+    &:focus, &:active {
+      outline: 0;
+      border: 0;
+    }
+
     > img {
       max-width: 90%;
     }

@@ -47,10 +47,11 @@ p {
 
 .container {
   background: #F5F5F5;
+  padding-bottom: 20px;
 }
 
 .intro-container > div, .container > div {
-  padding: 1em; 
+  padding: 1em 1em 0 1em;
 }
 
 .btn {
@@ -95,14 +96,22 @@ footer {
   }
 
   .container > div, .intro-container > div {
-    padding: 2em;  
+    padding: 2em 2em 0 2em;
+  }
+
+  .container > div.letter, {
+    padding-bottom: 2em;
+  }
+
+  .intro-container > div {
+    padding-bottom: 1.5em;
   }
 }
 
 @media only screen and (min-width: 40em) {
 
   .container > div, .intro-container > div {
-    padding: 2.5em;  
+    padding: 2.5em 2.5em 0 2.5em;
   }
 }
 

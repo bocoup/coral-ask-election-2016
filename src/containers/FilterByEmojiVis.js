@@ -6,7 +6,10 @@ import where from '../utils/where-properties-match';
 import EmojiBubbleChart from '../components/EmojiBubbleChart';
 import Letter from '../components/Letter';
 
-import { selectEmoji } from '../state/actions';
+import {
+  selectEmoji,
+  fetchResponsesIfNeeded
+} from '../state/actions';
 
 import {
   getEmojiCounts,
@@ -53,7 +56,10 @@ class FilterByEmojiVis extends PureComponent {
         {emoji && <EmojiBubbleChart
           emoji={emoji}
           selectedEmoji={selectedEmoji}
-          onSelect={emoji => dispatch(selectEmoji(emoji))}
+          onSelect={(emojiId) => {
+            dispatch(selectEmoji(emojiId));
+            dispatch(fetchResponsesIfNeeded(emojiId));
+          }}
           width={400}
           height={400}
         />}
