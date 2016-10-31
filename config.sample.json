@@ -1,5 +1,6 @@
 {
   "jsonURI": "Copy the URI where the JSON files are available here",
   "formId": "Copy the Ask form ID (e.g. 5816b369d489c974e0cc8be8) into this field",
+  "formScript": "Copy the URL of the Ask form embed script (e.g. http://some-domain.com/5816b369d489c974e0cc8be8.js)",
   "googleSheetId": "Copy the ID of the Google Spreadsheet (e.g. 18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I) here"
 }

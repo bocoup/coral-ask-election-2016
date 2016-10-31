@@ -7,6 +7,9 @@ import config from '../config.json';
   key: 'formId',
   message: 'Configuration missing: Ask form ID!'
 }, {
+  key: 'formScript',
+  message: 'Configuration missing: Ask form embed JavaScript URL!'
+}, {
   key: 'jsonURI',
   message: 'Configuration missing: JSON output URI!'
 }].forEach((requiredKey) => {

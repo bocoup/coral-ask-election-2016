@@ -14,6 +14,7 @@ To get started quickly with local development, just save this JSON as `config.js
 {
   "jsonURI": "http://localhost:3000/data/",
   "formId": "5816b369d489c974e0cc8be8",
+  "formScript": 'http://localhost:3000/data/5816b369d489c974e0cc8be8.js',
   "googleSheetId": "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I"
 }
 ```
@@ -31,6 +32,14 @@ If you have a local instance of [Coral Ask](https://coralproject.net/products/as
 http://localhost:2020/forms/5816b369d489c974e0cc8be8
 ```
 "5816b369d489c974e0cc8be8" is your formId. This ID is combined with the `jsonURI` to locate the JSON data files that will be loaded.
+
+**formScript**:
+
+This is the URL to the JS file that Ask provides to embed the script _without_ using an iframe. (An iframe cannot be used here because it does not provide any flexibility around style and display, and does not communciate the height of the form.) To get the URL of this script, in the Ask form editor go to "Publish Options," then select "Without iframe" in Embed Options and copy the `src` attribute of the script tag from the embed code:
+
+![Screenshot showing how the script URL may be copied from the "Without iframe" embed code within the Ask admin](docs/assets/script-url-screenshot.png)
+
+This src attribute should be pasted into `config.json` as the `formScript` value. Don't worry about the `<div id="ask-form"></div>`, this app creates that for you.
 
 **googleSheetId**:
 
