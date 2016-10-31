@@ -1,7 +1,6 @@
 @import '../shared/shared.scss';
 
 .topic-bar-chart {
-  margin-bottom: 10px;
 
   .note {
     display: block;
@@ -21,16 +20,6 @@
     cursor: pointer;
     display: inline-block;
     margin-bottom: .9em;
-  }
-
-  @media only screen and (min-width: 48em) {
-    .bar-group {
-      width: 48%;
-    }
-
-    .bar-group:nth-child(odd) {
-      float: right;
-    }
   }
 
   .topic-detail-container {
@@ -67,3 +56,20 @@
     }
   }
 }
+
+  @media only screen and (min-width: 47em) { 
+    // .bar-group {
+    //   width: 48%;
+    // }
+
+    // .bar-group:nth-child(odd) {
+    //   float: right;
+    // }
+
+    .topic-bar-chart {
+      width: 50%;
+      float: left;
+      padding-right: 3em;
+    }
+  }
+

@@ -80,7 +80,7 @@ export default class EmojiBarChart extends Component {
           ref={(node) => { this.askForm = node; }}
         />
         <button
-          className="form-toggle-button"
+          className="btn form-toggle-button"
           type="button"
           onClick={() => this.toggleForm()}
           ref={(node) => { this.button = node; }}

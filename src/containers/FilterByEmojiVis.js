@@ -52,7 +52,7 @@ class FilterByEmojiVis extends PureComponent {
     }) : responses;
 
     return (
-      <div>
+      <div className="filter-by-feeling">
         {emoji && <EmojiBubbleChart
           emoji={emoji}
           selectedEmoji={selectedEmoji}

@@ -1,7 +1,6 @@
 .form-container {
-  // Match .container
-  margin: auto;
-  width: 92% !important;
+  max-width: 850px;
+  padding: 1em;
 
   &.open {
     .form-toggle-button {
@@ -17,9 +16,21 @@
   }
 }
 
+@media only screen and (min-width: 25em) { 
+  .form-container {
+    margin: auto;
+    width: 92%;
+  }
+}
+
+@media only screen and (min-width: 40em) { 
+  .form-container {
+    padding: 2.5em;
+  }
+}
+
 .embedded-form {
   overflow: hidden;
-  background: #f5f5f5;
 
   li {
     background: #f5f5f5 !important;
@@ -41,13 +52,4 @@
     margin-top: 1em;
     display: none;
   }
-}
-
-.form-toggle-button {
-  background: #4a90e2;
-  border-radius: 1em;
-  color: white;
-  display: inline-block;
-  padding: 5px 10px;
-  margin: 2em 0;
 }

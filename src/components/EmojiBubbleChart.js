@@ -87,7 +87,7 @@ export default class EmojiBubbleChart extends PureComponent {
     };
 
     return (
-      <div>
+      <div className={'emojis-bubble-chart'}>
 
         <h3>
           <GoogleSheetFieldComponent
@@ -100,7 +100,7 @@ export default class EmojiBubbleChart extends PureComponent {
           defaultValue={'<p>Select an emoji to see related responses</p>'}
         />
 
-        <div className="emojis-bubble-chart" style={chartStyle}>
+        <div className="emojis-group-container" style={chartStyle}>
           {root.children.map((d) => {
             const wPct = val => `${(val / width) * 100}%`;
             const hPct = val => `${(val / height) * 100}%`;
