@@ -108,13 +108,13 @@ class FilterByEmojiVis extends PureComponent {
         {selectedEmoji ? <Letter
           showMore={() => dispatch(showNextLetter(selectedEmoji.id))}
           buttonText={showMoreButtonText}
-          responses={[currentLetter]}
+          response={currentLetter}
           questionsOrder={questionsOrder}
           width={400}
         /> : <Letter
           showMore={() => this.showNextLetter()}
           buttonText="Show another recent response"
-          responses={[unfilteredResponse]}
+          response={unfilteredResponse}
           questionsOrder={questionsOrder}
           width={400}
         />}

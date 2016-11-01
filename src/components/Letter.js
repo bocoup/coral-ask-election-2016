@@ -7,9 +7,10 @@ import './Letter.scss';
 class Letter extends PureComponent {
   static propTypes = {
     buttonText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    buttonDisabled: PropTypes.bool,
     showMore: PropTypes.func,
     questionsOrder: PropTypes.array,
-    responses: PropTypes.array
+    response: PropTypes.object
   };
 
   static defaultProps = {
@@ -32,12 +33,12 @@ class Letter extends PureComponent {
 
   render() {
     const {
-      responses,
+      response,
       questionsOrder,
       showMore,
+      buttonDisabled,
       buttonText
     } = this.props;
-    const response = responses[0];
 
     if (!response) {
       return null;
@@ -72,18 +73,13 @@ class Letter extends PureComponent {
             Thank you and good luck. <br /> {responseField(3)}, {responseField(4)}
           </p>
         </div>
-        <button type="button" onClick={() => showMore()} className="btn">
+        <button
+          type="button"
+          className="btn"
+          onClick={() => showMore()}
+          disabled={buttonDisabled}
+        >
           {buttonText}
-          {/* Show another
-          <span className="emoji">
-            <img
-              draggable="false"
-              className="emoji"
-              alt="😳"
-              src="/static/media/1f633.0bbb7bd1.svg"
-            />
-          </span>
-          response */}
         </button>
       </div>
 

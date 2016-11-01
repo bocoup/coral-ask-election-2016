@@ -19,7 +19,7 @@ import {
 import {
   getEmojiCountsFilteredByTopic,
   getQuestionsOrder,
-  getTopicLetter,
+  getTopicResponses,
   getSelectedTopic,
   getSelectedTopicEmoji,
   getTopicCounts
@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
   questionsOrder: getQuestionsOrder(state),
   selectedTopic: getSelectedTopic(state),
   selectedTopicEmoji: getSelectedTopicEmoji(state),
-  topicLetter: getTopicLetter(state),
+  filteredResponses: getTopicResponses(state),
   topics: getTopicCounts(state),
   filteredEmojiCounts: getEmojiCountsFilteredByTopic(state)
 });
@@ -39,7 +39,7 @@ class FilterByTopicVis extends PureComponent {
     questionsOrder: PropTypes.array,
     selectedTopic: PropTypes.object,
     selectedTopicEmoji: PropTypes.object,
-    topicLetter: PropTypes.object,
+    filteredResponses: PropTypes.array,
     topics: PropTypes.array,
     filteredEmojiCounts: PropTypes.array,
     dispatch: PropTypes.func
@@ -48,7 +48,7 @@ class FilterByTopicVis extends PureComponent {
   render() {
     const {
       questionsOrder,
-      topicLetter,
+      filteredResponses,
       topics,
       selectedTopic,
       selectedTopicEmoji,
@@ -72,18 +72,25 @@ class FilterByTopicVis extends PureComponent {
       }
     }
 
+    // TODO: Improve this so that we page through consistently; requires new data structure
+    const randomIdx = filteredResponses && Math.floor(Math.random() * filteredResponses.length);
+    const randomFilteredResponse = filteredResponses && filteredResponses[randomIdx];
+
     return (
       <div className="filter-by-topic">
         <TopicBarChart
           onSelect={(topicId) => {
-            dispatch(selectTopic(topicId));
             dispatch(fetchResponsesIfNeeded(topicId));
+            dispatch(selectTopic(topicId));
           }}
           topics={topics}
           selectedTopic={selectedTopic}
         />
         <EmojiBarChart
-          onSelect={emoji => dispatch(selectTopicEmoji(emoji))}
+          onSelect={(emojiId) => {
+            dispatch(fetchResponsesIfNeeded(emojiId));
+            dispatch(selectTopicEmoji(emojiId));
+          }}
           height={70}
           emoji={filteredEmojiCounts}
           topic={selectedTopic}
@@ -91,7 +98,8 @@ class FilterByTopicVis extends PureComponent {
         <Letter
           showMore={() => dispatch(showNextLetter(selectedTopic.id))}
           buttonText={showMoreButtonText}
-          responses={[topicLetter]}
+          buttonDisabled={!filteredResponses || filteredResponses.length <= 1}
+          response={randomFilteredResponse}
           questionsOrder={questionsOrder}
           width={400}
         />
