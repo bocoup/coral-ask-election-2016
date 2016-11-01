@@ -89,6 +89,12 @@ export const getSelectedTopic = createSelector(
   (topicList, selected) => topicList.find(topic => topic.id === selected.topic)
 );
 
+export const getSelectedTopicEmoji = createSelector(
+  getEmojiList,
+  getSelected,
+  (emojiList, selected) => emojiList.find(emoji => emoji.id === selected.topicEmoji)
+);
+
 /**
  * Return an array of emoji multiple-choice question objects with counts for
  * how often each emoji occurs in the response data
@@ -164,8 +170,6 @@ export const getEmojiLetter = createSelector(
     if (!emojiId) {
       return null;
     }
-    console.log(emojiId);
-    console.log(selectedResponses);
     const letterId = selectedResponses[emojiId];
     return responses[letterId];
   }

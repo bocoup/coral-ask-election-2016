@@ -6,6 +6,9 @@ import EmojiBarChart from '../components/EmojiBarChart';
 import Letter from '../components/Letter';
 // import ShortAnswerList from '../components/ShortAnswerList';
 
+import { emojiSVGImageTag } from '../utils/emoji';
+import DangerousInline from '../components/DangerousInline';
+
 import {
   selectTopic,
   selectTopicEmoji,
@@ -18,12 +21,14 @@ import {
   getQuestionsOrder,
   getTopicLetter,
   getSelectedTopic,
+  getSelectedTopicEmoji,
   getTopicCounts
 } from '../state/selectors';
 
 const mapStateToProps = state => ({
   questionsOrder: getQuestionsOrder(state),
   selectedTopic: getSelectedTopic(state),
+  selectedTopicEmoji: getSelectedTopicEmoji(state),
   topicLetter: getTopicLetter(state),
   topics: getTopicCounts(state),
   filteredEmojiCounts: getEmojiCountsFilteredByTopic(state)
@@ -33,6 +38,7 @@ class FilterByTopicVis extends PureComponent {
   static propTypes = {
     questionsOrder: PropTypes.array,
     selectedTopic: PropTypes.object,
+    selectedTopicEmoji: PropTypes.object,
     topicLetter: PropTypes.object,
     topics: PropTypes.array,
     filteredEmojiCounts: PropTypes.array,
@@ -45,12 +51,25 @@ class FilterByTopicVis extends PureComponent {
       topicLetter,
       topics,
       selectedTopic,
+      selectedTopicEmoji,
       filteredEmojiCounts,
       dispatch
     } = this.props;
 
     if (!topics || !topics.length) {
       return null;
+    }
+
+    let showMoreButtonText;
+    if (selectedTopic) {
+      if (selectedTopicEmoji) {
+        const emojiImg = emojiSVGImageTag(selectedTopicEmoji.value);
+        showMoreButtonText = (
+          <DangerousInline html={`Show another ${selectedTopic.value} & ${emojiImg} response`} />
+        );
+      } else {
+        showMoreButtonText = `Show another ${selectedTopic.value} response`;
+      }
     }
 
     return (
@@ -63,19 +82,19 @@ class FilterByTopicVis extends PureComponent {
           topics={topics}
           selectedTopic={selectedTopic}
         />
-        {selectedTopic && <EmojiBarChart
+        <EmojiBarChart
           onSelect={emoji => dispatch(selectTopicEmoji(emoji))}
           height={70}
           emoji={filteredEmojiCounts}
           topic={selectedTopic}
-        />}
-        <Letter responses={[topicLetter]} questionsOrder={questionsOrder} width={400} />
-        {selectedTopic && <button
-          onClick={() => dispatch(showNextLetter(selectedTopic.id))}
-          type="button"
-        >
-          Show another {selectedTopic.value} response
-        </button>}
+        />
+        <Letter
+          showMore={() => dispatch(showNextLetter(selectedTopic.id))}
+          buttonText={showMoreButtonText}
+          responses={[topicLetter]}
+          questionsOrder={questionsOrder}
+          width={400}
+        />
       </div>
     );
   }

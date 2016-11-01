@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 import EmbeddedAskForm from '../components/EmbeddedAskForm';
 import FilterByEmojiVis from './FilterByEmojiVis';
 import FilterByTopicVis from './FilterByTopicVis';

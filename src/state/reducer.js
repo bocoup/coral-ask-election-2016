@@ -197,6 +197,10 @@ export const responses = handleActions({
     const answerId = action.payload;
     const letterId = state.selected[answerId];
     const collection = state.collections[answerId];
+    if (!collection) {
+      // Skip this cycle and wait for RECEIVE_RESPONSES, data is not yet available
+      return state;
+    }
     const letterIdx = collection.indexOf(letterId);
     // Wrap around to 0 when done with a collection
     const nextLetterId = collection[letterIdx + 1] || collection[0];

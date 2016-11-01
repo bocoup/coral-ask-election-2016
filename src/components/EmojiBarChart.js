@@ -22,6 +22,9 @@ class EmojiBarChart extends PureComponent {
    * When the react component mounts, setup the d3 vis
    */
   componentDidMount() {
+    if (!this.props.topic) {
+      return;
+    }
     this.update();
     twemoji.parse(this.root, icon => emojiSVGUrl(icon));
   }
@@ -30,6 +33,9 @@ class EmojiBarChart extends PureComponent {
    * When the react component updates, update the d3 vis
    */
   componentDidUpdate() {
+    if (!this.props.topic) {
+      return;
+    }
     this.update();
     twemoji.parse(this.root, icon => emojiSVGUrl(icon));
   }
@@ -98,7 +104,7 @@ class EmojiBarChart extends PureComponent {
     // Click handlers
     mergedSelection
       .classed('enabled', d => !!d.count)
-      .on('click', d => {
+      .on('click', (d) => {
         if (d.count) {
           onSelect(d.id);
         }
@@ -129,6 +135,10 @@ class EmojiBarChart extends PureComponent {
 
   render() {
     const { topic } = this.props;
+
+    if (!topic) {
+      return null;
+    }
 
     return (
       <div className="emoji-bar-chart">
