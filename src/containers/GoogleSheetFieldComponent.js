@@ -2,6 +2,8 @@ import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import fieldValue from '../utils/fields';
 
+import DangerousBlock from '../components/DangerousBlock';
+
 import {
   fetchFieldsIfNeeded
 } from '../state/actions';
@@ -44,11 +46,8 @@ class GoogleSheetFieldComponent extends PureComponent {
     const { fields, fieldId, defaultValue } = this.props;
     const content = fieldValue(fields, fieldId, defaultValue);
 
-    /* eslint-disable react/no-danger */
     return (
-      <div className={'text-component'}>
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-      </div>
+      <DangerousBlock html={content} className="text-component" />
     );
   }
 }
