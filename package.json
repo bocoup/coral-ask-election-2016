@@ -52,6 +52,7 @@
     "webpack-dev-server": "1.16.1"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "d3-array": "^1.0.1",
     "d3-axis": "^1.0.3",
     "d3-collection": "^1.0.1",

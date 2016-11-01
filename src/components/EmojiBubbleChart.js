@@ -1,4 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
+import classNames from 'classnames';
 import d3 from '../d3';
 import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 
@@ -22,11 +23,37 @@ export default class EmojiBubbleChart extends PureComponent {
     minRadius: 20
   }
 
+  componentDidMount() {
+    // Helper dictionary to clunkily use for pop-in transitions
+    this.renderedKeys = {};
+  }
+
   componentDidUpdate() {
-    d3.selectAll('.emoji-container').each(function staggeredPopIn(d, i) {
-      const container = d3.select(this);
-      setTimeout(() => container.classed('visible', true), i * 100);
-    });
+    const containers = d3.selectAll('.emoji-container.hidden');
+    const count = containers.size();
+
+    if (count) {
+      // Defer the entire pop-in process 100ms to try to side-step thrash on
+      // initial page load & render
+      setTimeout(() => {
+        /// Items come in at 100ms increments
+        const delay = 100;
+
+        // The pop-in animation lasts 550ms (Keep synchronized with .pop-in
+        // transition timing in CSS)
+        const transitionSpeed = 550;
+
+        containers.each(function staggeredPopIn(d, i) {
+          const container = this;
+          // Remove hidden class to pop-in reveal
+          setTimeout(() => container.classList.remove('hidden'), i * delay);
+        });
+
+        // Remove .pop-in classes once all elements visible;
+        const popInComplete = (count * delay) + transitionSpeed;
+        setTimeout(() =>  d3.selectAll('.pop-in').classed('pop-in', false), popInComplete);
+      }, 100);
+    }
   }
 
   render() {
@@ -82,9 +109,12 @@ export default class EmojiBubbleChart extends PureComponent {
     };
 
     const chartStyle = {
-      width: '100%',
       paddingBottom: `${((height / width) * 100).toFixed(4)}%`
     };
+
+    // Helper methods for calculating percentage positions
+    const wPct = val => `${(val / width) * 100}%`;
+    const hPct = val => `${(val / height) * 100}%`;
 
     return (
       <div className={'emojis-bubble-chart'}>
@@ -102,8 +132,6 @@ export default class EmojiBubbleChart extends PureComponent {
 
         <div className="emojis-group-container" style={chartStyle}>
           {root.children.map((d) => {
-            const wPct = val => `${(val / width) * 100}%`;
-            const hPct = val => `${(val / height) * 100}%`;
             const containerStyle = {
               top: hPct(d.y - ((d.r * scaler) / 2)),
               left: wPct(d.x - ((d.r * scaler) / 2)),
@@ -113,17 +141,25 @@ export default class EmojiBubbleChart extends PureComponent {
             const percent = d3.format('0.0%')(d.value / sumValues);
             const id = getEmojiId(d.id);
             const isSelected = selectedEmoji && (id === selectedEmoji.id);
-            const classNames = isSelected ?
-              'emoji-container selected' :
-              'emoji-container';
-            const onClick = () => onSelect(id);
+            const key = `bubble${id}`;
+
+            const classes = classNames('emoji-container', {
+              selected: isSelected,
+              // Give newly-rendered items the "hidden" and "pop-in" classes
+              hidden: !this.renderedKeys[key],
+              'pop-in': !this.renderedKeys[key]
+            });
+            // Set the rendered flag so they don't pop-in again
+            if (!this.renderedKeys[key]) {
+              this.renderedKeys[key] = true;
+            }
 
             return (
               <button
                 type="button"
-                className={classNames}
-                key={`bubble${id}`}
-                onClick={onClick}
+                className={classes}
+                key={key}
+                onClick={() => onSelect(id)}
                 aria-pressed={isSelected}
                 style={containerStyle}
               >
