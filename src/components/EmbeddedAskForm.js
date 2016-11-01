@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-
+import twemoji from 'twemoji';
+import { emojiSVGUrl } from '../utils/emoji';
 import './EmbeddedAskForm.scss';
+import d3 from '../d3';
 
 export default class EmojiBarChart extends Component {
   static propTypes = {
@@ -37,6 +39,17 @@ export default class EmojiBarChart extends Component {
   formLoaded() {
     // Ensure form starts out closed
     this.closeForm();
+
+    // bind events to labels
+    const allLabels = d3.select(this.formContainer)
+      .selectAll('label');
+
+    allLabels.on('click', () => {
+      // re-emojify all nodes
+      allLabels.nodes().forEach((node) => {
+        twemoji.parse(node, icon => emojiSVGUrl(icon));
+      });
+    });
   }
 
   closeForm() {
@@ -58,8 +71,10 @@ export default class EmojiBarChart extends Component {
   openForm() {
     this.formContainer.classList.add('open');
     this.askForm.style.maxHeight = '10000px';
-
     this.button.innerText = 'Don\'t submit, close form';
+
+    // emojify the content
+    twemoji.parse(this.formContainer, icon => emojiSVGUrl(icon));
   }
 
   toggleForm() {

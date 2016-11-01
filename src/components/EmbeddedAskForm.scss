@@ -1,6 +1,6 @@
 @import '../shared/shared';
 
-.form-container header { 
+.form-container {
   // Match .container
   margin: auto;
   width: 92% !important;
@@ -33,10 +33,11 @@
 
 .embedded-form {
   overflow: hidden;
+  background: white;
   margin-top: 1em;
 
   li {
-    background: #f5f5f5 !important;
+    background: white !important;
     padding: 1em !important;
   }
 
@@ -69,6 +70,11 @@
     display: inline-block !important;
     float: left !important;
     width: auto !important;
+
+/*    padding: 3px 18px !important;
+    border-radius: 3em !important;
+    line-height: 2em !important;
+*/
     padding: .75em 1em !important;
     border-radius: 3em !important;
     line-height: 1 !important;
@@ -79,9 +85,8 @@
 
     img.emoji {
       display: inline-block;
-      float: right;
       width: 1.65em;
-      margin-top: 1px;
+      margin-bottom: -8px;
       margin-left: 2px;
     }
   }
@@ -108,7 +113,7 @@
 
 
 @media only screen and (min-width: 25em) {
-  #MultipleChoice--2 label { 
+  #MultipleChoice--2 label {
     width: initial !important;
   }
 }
