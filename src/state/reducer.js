@@ -114,16 +114,24 @@ export const fields = handleActions({
 });
 
 export const selected = handleActions({
+  // Top emoji bubble chart
   SELECT_EMOJI: (state, action) => Object.assign({}, state, {
     emoji: action.payload
   }),
 
+  // Topic bar graph below bubble chart
   SELECT_TOPIC: (state, action) => Object.assign({}, state, {
     topic: action.payload
+  }),
+
+  // Nested bar graph of emoji activated by topic bar graph
+  SELECT_TOPIC_EMOJI: (state, action) => Object.assign({}, state, {
+    topicEmoji: action.payload
   })
 }, {
   emoji: null,
-  topic: null
+  topic: null,
+  topicEmoji: null
 });
 
 const toDictionaryById = submissions => submissions

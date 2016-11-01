@@ -167,7 +167,8 @@ describe('getSelected', () => {
     const result = getSelected(defaultState);
     expect(result).toEqual({
       emoji: null,
-      topic: null
+      topic: null,
+      topicEmoji: null
     });
   });
 
@@ -175,12 +176,14 @@ describe('getSelected', () => {
     const result = getSelected({
       selected: {
         emoji: '156be6',
-        topic: 'ae9815'
+        topic: 'ae9815',
+        topicEmoji: 'b4d5aa'
       }
     });
     expect(result).toEqual({
       emoji: '156be6',
-      topic: 'ae9815'
+      topic: 'ae9815',
+      topicEmoji: 'b4d5aa'
     });
   });
 });

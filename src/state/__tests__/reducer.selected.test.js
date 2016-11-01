@@ -18,14 +18,16 @@ describe('reducers', () => {
       const result = selected(undefined, irrelevantAction);
       expect(result).toEqual({
         emoji: null,
-        topic: null
+        topic: null,
+        topicEmoji: null
       });
     });
 
     it('is represented in the combined default state', () => {
       expect(combinedReducerDefaultState.selected).toEqual({
         emoji: null,
-        topic: null
+        topic: null,
+        topicEmoji: null
       });
     });
 
@@ -83,6 +85,34 @@ describe('reducers', () => {
         payload: 'Education'
       });
       expect(result.topic).toBe('Education');
+    });
+
+    it('can set the selected emoji within a topic', () => {
+      const result = selected({}, {
+        type: 'SELECT_TOPIC_EMOJI',
+        payload: '✨'
+      });
+      expect(result.topicEmoji).toBe('✨');
+    });
+
+    it('can change the selected emoji within a topic', () => {
+      const result = selected({
+        topicEmoji: '✨'
+      }, {
+        type: 'SELECT_TOPIC_EMOJI',
+        payload: '❄'
+      });
+      expect(result.topicEmoji).toBe('❄');
+    });
+
+    it('cannot deselect the current emoji within a topic', () => {
+      const result = selected({
+        topicEmoji: '✨'
+      }, {
+        type: 'SELECT_TOPIC_EMOJI',
+        payload: '✨'
+      });
+      expect(result.topicEmoji).toBe('✨');
     });
   });
 
