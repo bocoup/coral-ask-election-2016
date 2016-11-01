@@ -121,7 +121,8 @@ export const selected = handleActions({
 
   // Topic bar graph below bubble chart
   SELECT_TOPIC: (state, action) => Object.assign({}, state, {
-    topic: action.payload
+    topic: action.payload,
+    topicEmoji: null
   }),
 
   // Nested bar graph of emoji activated by topic bar graph

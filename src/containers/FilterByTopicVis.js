@@ -8,6 +8,7 @@ import Letter from '../components/Letter';
 
 import {
   selectTopic,
+  selectTopicEmoji,
   showNextLetter,
   fetchResponsesIfNeeded
 } from '../state/actions';
@@ -62,7 +63,12 @@ class FilterByTopicVis extends PureComponent {
           topics={topics}
           selectedTopic={selectedTopic}
         />
-        {selectedTopic && <EmojiBarChart height={70} emoji={filteredEmojiCounts} topic={selectedTopic} />}
+        {selectedTopic && <EmojiBarChart
+          onSelect={emoji => dispatch(selectTopicEmoji(emoji))}
+          height={70}
+          emoji={filteredEmojiCounts}
+          topic={selectedTopic}
+        />}
         <Letter responses={[topicLetter]} questionsOrder={questionsOrder} width={400} />
         {selectedTopic && <button
           onClick={() => dispatch(showNextLetter(selectedTopic.id))}

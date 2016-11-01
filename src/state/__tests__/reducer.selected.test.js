@@ -87,6 +87,17 @@ describe('reducers', () => {
       expect(result.topic).toBe('Education');
     });
 
+    it('clears the selected emoji within a topic when topic changes', () => {
+      const result = selected({
+        topic: 'Economy',
+        topicEmoji: '✨'
+      }, {
+        type: 'SELECT_TOPIC',
+        payload: 'Education'
+      });
+      expect(result.topicEmoji).toBeNull();
+    });
+
     it('can set the selected emoji within a topic', () => {
       const result = selected({}, {
         type: 'SELECT_TOPIC_EMOJI',

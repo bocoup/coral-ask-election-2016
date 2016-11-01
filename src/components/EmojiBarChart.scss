@@ -16,6 +16,10 @@
       display: inline-block;
       width: 20%;
 
+      &.enabled {
+        cursor: pointer;
+      }
+
       .bar {
         position: relative;
 

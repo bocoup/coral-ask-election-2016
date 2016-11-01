@@ -16,6 +16,7 @@ export const receiveResponses = createAction('RECEIVE_RESPONSES');
  */
 export const selectEmoji = createAction('SELECT_EMOJI');
 export const selectTopic = createAction('SELECT_TOPIC');
+export const selectTopicEmoji = createAction('SELECT_TOPIC_EMOJI');
 
 /**
  * Action creator for showing another letter for a specific response.

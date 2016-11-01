@@ -7,6 +7,7 @@ import './EmojiBarChart.scss';
 
 class EmojiBarChart extends PureComponent {
   static propTypes = {
+    onSelect: PropTypes.func,
     emoji: PropTypes.array,
     height: PropTypes.number,
     topic: PropTypes.object
@@ -34,7 +35,7 @@ class EmojiBarChart extends PureComponent {
   }
 
   update() {
-    const { emoji } = this.props;
+    const { emoji, onSelect } = this.props;
 
     if (!emoji) {
       return;
@@ -93,6 +94,15 @@ class EmojiBarChart extends PureComponent {
 
     // on update, animate bars up
     const mergedSelection = entering.merge(binding);
+
+    // Click handlers
+    mergedSelection
+      .classed('enabled', d => !!d.count)
+      .on('click', d => {
+        if (d.count) {
+          onSelect(d.id);
+        }
+      });
 
     // 1. animate bars
     mergedSelection
