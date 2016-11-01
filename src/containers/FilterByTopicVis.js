@@ -96,7 +96,7 @@ class FilterByTopicVis extends PureComponent {
           topic={selectedTopic}
         />
         <Letter
-          showMore={() => dispatch(showNextLetter(selectedTopic.id))}
+          showMore={() => dispatch(showNextLetter(selectedTopic.id, selectedTopicEmoji.id))}
           buttonText={showMoreButtonText}
           buttonDisabled={!filteredResponses || filteredResponses.length <= 1}
           response={randomFilteredResponse}

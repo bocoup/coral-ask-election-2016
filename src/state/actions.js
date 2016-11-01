@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import * as api from '../api/api';
+import { combineIds } from '../utils/id-list';
 
 /**
  * Action creators for requesting and receiving data. Identity used for payload
@@ -22,7 +23,7 @@ export const selectTopicEmoji = createAction('SELECT_TOPIC_EMOJI');
  * Action creator for showing another letter for a specific response.
  * Identity used for payload
  */
-export const showNextLetter = createAction('SHOW_NEXT_LETTER');
+export const showNextLetter = createAction('SHOW_NEXT_LETTER', combineIds);
 
 /**
  * Action creator to fetch aggregated form data from the API
@@ -87,7 +88,7 @@ const fetchResponses = answerId => (dispatch) => {
  */
 function shouldFetchResponses(state, answerId) {
   const { collections, isFetching } = state.responses;
-  return !collections[answerId] && !isFetching[answerId];
+  return !collections[answerId].length && !isFetching[answerId];
 }
 
 /**
