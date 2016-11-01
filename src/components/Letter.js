@@ -21,6 +21,12 @@ class Letter extends PureComponent {
     this.parseEmoji();
   }
 
+  shouldComponentUpdate(nextProps) {
+    // Only re-render when a response is available; this prevents the component
+    // from emptying out when loading data (causing a flash of missing content)
+    return !!nextProps.response;
+  }
+
   componentDidUpdate() {
     this.parseEmoji();
   }
