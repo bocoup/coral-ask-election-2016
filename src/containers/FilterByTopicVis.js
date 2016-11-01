@@ -45,6 +45,43 @@ class FilterByTopicVis extends PureComponent {
     dispatch: PropTypes.func
   }
 
+  // Ensure the view loads with one topic selected, so that the full UI is available
+  componentWillReceiveProps(nextProps) {
+    // If we do not have topics yet, or a topic has already been selected, do nothing
+    if (!nextProps.topics || !nextProps.topics.length || nextProps.selectedTopic) {
+      return;
+    }
+    const { topics } = nextProps;
+    for (let i = 0; i < topics.length; i += 1) {
+      if (topics[i].count) {
+        this.selectTopic(topics[i].id);
+        return;
+      }
+    }
+  }
+
+  // Event handlers
+  selectTopic(topicId) {
+    const { dispatch } = this.props;
+    dispatch(fetchResponsesIfNeeded(topicId));
+    dispatch(selectTopic(topicId));
+  }
+
+  selectEmoji(emojiId) {
+    const { dispatch } = this.props;
+    dispatch(fetchResponsesIfNeeded(emojiId));
+    dispatch(selectTopicEmoji(emojiId));
+  }
+
+  showNextLetter() {
+    const { dispatch, selectedTopic, selectedTopicEmoji } = this.props;
+    if (selectedTopicEmoji) {
+      dispatch(showNextLetter(selectedTopic.id, selectedTopicEmoji.id));
+    } else {
+      dispatch(showNextLetter(selectedTopic.id));
+    }
+  }
+
   render() {
     const {
       questionsOrder,
@@ -52,8 +89,7 @@ class FilterByTopicVis extends PureComponent {
       topicLetter,
       selectedTopic,
       selectedTopicEmoji,
-      filteredEmojiCounts,
-      dispatch
+      filteredEmojiCounts
     } = this.props;
 
     if (!topics || !topics.length) {
@@ -75,24 +111,18 @@ class FilterByTopicVis extends PureComponent {
     return (
       <div className="filter-by-topic">
         <TopicBarChart
-          onSelect={(topicId) => {
-            dispatch(fetchResponsesIfNeeded(topicId));
-            dispatch(selectTopic(topicId));
-          }}
+          onSelect={topicId => this.selectTopic(topicId)}
           topics={topics}
           selectedTopic={selectedTopic}
         />
         <EmojiBarChart
-          onSelect={(emojiId) => {
-            dispatch(fetchResponsesIfNeeded(emojiId));
-            dispatch(selectTopicEmoji(emojiId));
-          }}
+          onSelect={emojiId => this.selectEmoji(emojiId)}
           height={70}
           emoji={filteredEmojiCounts}
           topic={selectedTopic}
         />
         <Letter
-          showMore={() => dispatch(showNextLetter(selectedTopic.id, selectedTopicEmoji.id))}
+          showMore={() => this.showNextLetter()}
           buttonText={showMoreButtonText}
           response={topicLetter}
           questionsOrder={questionsOrder}
