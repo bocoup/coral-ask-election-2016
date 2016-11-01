@@ -97,33 +97,6 @@ describe('reducers', () => {
         isFetching: false
       });
     });
-
-//     it('populates the state when data is received', () => {
-//       const result = summary({}, {
-//         type: 'RECEIVE_FORM_DIGEST',
-//         payload: {
-//           latest: [
-//             {
-//               response_id: '01234',
-//               sentiment: 'meh'
-//             },
-//             {
-//               response_id: '56789',
-//               sentiment: 'woo'
-//             },
-//             {
-//               response_id: '10111',
-//               sentiment: 'boo'
-//             },
-//           ]
-//         }
-//       });
-//       expect(result).toEqual({
-//         '01234': { sentiment: 'meh' },
-//         '56789': { sentiment: 'woo' },
-//         '10111': { sentiment: 'boo' }
-//       });
-//     });
   });
 
 });

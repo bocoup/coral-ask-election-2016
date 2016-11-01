@@ -7,6 +7,7 @@ import './EmojiBarChart.scss';
 
 class EmojiBarChart extends PureComponent {
   static propTypes = {
+    onSelect: PropTypes.func,
     emoji: PropTypes.array,
     height: PropTypes.number,
     topic: PropTypes.object
@@ -21,6 +22,9 @@ class EmojiBarChart extends PureComponent {
    * When the react component mounts, setup the d3 vis
    */
   componentDidMount() {
+    if (!this.props.topic) {
+      return;
+    }
     this.update();
     twemoji.parse(this.root, icon => emojiSVGUrl(icon));
   }
@@ -29,12 +33,15 @@ class EmojiBarChart extends PureComponent {
    * When the react component updates, update the d3 vis
    */
   componentDidUpdate() {
+    if (!this.props.topic) {
+      return;
+    }
     this.update();
     twemoji.parse(this.root, icon => emojiSVGUrl(icon));
   }
 
   update() {
-    const { emoji } = this.props;
+    const { emoji, onSelect } = this.props;
 
     if (!emoji) {
       return;
@@ -94,6 +101,15 @@ class EmojiBarChart extends PureComponent {
     // on update, animate bars up
     const mergedSelection = entering.merge(binding);
 
+    // Click handlers
+    mergedSelection
+      .classed('enabled', d => !!d.count)
+      .on('click', (d) => {
+        if (d.count) {
+          onSelect(d.id);
+        }
+      });
+
     // 1. animate bars
     mergedSelection
       .selectAll('div.inner-bar')
@@ -119,6 +135,10 @@ class EmojiBarChart extends PureComponent {
 
   render() {
     const { topic } = this.props;
+
+    if (!topic) {
+      return null;
+    }
 
     return (
       <div className="emoji-bar-chart">

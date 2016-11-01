@@ -12,6 +12,7 @@ describe('responses reducer', () => {
     dictionary: {},
     order: [],
     collections: {},
+    selected: {},
     isFetching: null
   };
 
@@ -75,7 +76,8 @@ describe('responses reducer', () => {
           aaa: false,
           bbb: false,
           ccc: false
-        }
+        },
+        selected: {}
       });
     });
   });
@@ -86,6 +88,7 @@ describe('responses reducer', () => {
         dictionary: {},
         order: [],
         collections: {},
+        selected: {},
         isFetching: {
           aaa: false
         }
@@ -98,6 +101,7 @@ describe('responses reducer', () => {
         dictionary: {},
         order: [],
         collections: {},
+        selected: {},
         isFetching: {
           aaa: true
         }
@@ -161,6 +165,9 @@ describe('responses reducer', () => {
           aaa: false,
           bbb: false,
           ccc: false
+        },
+        selected: {
+          bbb: '11235'
         }
       })
     });

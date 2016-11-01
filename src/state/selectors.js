@@ -3,6 +3,8 @@ import { createSelector } from 'reselect';
 import listToObject from '../utils/list-to-object';
 import safeDeepAccess from '../utils/safe-deep-access';
 
+import { combineIds } from '../utils/id-list';
+
 export const getResponses = state => state.responses.dictionary;
 export const getResponseOrder = state => state.responses.order;
 export const getSelected = state => state.selected;
@@ -10,6 +12,8 @@ export const getAggregations = state => state.summary.aggregations;
 export const getQuestions = state => state.questions.dictionary;
 export const getQuestionsOrder = state => state.questions.order;
 export const getFilterQuestions = state => state.questions.filters;
+export const getResponseCollections = state => state.responses.collections;
+export const getSelectedResponses = state => state.responses.selected;
 export const getContentFields = state => state.fields.data;
 
 /**
@@ -87,6 +91,12 @@ export const getSelectedTopic = createSelector(
   (topicList, selected) => topicList.find(topic => topic.id === selected.topic)
 );
 
+export const getSelectedTopicEmoji = createSelector(
+  getEmojiList,
+  getSelected,
+  (emojiList, selected) => emojiList.find(emoji => emoji.id === selected.topicEmoji)
+);
+
 /**
  * Return an array of emoji multiple-choice question objects with counts for
  * how often each emoji occurs in the response data
@@ -131,23 +141,55 @@ export const getTopicCounts = createSelector(
  * @returns {Object[]} An array of `{ value, id, count }` objects
  */
 export const getEmojiCountsFilteredByTopic = createSelector(
-  getSelectedTopic,
+  getSelected,
   getFilterQuestions,
   getEmojiList,
   getAggregations,
-  (selectedTopic, filterQuestions, emojiList, aggregations) => {
-    if (!selectedTopic) {
+  (selected, filterQuestions, emojiList, aggregations) => {
+    const topicId = selected.topic;
+    if (!topicId) {
       return null;
     }
 
     return emojiList.map((option) => {
       const count = safeDeepAccess(aggregations, [
-        selectedTopic.id,
+        topicId,
         filterQuestions.emoji,
         option.id
       ]) || 0;
 
       return Object.assign({ count }, option);
     });
+  }
+);
+
+export const getEmojiLetter = createSelector(
+  getResponses,
+  getSelected,
+  getSelectedResponses,
+  (responses, selected, selectedResponses) => {
+    const emojiId = selected.emoji;
+    if (!emojiId) {
+      return null;
+    }
+    const letterId = selectedResponses[emojiId];
+    return responses[letterId];
+  }
+);
+
+export const getTopicLetter = createSelector(
+  getResponses,
+  getSelected,
+  getSelectedResponses,
+  (responses, selected, selectedResponses) => {
+    const topicId = selected.topic;
+    const emojiId = selected.topicEmoji;
+    if (!topicId) {
+      return null;
+    }
+    if (!emojiId) {
+      return responses[selectedResponses[topicId]];
+    }
+    return responses[selectedResponses[combineIds(topicId, emojiId)]];
   }
 );

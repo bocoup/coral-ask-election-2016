@@ -25,9 +25,11 @@ export const inlineEmoji = (emojiUnicode, props) => {
     return null;
   }
 
+  /* eslint-disable new-cap */
   return DangerousInline(Object.assign({
     html: emojiSVGImageTag(emojiUnicode)
   }, props));
+  /* eslint-enable new-cap */
 };
 
 export const blockEmoji = (emojiUnicode, props) => {
@@ -35,7 +37,9 @@ export const blockEmoji = (emojiUnicode, props) => {
     return null;
   }
 
+  /* eslint-disable new-cap */
   return DangerousBlock(Object.assign({
     html: emojiSVGImageTag(emojiUnicode)
   }, props));
+  /* eslint-enable new-cap */
 };

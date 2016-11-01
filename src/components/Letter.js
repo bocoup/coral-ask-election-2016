@@ -6,8 +6,11 @@ import './Letter.scss';
 
 class Letter extends PureComponent {
   static propTypes = {
+    buttonText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    buttonDisabled: PropTypes.bool,
+    showMore: PropTypes.func,
     questionsOrder: PropTypes.array,
-    responses: PropTypes.array
+    response: PropTypes.object
   };
 
   static defaultProps = {
@@ -29,9 +32,13 @@ class Letter extends PureComponent {
   }
 
   render() {
-    const { responses, questionsOrder } = this.props;
-
-    const response = responses[Math.floor(Math.random(responses.length))];
+    const {
+      response,
+      questionsOrder,
+      showMore,
+      buttonDisabled,
+      buttonText
+    } = this.props;
 
     if (!response) {
       return null;
@@ -41,7 +48,7 @@ class Letter extends PureComponent {
     const responseField = idx => response[questionsOrder[idx]] || {};
 
     return (
-      <div className={'letter'}>
+      <div className="letter">
         <div ref={(node) => { this.root = node; }}>
           <p>
             Dear [Secretary Clinton/Mr. Trump],
@@ -66,17 +73,13 @@ class Letter extends PureComponent {
             Thank you and good luck. <br /> {responseField(3)}, {responseField(4)}
           </p>
         </div>
-        <button className={'btn'}>
-          Show another
-          <span className="emoji">
-            <img
-              draggable="false"
-              className={'emoji'}
-              alt="😳"
-              src="/static/media/1f633.0bbb7bd1.svg"
-            />
-          </span>
-          response
+        <button
+          type="button"
+          className="btn"
+          onClick={() => showMore()}
+          disabled={buttonDisabled}
+        >
+          {buttonText}
         </button>
       </div>
 

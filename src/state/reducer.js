@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
+import intersection from 'lodash.intersection';
 import uniq from 'lodash.uniq';
+import { isCombinedId, combineIds, splitIds } from '../utils/id-list';
 
 /**
  * Summary reducer
@@ -114,16 +116,25 @@ export const fields = handleActions({
 });
 
 export const selected = handleActions({
+  // Top emoji bubble chart
   SELECT_EMOJI: (state, action) => Object.assign({}, state, {
     emoji: action.payload
   }),
 
+  // Topic bar graph below bubble chart
   SELECT_TOPIC: (state, action) => Object.assign({}, state, {
-    topic: action.payload
+    topic: action.payload,
+    topicEmoji: null
+  }),
+
+  // Nested bar graph of emoji activated by topic bar graph
+  SELECT_TOPIC_EMOJI: (state, action) => Object.assign({}, state, {
+    topicEmoji: action.payload
   })
 }, {
   emoji: null,
-  topic: null
+  topic: null,
+  topicEmoji: null
 });
 
 const toDictionaryById = submissions => submissions
@@ -144,6 +155,26 @@ const getResponseIsFetchingObject = questions => Object.keys(questions)
     }), isFetching);
   }, {});
 
+// Build the dictionary of possible question groups based on the received
+// aggregation data
+const createMultiDimensionalCollections = (aggregations, questions) => {
+  const groupKeys = Object.keys(aggregations);
+  const groupByIds = Object.keys(questions).filter(qId => questions[qId].group_by);
+  return groupKeys.reduce((cols, answerId) => {
+    cols[answerId] = [];
+    const group = aggregations[answerId];
+    groupByIds.forEach((qId) => {
+      if (group[qId]) {
+        Object.keys(group[qId]).forEach((nestedAnswerId) => {
+          const combinedKey = combineIds(answerId, nestedAnswerId);
+          cols[combinedKey] = [];
+        });
+      }
+    });
+    return cols;
+  }, {});
+};
+
 export const responses = handleActions({
   REQUEST_RESPONSES: (state, action) => Object.assign({}, state, {
     isFetching: Object.assign({}, state.isFetching, {
@@ -152,15 +183,34 @@ export const responses = handleActions({
   }),
 
   RECEIVE_RESPONSES: (state, action) => {
-    const { submissions } = action.payload;
+    const { submissions, answerId } = action.payload;
     const order = submissions.map(s => s.id);
     const dictionary = toDictionaryById(submissions);
+
+    // When responses come back, ensure that they are represented in both their
+    // single- and multi-dimensional collections as appropriate; also ensure that
+    // any collections containing this answer's responses are configured so that
+    // their first element is selected
+    const collections = Object.assign({}, state.collections, {
+      [action.payload.answerId]: order
+    });
+    const selected = Object.assign({}, state.selected, {
+      // Always start w/ the first response
+      [action.payload.answerId]: order[0]
+    });
+    Object.keys(collections).forEach((colKey) => {
+      if (isCombinedId(answerId, colKey)) {
+        const dimensions = splitIds(colKey).map(id => collections[id]);
+        collections[colKey] = intersection(...dimensions.filter(d => !!d.length));
+        selected[colKey] = collections[colKey][0];
+      }
+    });
+
     return Object.assign({}, state, {
       order: uniq(state.order.concat(order)),
       dictionary: Object.assign({}, state.dictionary, dictionary),
-      collections: Object.assign({}, state.collections, {
-        [action.payload.answerId]: order
-      }),
+      collections,
+      selected,
       isFetching: Object.assign({}, state.isFetching, {
         [action.payload.answerId]: false
       })
@@ -169,14 +219,34 @@ export const responses = handleActions({
 
   // Does not currently impact the isFetching state
   RECEIVE_FORM_DIGEST: (state, action) => {
-    const { submissions, questions } = action.payload;
+    const { submissions, questions, aggregations } = action.payload;
     const order = submissions.map(s => s.id);
     const dictionary = toDictionaryById(submissions);
     const isFetching = getResponseIsFetchingObject(questions);
+    const collections = createMultiDimensionalCollections(aggregations, questions);
     return Object.assign({}, state, {
       dictionary: Object.assign({}, state.dictionary, dictionary),
       order,
+      collections,
       isFetching
+    });
+  },
+
+  SHOW_NEXT_LETTER: (state, action) => {
+    const answerId = action.payload;
+    const letterId = state.selected[answerId];
+    const collection = state.collections[answerId];
+    if (!collection || !collection.length) {
+      // Skip this cycle and wait for RECEIVE_RESPONSES, data is not yet available
+      return state;
+    }
+    const letterIdx = collection.indexOf(letterId);
+    // Wrap around to 0 when done with a collection
+    const nextLetterId = collection[letterIdx + 1] || collection[0];
+    return Object.assign({}, state, {
+      selected: Object.assign({}, state.selected, {
+        [answerId]: nextLetterId
+      })
     });
   }
 }, {
@@ -188,6 +258,9 @@ export const responses = handleActions({
   // containing arrays of unique, ordered response IDs for responses that
   // match that answer ID
   collections: {},
+  // Dictionary of the active (most recently displayed) ID within each
+  // answer-specific collection
+  selected: {},
   // Dictionary of response collections of isFetching booleans for each
   // question response collection, keyed by the same answer IDs
   isFetching: null
