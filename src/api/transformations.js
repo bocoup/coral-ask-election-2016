@@ -11,7 +11,7 @@
  *
  *     "aggregations": {
  *       "9f27d5a6ed65c4938ede65e536e5f6d4": {
- *         "mc": {
+ *         "MultipleChoice": {
  *           "c873a345-185c-cdb1-aeeb-32b04cf4fc9a": {
  *             "question": "Which issue should be highest on the new presidentâ€™s agenda?",
  *             "answers": {

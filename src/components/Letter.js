@@ -66,7 +66,20 @@ class Letter extends PureComponent {
             Thank you and good luck. <br /> {responseField(3)}, {responseField(4)}
           </p>
         </div>
+        <button className={'btn'}>
+          Show another
+          <span className="emoji">
+            <img
+              draggable="false"
+              className={'emoji'}
+              alt="😳"
+              src="/static/media/1f633.0bbb7bd1.svg"
+            />
+          </span>
+          response
+        </button>
       </div>
+
     );
   }
 }

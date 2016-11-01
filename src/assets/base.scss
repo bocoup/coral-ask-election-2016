@@ -40,60 +40,81 @@ p {
   margin-bottom: 1em;
 }
 
-.intro-container, .container {
+.container {
   max-width: 850px;
   padding: 0;
 }
 
 .container {
   background: #F5F5F5;
-  padding-bottom: 20px;
 }
 
-.intro-container > div, .container > div {
-  padding: 1em 1em 0 1em;
+.container > div {
+  padding: 1em;
 }
 
-.container > div.letter {
-  padding-bottom: 1em;
+.btn {
+  background: #4A90E2;
+  color: white;
+  border-radius: 38px;
+  padding: .9em 1.2em;
+  font-size: 1.05em;
+  margin: 1em auto 0;
 }
 
-.intro-container > div {
-  padding-bottom: .5em;
+.btn:hover {
+  background: #3f7cc3;
+}
+
+.emoji-container.selected.visible {
+  background: #e6e6e6;
+  border-radius: 5px;
+  
+  .emoji-image {
+    padding: .2em;
+  }
+}
+
+.footer {
+
+  a {
+    color: #4A90E2;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 @media only screen and (min-width: 25em) {
-  .intro-container, .container {
+  .container {
     margin: auto;
     width: 92%;
   }
 
-  .container > div, .intro-container > div {
-    padding: 2em 2em 0 2em;
+  .container > div {
+    padding: 2em;
   }
 
   .container > div.letter, {
     padding-bottom: 2em;
   }
-
-  .intro-container > div {
-    padding-bottom: 1.5em;
-  }
 }
 
 @media only screen and (min-width: 40em) {
 
-  .container > div, .intro-container > div {
-    padding: 2.5em 2.5em 0 2.5em;
+  .container > div {
+    padding: 2.5em;
+  }
+}
+
+@media only screen and (min-width: 47em) {
+
+  .filter-by-feeling, .filter-by-topic {
+    overflow: auto;
   }
 
-  .container > div.letter {
-    padding-bottom: 2.5em;
-  }
-
-  .intro-container > div {
-    padding-bottom: 2em;
-  }
 }
 
 // button elements have no intrinsic style so that they may be used
@@ -106,4 +127,5 @@ button {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  outline: none !important;
 }

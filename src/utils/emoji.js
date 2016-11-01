@@ -1,5 +1,6 @@
-import React from 'react';
 import twemoji from 'twemoji';
+import DangerousInline from '../components/DangerousInline';
+import DangerousBlock from '../components/DangerousBlock';
 
 const emojiSVGs = require.context('../assets/twemoji');
 
@@ -24,13 +25,17 @@ export const inlineEmoji = (emojiUnicode, props) => {
     return null;
   }
 
-  const html = {
-    __html: emojiSVGImageTag(emojiUnicode)
-  };
+  return DangerousInline(Object.assign({
+    html: emojiSVGImageTag(emojiUnicode)
+  }, props));
+};
 
-  /* eslint-disable react/no-danger */
-  return (
-    <span {...props} dangerouslySetInnerHTML={html} />
-  );
-  /* eslint-enable react/no-danger */
+export const blockEmoji = (emojiUnicode, props) => {
+  if (!emojiUnicode) {
+    return null;
+  }
+
+  return DangerousBlock(Object.assign({
+    html: emojiSVGImageTag(emojiUnicode)
+  }, props));
 };

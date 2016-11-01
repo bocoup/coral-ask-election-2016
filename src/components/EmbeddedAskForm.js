@@ -94,14 +94,16 @@ export default class EmojiBarChart extends Component {
           className="embedded-form"
           ref={(node) => { this.askForm = node; }}
         />
-        <button
-          className="form-toggle-button"
-          type="button"
-          onClick={() => this.toggleForm()}
-          ref={(node) => { this.button = node; }}
-        >
-          Tell the president-elect what you think
-        </button>
+        <div className="form-toggle-button-container">
+          <button
+            className="btn form-toggle-button"
+            type="button"
+            onClick={() => this.toggleForm()}
+            ref={(node) => { this.button = node; }}
+          >
+            Tell the president-elect what you think
+          </button>
+        </div>
       </div>
     );
   }
