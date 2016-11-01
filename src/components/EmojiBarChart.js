@@ -13,7 +13,7 @@ class EmojiBarChart extends PureComponent {
   }
 
   static defaultProps = {
-    height: 50,
+    height: 45,
     emoji: []
   }
 
