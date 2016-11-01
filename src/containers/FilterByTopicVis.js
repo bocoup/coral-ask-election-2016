@@ -19,8 +19,8 @@ import {
 import {
   getEmojiCountsFilteredByTopic,
   getQuestionsOrder,
-  getTopicResponses,
   getSelectedTopic,
+  getTopicLetter,
   getSelectedTopicEmoji,
   getTopicCounts
 } from '../state/selectors';
@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
   questionsOrder: getQuestionsOrder(state),
   selectedTopic: getSelectedTopic(state),
   selectedTopicEmoji: getSelectedTopicEmoji(state),
-  filteredResponses: getTopicResponses(state),
+  topicLetter: getTopicLetter(state),
   topics: getTopicCounts(state),
   filteredEmojiCounts: getEmojiCountsFilteredByTopic(state)
 });
@@ -39,8 +39,8 @@ class FilterByTopicVis extends PureComponent {
     questionsOrder: PropTypes.array,
     selectedTopic: PropTypes.object,
     selectedTopicEmoji: PropTypes.object,
-    filteredResponses: PropTypes.array,
     topics: PropTypes.array,
+    topicLetter: PropTypes.object,
     filteredEmojiCounts: PropTypes.array,
     dispatch: PropTypes.func
   }
@@ -48,8 +48,8 @@ class FilterByTopicVis extends PureComponent {
   render() {
     const {
       questionsOrder,
-      filteredResponses,
       topics,
+      topicLetter,
       selectedTopic,
       selectedTopicEmoji,
       filteredEmojiCounts,
@@ -71,10 +71,6 @@ class FilterByTopicVis extends PureComponent {
         showMoreButtonText = `Show another ${selectedTopic.value} response`;
       }
     }
-
-    // TODO: Improve this so that we page through consistently; requires new data structure
-    const randomIdx = filteredResponses && Math.floor(Math.random() * filteredResponses.length);
-    const randomFilteredResponse = filteredResponses && filteredResponses[randomIdx];
 
     return (
       <div className="filter-by-topic">
@@ -98,8 +94,7 @@ class FilterByTopicVis extends PureComponent {
         <Letter
           showMore={() => dispatch(showNextLetter(selectedTopic.id, selectedTopicEmoji.id))}
           buttonText={showMoreButtonText}
-          buttonDisabled={!filteredResponses || filteredResponses.length <= 1}
-          response={randomFilteredResponse}
+          response={topicLetter}
           questionsOrder={questionsOrder}
           width={400}
         />

@@ -186,24 +186,31 @@ export const responses = handleActions({
     const { submissions, answerId } = action.payload;
     const order = submissions.map(s => s.id);
     const dictionary = toDictionaryById(submissions);
+
     // When responses come back, ensure that they are represented in both their
-    // single- and multi-dimensional collections as appropriate
+    // single- and multi-dimensional collections as appropriate; also ensure that
+    // any collections containing this answer's responses are configured so that
+    // their first element is selected
     const collections = Object.assign({}, state.collections, {
       [action.payload.answerId]: order
     });
+    const selected = Object.assign({}, state.selected, {
+      // Always start w/ the first response
+      [action.payload.answerId]: order[0]
+    });
     Object.keys(collections).forEach((colKey) => {
       if (isCombinedId(answerId, colKey)) {
-        collections[colKey] = intersection(...splitIds(colKey).map(id => collections[id]));
+        const dimensions = splitIds(colKey).map(id => collections[id]);
+        collections[colKey] = intersection(...dimensions.filter(d => !!d.length));
+        selected[colKey] = collections[colKey][0];
       }
     });
+
     return Object.assign({}, state, {
       order: uniq(state.order.concat(order)),
       dictionary: Object.assign({}, state.dictionary, dictionary),
       collections,
-      selected: Object.assign({}, state.selected, {
-        // Always start w/ the first response
-        [action.payload.answerId]: order[0]
-      }),
+      selected,
       isFetching: Object.assign({}, state.isFetching, {
         [action.payload.answerId]: false
       })

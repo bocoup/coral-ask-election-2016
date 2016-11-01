@@ -1,8 +1,9 @@
 // Use createSelector for any reducer which returns a computed object
 import { createSelector } from 'reselect';
-import intersection from 'lodash.intersection';
 import listToObject from '../utils/list-to-object';
 import safeDeepAccess from '../utils/safe-deep-access';
+
+import { combineIds } from '../utils/id-list';
 
 export const getResponses = state => state.responses.dictionary;
 export const getResponseOrder = state => state.responses.order;
@@ -176,22 +177,19 @@ export const getEmojiLetter = createSelector(
   }
 );
 
-// Unlike getEmojiLetter, which only returns one letter object, this method
-// always returns an array of responses: either the collection
-export const getTopicResponses = createSelector(
+export const getTopicLetter = createSelector(
   getResponses,
   getSelected,
-  getResponseCollections,
-  (responses, selected, collections) => {
+  getSelectedResponses,
+  (responses, selected, selectedResponses) => {
     const topicId = selected.topic;
     const emojiId = selected.topicEmoji;
     if (!topicId) {
       return null;
     }
     if (!emojiId) {
-      return collections[topicId] && collections[topicId].map(id => responses[id]);
+      return responses[selectedResponses[topicId]];
     }
-    const overlap = intersection(collections[topicId], collections[emojiId]);
-    return overlap.map(id => responses[id]);
+    return responses[selectedResponses[combineIds(topicId, emojiId)]];
   }
 );
