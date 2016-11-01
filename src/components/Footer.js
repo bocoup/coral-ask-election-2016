@@ -17,8 +17,8 @@ class Footer extends PureComponent {
         <div>
           Built with ❤️ by the <a href="http://bocoup.com/datavis">
             Bocoup Datavis Team
-          </a> and the <a href="https://coralproject.net/">
-            Coral Project
+          </a> and <a href="https://coralproject.net/">
+            The Coral Project
           </a>
         </div>
       </div>
