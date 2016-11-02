@@ -62,6 +62,9 @@
     }
     &.selected {
       outline: 0;
+      .topic-bar {
+        background-color: $select;
+      }
     }
   }
 }
