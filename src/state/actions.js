@@ -88,7 +88,12 @@ const fetchResponses = answerId => (dispatch) => {
  */
 function shouldFetchResponses(state, answerId) {
   const { collections, isFetching } = state.responses;
-  return !collections[answerId].length && !isFetching[answerId];
+
+  const currentlyFetching = isFetching[answerId];
+  // if the form digest doesn't even return this as a key it will be null, so consider it already fetched.
+  // otherwise, we have it, so see if it is empty.
+  const alreadyHaveIt = !collections[answerId] || (collections[answerId] && collections[answerId].length);
+  return !alreadyHaveIt && !currentlyFetching;
 }
 
 /**
