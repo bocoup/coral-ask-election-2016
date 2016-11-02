@@ -8,11 +8,11 @@ const json = {
           question: 'Which issue should be highest on the new presidentâ€™s agenda?',
           answers: {
             'b1cc14fffa31a73de64ba82e99ecfbe6': {
-              answer: 'Social Issues',
+              answer: 'Social issues',
               count: 2
             },
             '98a6399d1a49d929e8403bf9fce897e5': {
-              answer: 'The Economy',
+              answer: 'The economy',
               count: 1
             }
           }
@@ -26,7 +26,7 @@ const json = {
           question: 'Which issue should be highest on the new presidentâ€™s agenda?',
           answers: {
             'd91b20b62997b6bfe27473dd16675cfb': {
-              answer: 'Energy and the Environment',
+              answer: 'Energy and the environment',
               count: 1
             },
             'de7a22a0c94aa64ba2449e520aa20c99': {

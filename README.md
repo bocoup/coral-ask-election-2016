@@ -4,17 +4,17 @@ A prototype application to visualize reactions to the outcome of the 2016 electi
 
 ## Installation
 
-Copy the file `config.sample.json` in the project root to `config.json`, then set the values of each key to match your deployment.
+Copy the file `config.sample.json` in the project root to `/public/config.json`, then set the values of each key to match your deployment.
 
 ### Quick Start
 
-To get started quickly with local development, just save this JSON as `config.json` in the project root:
+To get started quickly with local development, just save this JSON as `config.json` in the `/public` folder:
 
 ```json
 {
-  "jsonURI": "http://localhost:3000/data/",
+  "jsonURI": "./data/",
   "formId": "5816b369d489c974e0cc8be8",
-  "formScript": "http://localhost:3000/data/5816b369d489c974e0cc8be8.js",
+  "formScript": "./data/5816b369d489c974e0cc8be8.js",
   "googleSheetId": "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I"
 }
 ```
@@ -23,7 +23,7 @@ To get started quickly with local development, just save this JSON as `config.js
 
 **jsonURI**:
 
-This field holds the URI at which the JSON files output by Ask can be located over HTTP. For local development this will likely be "http://localhost:3000/data/", but in production it will usually be a URL to the location on Amazon S3 to which Ask uploads its JSON.
+This field holds the URI at which the JSON files output by Ask can be located over HTTP. This should be a relative path from the app root to the location where the Ask JSON exports are available, such as `./data`.
 
 **formId**:
 

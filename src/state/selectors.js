@@ -5,6 +5,8 @@ import safeDeepAccess from '../utils/safe-deep-access';
 
 import { combineIds } from '../utils/id-list';
 
+const getCount = (aggregations, key) => (aggregations[key] ? aggregations[key].count : 0);
+
 export const getResponses = state => state.responses.dictionary;
 export const getResponseOrder = state => state.responses.order;
 export const getSelected = state => state.selected;
@@ -107,14 +109,11 @@ export const getSelectedTopicEmoji = createSelector(
 export const getEmojiCounts = createSelector(
   getEmojiList,
   getAggregations,
-  (emojiList, aggregations) => {
-    if (!aggregations) {
-      return [];
-    }
-    return emojiList.map(emoji => Object.assign({
-      count: aggregations[emoji.id].count
-    }, emoji));
-  }
+  (emojiList, aggregations) => emojiList
+    .map(emoji => Object.assign({
+      count: getCount(aggregations, emoji.id)
+    }, emoji))
+    .filter(emoji => emoji.count)
 );
 
 /**
@@ -130,7 +129,7 @@ export const getTopicCounts = createSelector(
   getAggregations,
   (topicList, aggregations) => topicList
     .map(option => Object.assign({
-      count: aggregations[option.id].count
+      count: getCount(aggregations, option.id)
     }, option))
     .sort((a, b) => b.count - a.count)
 );
