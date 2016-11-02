@@ -1,6 +1,6 @@
 .letter {
 
-  div {
+  .letter-content {
     background: white;
     padding: 1.5em 1em;
     box-shadow: -8px 9px 0px #e8e8e8;
@@ -38,13 +38,13 @@
 }
 
 @media only screen and (min-width: 25em) {
-  .letter div {
+  .letter .letter-content {
     padding: 2em;
   }
 }
 
 @media only screen and (min-width: 40em) {
-  .letter div {
+  .letter .letter-content {
     padding: 3em 3em;
 
     p {
