@@ -104,6 +104,7 @@ $emoji-pop-in-timing: cubic-bezier(.75,.05,.33,1.38);
   }
 
   .emoji-label {
+    pointer-events: none;
     position: absolute;
     display: block;
     top: 96%;
