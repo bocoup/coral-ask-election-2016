@@ -6,6 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
+var CSSOverridesWebpackPlugin = require('./plugins/css-overrides-webpack-plugin');
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
 
@@ -181,6 +182,8 @@ module.exports = {
       inject: true,
       template: paths.appHtml,
     }),
+    // Ensure our overrides.css file <link> gets properly injected after other styles
+    new CSSOverridesWebpackPlugin('./overrides.css'),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
     new webpack.DefinePlugin(env),
