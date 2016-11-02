@@ -128,9 +128,11 @@ export const getEmojiCounts = createSelector(
 export const getTopicCounts = createSelector(
   getTopicList,
   getAggregations,
-  (topicList, aggregations) => topicList.map(option => Object.assign({
-    count: aggregations[option.id].count
-  }, option))
+  (topicList, aggregations) => topicList
+    .map(option => Object.assign({
+      count: aggregations[option.id].count
+    }, option))
+    .sort((a, b) => b.count - a.count)
 );
 
 /**
