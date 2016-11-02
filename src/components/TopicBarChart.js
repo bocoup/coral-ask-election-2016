@@ -1,4 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
+import classNames from 'classnames';
 import d3 from '../d3';
 import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 
@@ -45,12 +46,16 @@ class TopicBarChart extends PureComponent {
             const percentage = topic.count ?
               d3.format('.0%')(topic.count / responseCount) :
               0;
+            const isSelected = selectedTopic && (topic.id === selectedTopic.id);
+            const classes = classNames('bar-group', {
+              selected: isSelected
+            });
             return (
               <button
-                aria-pressed={selectedTopic && (topic.id === selectedTopic.id)}
+                aria-pressed={isSelected}
                 onClick={() => onSelect(topic.id)}
                 key={topic.value}
-                className="bar-group"
+                className={classes}
               >
                 <div className="topic-detail-container">
                   <div className="topic-name">{topic.value}</div>

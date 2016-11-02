@@ -15,9 +15,19 @@
     .emoji-bar-container {
       display: inline-block;
       width: 20%;
+      outline-width: 0;
 
       &.enabled {
         cursor: pointer;
+
+        // Keyboard nav
+        outline-width: 1px;
+        outline-color: rgba(153,153,153,0.1);
+        outline-offset: -1px;
+
+        &.selected {
+          outline: 0;
+        }
       }
 
       .bar {
