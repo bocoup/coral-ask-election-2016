@@ -10,7 +10,7 @@
 
 .form-container.open {
   .form-toggle-button {
-    background: #d9d9d9; // grey
+    background: $medgrey;
   }
   .embedded-form {
     transition: max-height 1s;
@@ -81,6 +81,10 @@
 
     &:hover {
       background: $medgrey !important;
+    }
+
+    &.selected {
+      background-color: $medgrey !important;
     }
 
     img.emoji {
