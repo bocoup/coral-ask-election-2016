@@ -46,6 +46,8 @@ $emoji-pop-in-timing: cubic-bezier(.75,.05,.33,1.38);
     position: absolute;
     cursor: pointer;
     text-align: center;
+    transform: scale(1);
+    transition: transform 100ms ease-out;
 
     &::-moz-focus-inner {
       border: 0;
@@ -64,21 +66,13 @@ $emoji-pop-in-timing: cubic-bezier(.75,.05,.33,1.38);
     &:hover,
     &:focus,
     &.selected {
-      .emoji-image {
-        img {
-          max-width: 100%;
-          // Speed at which the element animates into selected state
-          transition: max-width 100ms;
-        }
-        margin-bottom: -3%;
-      }
-      .emoji-label {
-        top: 100%;
-        font-size: 0.7em;
-        // Speed at which the element animates into selected state
-        transition: top 100ms, font-size 100ms;
-      }
+      transform: scale(1.15);
     }
+
+    &.selected:hover {
+      transform: scale(1.2);
+    }
+
     &.selected {
       outline: 0;
       .emoji-label {
@@ -98,8 +92,6 @@ $emoji-pop-in-timing: cubic-bezier(.75,.05,.33,1.38);
     z-index: 10;
     img {
       max-width: 96%;
-      // speed at which the element returns to normal
-      transition: max-width 200ms;
     }
   }
 
@@ -115,7 +107,7 @@ $emoji-pop-in-timing: cubic-bezier(.75,.05,.33,1.38);
     z-index: 0;
     font-size: 0.8em;
     // speed at which the element returns to normal
-    transition: opacity 200ms, font-size 100ms;
+    transition: opacity 200ms, top 100ms;
   }
 
   .hidden {
