@@ -127,7 +127,12 @@ button {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  &:active {
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &:active, &:focus {
     outline: 0;
   }
 }
