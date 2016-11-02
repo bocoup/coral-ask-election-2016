@@ -6,6 +6,7 @@
     box-shadow: -8px 9px 0px #e8e8e8;
     font-family: 'Georgia', serif;
     margin-bottom: 2em;
+    min-height: 650px;
   }
 
   p {
@@ -26,7 +27,7 @@
     color: #616161;
     display: block;
 
-  } 
+  }
 
   .btn:hover {
     background: #cccccc;
@@ -53,8 +54,8 @@
   }
 }
 
-@media only screen and (min-width: 47em) { 
-  
+@media only screen and (min-width: 47em) {
+
   .letter {
     width: 50%;
     margin-top: 2.5em;
