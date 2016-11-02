@@ -36,7 +36,7 @@ export default class EmojiBubbleChart extends PureComponent {
       // Defer the entire pop-in process 100ms to try to side-step thrash on
       // initial page load & render
       setTimeout(() => {
-        /// Items come in at 100ms increments
+        // Items come in at 100ms increments
         const delay = 100;
 
         // The pop-in animation lasts 550ms (Keep synchronized with .pop-in
@@ -51,7 +51,7 @@ export default class EmojiBubbleChart extends PureComponent {
 
         // Remove .pop-in classes once all elements visible;
         const popInComplete = (count * delay) + transitionSpeed;
-        setTimeout(() =>  d3.selectAll('.pop-in').classed('pop-in', false), popInComplete);
+        setTimeout(() => d3.selectAll('.pop-in').classed('pop-in', false), popInComplete);
       }, 100);
     }
   }
