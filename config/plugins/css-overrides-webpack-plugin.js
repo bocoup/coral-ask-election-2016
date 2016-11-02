@@ -12,7 +12,8 @@ CSSOverridesWebpackPlugin.prototype.apply = function(compiler) {
   var cssLinkHref = this.cssLinkHref;
   compiler.plugin('compilation', function(compilation) {
     compilation.plugin('html-webpack-plugin-before-html-processing', function(htmlPluginData, callback) {
-      htmlPluginData.files.css.push(cssLinkHref);
+      console.log(htmlPluginData.assets);
+      htmlPluginData.assets.css.push(cssLinkHref);
       callback(null, htmlPluginData);
     });
   });

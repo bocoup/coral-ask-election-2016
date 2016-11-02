@@ -4,6 +4,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+var CSSOverridesWebpackPlugin = require('./plugins/css-overrides-webpack-plugin');
 var url = require('url');
 var paths = require('./paths');
 var getClientEnvironment = require('./env');
@@ -193,6 +194,8 @@ module.exports = {
         minifyURLs: true
       }
     }),
+    // Ensure our overrides.css file <link> gets properly injected after other styles
+    new CSSOverridesWebpackPlugin('./overrides.css'),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
     // It is absolutely essential that NODE_ENV was set to production here.

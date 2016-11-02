@@ -6,7 +6,7 @@ const css = require('css');
 
 const paths = require('../config/paths');
 const cssBuildDir = path.join(paths.appBuild, 'static/css');
-const overridesFile = path.join(paths.appPublic, 'overrides.css');
+const overridesFile = path.join(paths.appBuild, 'overrides.css');
 
 const whitelistedRules = new RegExp([
   'font',
