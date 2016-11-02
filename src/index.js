@@ -13,7 +13,7 @@ getConfig.then(() => {
     <AppContainer errorReporter={Redbox}>
       <Root store={store} />
     </AppContainer>,
-    document.getElementById('root')
+    document.getElementById('election-vis-root')
   );
 
   if (module.hot) {
@@ -24,7 +24,7 @@ getConfig.then(() => {
         <AppContainer errorReporter={Redbox}>
           <RootReloaded store={store} />
         </AppContainer>,
-        document.getElementById('root')
+        document.getElementById('election-vis-root')
       );
     });
   }
