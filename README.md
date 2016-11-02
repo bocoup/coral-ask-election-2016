@@ -15,7 +15,8 @@ To get started quickly with local development, just save this JSON as `config.js
   "jsonURI": "./data/",
   "formId": "5816b369d489c974e0cc8be8",
   "formScript": "./data/5816b369d489c974e0cc8be8.js",
-  "googleSheetId": "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I"
+  "googleSheetId": "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I",
+  "s3Bucket": "s3://elections.bocoup.com"
 }
 ```
 
