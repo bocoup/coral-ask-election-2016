@@ -15,7 +15,8 @@ To get started quickly with local development, just save this JSON as `config.js
   "jsonURI": "./data/",
   "formId": "5816b369d489c974e0cc8be8",
   "formScript": "./data/5816b369d489c974e0cc8be8.js",
-  "googleSheetId": "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I"
+  "googleSheetId": "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I",
+  "s3Bucket": "s3://elections.bocoup.com"
 }
 ```
 
@@ -48,6 +49,12 @@ Editorial text fields in this visualization and the non-user-editable text of th
 https://docs.google.com/spreadsheets/d/18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I/edit#gid=904229865
 ```
 "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I" is your googleSheetId.
+
+**s3Bucket**:
+
+This is necessary if you would like to use `npm run deploy` to deploy the built project to an s3 bucket.
+
+The `deploy` script uses the `aws` command line tool ([link here](http://docs.aws.amazon.com/cli/latest/reference/s3/)) to push to s3.
 
 ## Development
 
