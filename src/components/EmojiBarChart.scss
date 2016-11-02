@@ -37,7 +37,10 @@
           left: 0 !important;
           right: 0;
           margin: auto;
-        }
+
+          border-radius: 2px 2px 0px 0px;
+          -moz-border-radius: 2px 2px 0px 0px;
+          -webkit-border-radius: 2px 2px 0px 0px;         }
       }
 
       .emoji {
