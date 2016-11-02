@@ -1,7 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
+import template from 'string-template';
 import { connect } from 'react-redux';
 import fieldValue from '../utils/fields';
-
 import DangerousBlock from '../components/DangerousBlock';
 
 import {
@@ -25,11 +25,15 @@ class GoogleSheetFieldComponent extends PureComponent {
     defaultValue: PropTypes.string,
     dispatch: PropTypes.func,
     fields: PropTypes.object,
-    fieldId: PropTypes.string
+    fieldId: PropTypes.string,
+    isTemplate: PropTypes.boolean,
+    templateValues: PropTypes.array
   }
 
   static defaultProps = {
-    defaultValue: ''
+    defaultValue: '',
+    isTemplate: false,
+    templateValues: []
   }
 
   componentWillMount() {
@@ -43,8 +47,12 @@ class GoogleSheetFieldComponent extends PureComponent {
   }
 
   render() {
-    const { fields, fieldId, defaultValue } = this.props;
-    const content = fieldValue(fields, fieldId, defaultValue);
+    const { fields, fieldId, defaultValue, isTemplate, templateValues } = this.props;
+    let content = fieldValue(fields, fieldId, defaultValue);
+
+    if (isTemplate) {
+      content = template(content, templateValues);
+    }
 
     return (
       <DangerousBlock html={content} className="text-component" />
