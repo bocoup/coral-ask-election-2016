@@ -65,74 +65,77 @@ class EmojiBarChart extends PureComponent {
       .range([0, maxBarHeight]);
 
     const binding = parent.selectAll('button.emoji-bar-container')
-      .data(emoji, d => `${d.id}-${d.count}`);
+      .data(emoji, d => `${d.id}`);
 
-    const entering = binding.enter()
-      .append('button')
-      .attr('type', 'button')
-      .classed('emoji-bar-container', true);
-
+    // add in new containers (buttons) for each emoji
     // Each emoji bar container has:
     // 1. small bar
     // 2. emoji
     // 3. label with value.
+    const entering = binding.enter()
+      .append('button')
+      .attr('type', 'button')
+      .classed('emoji-bar-container', true)
+      .each(function enterButton(d) {
+        const button = d3.select(this);
 
-    // 1. bars
-    const bars = entering.append('div')
-      .classed('bar', true)
-      .style('height', `${maxBarHeight}px`)
-      .append('div')
-      .classed('inner-bar', true);
+        // 1. bar
+        button.append('div')
+          .classed('bar', true)
+          .style('height', `${maxBarHeight}px`)
+            .append('div')
+            .classed('inner-bar', true)
+            .style('top', () => `${maxBarHeight}px`)
+            .style('width', `${barWidth}px`)
+            .style('left', `${(emojiHeight - barWidth) / 2}px`);
 
-    bars
-      .style('top', () => `${maxBarHeight}px`)
-      .style('width', `${barWidth}px`)
-      .style('left', `${(emojiHeight - barWidth) / 2}px`);
+        // 2. emoji
+        button.append('div')
+          .classed('emoji', true)
+          .text(d.value)
+          .style('opacity', 0);
 
-    // 2. emoji
-    entering.append('div')
-      .classed('emoji', true)
-      .text(d => d.value)
-      .style('opacity', 0);
-
-    // 3. label
-    entering.append('div')
-      .classed('label', true);
-
-    // on update, animate bars up
-    const mergedSelection = entering.merge(binding);
-
-    // Click handlers
-    mergedSelection
-      .classed('enabled', d => !!d.count)
-      .attr('disabled', d => (d.count ? null : 1))
-      .on('click', (d) => {
-        if (d.count) {
-          onSelect(d.id);
-        }
-        mergedSelection.classed('selected', d1 => (
-          !!d.count && d1.id === d.id
-        ));
+        // 3. label
+        button.append('div')
+          .classed('label', true);
       });
 
-    // 1. animate bars
-    mergedSelection
-      .selectAll('div.inner-bar')
-        .transition()
-        .delay((d, i) => i * 25)
-          .style('top', d => `${maxBarHeight - heightScale(d.count)}px`);
 
-    // 2. animate emoji opacity
-    mergedSelection
-      .selectAll('div.emoji')
-        .transition()
-        .delay((d, i) => i * 100)
-          .style('opacity', d => opacityScale(d.count / sumValues));
+    // update the buttons for new data/animation
+    binding.merge(entering).each(function updateButton(d, i) {
+      const button = d3.select(this);
+      const trans = d3.transition().delay(i * 25);
 
-    // 3. update label
-    mergedSelection
-      .selectAll('.label')
-      .text(d => `${d3.format('.0%')(d.count / sumValues)}`);
+      // add click handlers
+      button
+        .classed('enabled', !!d.count)
+        .attr('disabled', d.count ? null : 1)
+        .on('click', () => {
+          if (d.count) {
+            onSelect(d.id);
+          }
+
+          parent.selectAll('button.emoji-bar-container')
+            .classed('selected', d1 => !!d.count && d1.id === d.id);
+        });
+
+      // 1. animate bars
+      button
+        .select('div.inner-bar')
+          .transition(trans)
+            .style('top', `${maxBarHeight - heightScale(d.count)}px`);
+
+      // 2. animate emoji opacity
+      button
+        .selectAll('div.emoji')
+          .transition(trans)
+            .style('opacity', opacityScale(d.count / sumValues));
+
+      // 3. update label
+      button
+        .selectAll('.label')
+        .text(`${d3.format('.0%')(d.count / sumValues)}`);
+    });
 
     // on exit, transition out.
     binding.exit().remove();
