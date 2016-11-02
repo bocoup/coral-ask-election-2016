@@ -49,6 +49,14 @@
         text-align: center;
       }
 
+      &:focus,
+      &:hover {
+        outline: 0;
+        .inner-bar {
+          background-color: $highlight;
+        }
+      }
+
       &.selected {
         outline: 0;
         .inner-bar {
