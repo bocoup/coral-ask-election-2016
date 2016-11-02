@@ -25,9 +25,6 @@
     background: #D9D9D9;
     color: #616161;
     display: block;
-    margin: 1em auto 0;
-    margin-top: 0px;
-    margin-bottom: 1em;
   }
 
   .btn:hover {
@@ -46,11 +43,13 @@
 }
 
 @media only screen and (min-width: 40em) {
-  .letter .letter-content {
-    padding: 3em 3em;
+  .letter {
+    .letter-content {
+      padding: 3em 3em;
 
-    p {
-      font-size: 1.1em;
+      p {
+        font-size: 1.1em;
+      }
     }
   }
 }
@@ -60,8 +59,25 @@
   .letter {
     width: 50%;
     float: right;
+
     div {
       min-height: 450px;
     }
+
+    .btn {
+      margin: 0 auto 1em;
+    }
+
+    // Visually re-order the button above the letter content on larger screens
+    & {
+      display: table;
+    }
+    .letter-content {
+      display: table-footer-group;
+    }
+    .btn {
+      display: table-header-group;
+    }
   }
+
 }

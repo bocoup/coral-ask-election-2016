@@ -56,14 +56,6 @@ class Letter extends PureComponent {
 
     return (
       <div className="letter">
-        <button
-          type="button"
-          className="btn"
-          onClick={() => showMore()}
-          disabled={buttonDisabled}
-        >
-          {buttonText}
-        </button>
 
         <div className="letter-content" ref={(node) => { this.root = node; }}>
           <GoogleSheetFieldComponent
@@ -94,8 +86,17 @@ class Letter extends PureComponent {
           />
 
         </div>
-      </div>
 
+        <button
+          type="button"
+          className="btn"
+          onClick={() => showMore()}
+          disabled={buttonDisabled}
+        >
+          {buttonText}
+        </button>
+
+      </div>
     );
   }
 }
