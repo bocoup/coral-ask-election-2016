@@ -51,12 +51,18 @@ $emoji-pop-in-timing: cubic-bezier(.75,.05,.33,1.38);
       border: 0;
     }
 
-    &:focus, &:active {
-      outline: 0;
+    &:active {
       border: 0;
+      outline: 0;
+    }
+    &:focus {
+      border: 0;
+      outline-width: 1px;
+      outline-color: rgba(153,153,153,0.1);
     }
 
     &:hover,
+    &:focus,
     &.selected {
       .emoji-image {
         img {
@@ -74,6 +80,7 @@ $emoji-pop-in-timing: cubic-bezier(.75,.05,.33,1.38);
       }
     }
     &.selected {
+      outline: 0;
       .emoji-label {
         font-weight: bold;
       }
