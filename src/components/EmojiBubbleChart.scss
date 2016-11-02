@@ -75,6 +75,8 @@ $emoji-pop-in-timing: cubic-bezier(.75,.05,.33,1.38);
 
     &.selected {
       outline: 0;
+      background: radial-gradient(#666 0%, rgba(0, 0, 0, 0) 70%);
+
       .emoji-label {
         font-weight: bold;
       }
@@ -82,6 +84,7 @@ $emoji-pop-in-timing: cubic-bezier(.75,.05,.33,1.38);
   }
 
   .emoji-image {
+    transform: scale(0.92);
     position: absolute;
     top: 0;
     left: 0;
