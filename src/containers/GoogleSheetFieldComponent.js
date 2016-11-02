@@ -1,6 +1,8 @@
 import React, { PureComponent, PropTypes } from 'react';
 import template from 'string-template';
 import { connect } from 'react-redux';
+import twemoji from 'twemoji';
+import { emojiSVGUrl } from '../utils/emoji';
 import fieldValue from '../utils/fields';
 import DangerousBlock from '../components/DangerousBlock';
 
@@ -54,6 +56,7 @@ class GoogleSheetFieldComponent extends PureComponent {
       content = template(content, templateValues);
     }
 
+    content = twemoji.parse(content, icon => emojiSVGUrl(icon));
     return (
       <DangerousBlock html={content} className="text-component" />
     );

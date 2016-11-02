@@ -1,7 +1,5 @@
 import React, { PropTypes, PureComponent } from 'react';
-import twemoji from 'twemoji';
 import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
-import { emojiSVGUrl } from '../utils/emoji';
 
 import './Letter.scss';
 
@@ -18,24 +16,10 @@ class Letter extends PureComponent {
     responses: []
   };
 
-  componentDidMount() {
-    this.parseEmoji();
-  }
-
   shouldComponentUpdate(nextProps) {
     // Only re-render when a response is available; this prevents the component
     // from emptying out when loading data (causing a flash of missing content)
     return !!nextProps.response;
-  }
-
-  componentDidUpdate() {
-    this.parseEmoji();
-  }
-
-  parseEmoji() {
-    if (this.root) {
-      twemoji.parse(this.root, icon => emojiSVGUrl(icon));
-    }
   }
 
   render() {
