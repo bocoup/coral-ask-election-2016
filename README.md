@@ -78,7 +78,7 @@ The data used by this application is not included in this repo, but is expected 
 
 This project makes use of:
 
-* [Twemoji](https://github.com/twitter/twemoji)
-> Copyright 2016 Twitter, Inc and other contributors
-> Code licensed under the [MIT License](http://opensource.org/licenses/MIT)
-> Graphics licensed under CC-BY 4.0: https://creativecommons.org/licenses/by/4.0/
+* [Twemoji](https://github.com/twitter/twemoji) <br />
+Copyright 2016 Twitter, Inc and other contributors <br />
+Code licensed under the [MIT License](http://opensource.org/licenses/MIT) <br />
+Graphics licensed under CC-BY 4.0: https://creativecommons.org/licenses/by/4.0/
