@@ -117,6 +117,7 @@ class FilterByTopicVis extends PureComponent {
         />
         <EmojiBarChart
           onSelect={emojiId => this.selectEmoji(emojiId)}
+          selectedTopicEmoji={selectedTopicEmoji}
           height={70}
           emoji={filteredEmojiCounts}
           topic={selectedTopic}

@@ -8,6 +8,7 @@ import './EmojiBarChart.scss';
 class EmojiBarChart extends PureComponent {
   static propTypes = {
     onSelect: PropTypes.func,
+    selectedTopicEmoji: PropTypes.object,
     emoji: PropTypes.array,
     height: PropTypes.number,
     topic: PropTypes.object
@@ -15,7 +16,8 @@ class EmojiBarChart extends PureComponent {
 
   static defaultProps = {
     height: 45,
-    emoji: []
+    emoji: [],
+    selectedTopicEmoji: {}
   }
 
   /**
@@ -41,7 +43,7 @@ class EmojiBarChart extends PureComponent {
   }
 
   update() {
-    const { emoji, onSelect } = this.props;
+    const { emoji, onSelect, selectedTopicEmoji } = this.props;
 
     if (!emoji) {
       return;
@@ -72,6 +74,7 @@ class EmojiBarChart extends PureComponent {
     // 1. small bar
     // 2. emoji
     // 3. label with value.
+
     const entering = binding.enter()
       .append('button')
       .attr('type', 'button')
@@ -114,10 +117,9 @@ class EmojiBarChart extends PureComponent {
           if (d.count) {
             onSelect(d.id);
           }
-
-          parent.selectAll('button.emoji-bar-container')
-            .classed('selected', d1 => !!d.count && d1.id === d.id);
         });
+
+      button.classed('selected', d => !!d.count && d.id === selectedTopicEmoji.id);
 
       // 1. animate bars
       button

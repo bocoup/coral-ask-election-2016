@@ -25,9 +25,6 @@
         outline-color: rgba(153,153,153,0.1);
         outline-offset: -1px;
 
-        &.selected {
-          outline: 0;
-        }
       }
 
       .bar {
@@ -50,6 +47,21 @@
 
       .label {
         text-align: center;
+      }
+
+      &:focus,
+      &:hover {
+        outline: 0;
+        .inner-bar {
+          background-color: $highlight;
+        }
+      }
+
+      &.selected {
+        outline: 0;
+        .inner-bar {
+          background-color: $select;
+        }
       }
     }
 
