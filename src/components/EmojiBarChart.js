@@ -11,13 +11,15 @@ class EmojiBarChart extends PureComponent {
     selectedTopicEmoji: PropTypes.object,
     emoji: PropTypes.array,
     height: PropTypes.number,
-    topic: PropTypes.object
+    topic: PropTypes.object,
+    showBars: PropTypes.bool
   }
 
   static defaultProps = {
     height: 45,
     emoji: [],
-    selectedTopicEmoji: {}
+    selectedTopicEmoji: {},
+    showBars: true
   }
 
   /**
@@ -43,7 +45,7 @@ class EmojiBarChart extends PureComponent {
   }
 
   update() {
-    const { emoji, onSelect, selectedTopicEmoji } = this.props;
+    const { emoji, onSelect, selectedTopicEmoji, showBars } = this.props;
 
     if (!emoji) {
       return;
@@ -66,6 +68,10 @@ class EmojiBarChart extends PureComponent {
       .domain(d3.extent(emoji, d => d.count))
       .range([0, maxBarHeight]);
 
+    if (!showBars) {
+      heightScale.range([0, 0]).clamp(true);
+    }
+
     const binding = parent.selectAll('button.emoji-bar-container')
       .data(emoji, d => `${d.id}`);
 
@@ -79,13 +85,14 @@ class EmojiBarChart extends PureComponent {
       .append('button')
       .attr('type', 'button')
       .classed('emoji-bar-container', true)
+      .style('width', `${(100 / emoji.length)}%`)
       .each(function enterButton(d) {
         const button = d3.select(this);
 
         // 1. bar
         button.append('div')
           .classed('bar', true)
-          .style('height', `${maxBarHeight}px`)
+          .style('height', `${showBars ? maxBarHeight : 0}px`)
             .append('div')
             .classed('inner-bar', true)
             .style('top', () => `${maxBarHeight}px`)
