@@ -52,6 +52,7 @@ describe('responses reducer', () => {
               group_by: false
             }
           },
+          aggregations: {},
           submissions: [
             { id: '01234', sentiment: 'meh' },
             { id: '56789', sentiment: 'woo' },

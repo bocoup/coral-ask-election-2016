@@ -143,6 +143,8 @@ export default class EmojiBubbleChart extends PureComponent {
             const isSelected = selectedEmoji && (id === selectedEmoji.id);
             const key = `bubble${id}`;
 
+            // See EmojiBubbleChart.scss for a thorough explanation of the
+            // purposes for each of these classes
             const classes = classNames('emoji-container', {
               selected: isSelected,
               // Give newly-rendered items the "hidden" and "pop-in" classes
