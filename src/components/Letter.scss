@@ -73,7 +73,11 @@
       display: table;
     }
     .letter-content {
+      padding: 0;
       display: table-footer-group;
+      > div {
+        padding: 2em;
+      }
     }
     .btn {
       display: table-header-group;
