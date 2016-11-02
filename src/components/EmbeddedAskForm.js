@@ -51,40 +51,6 @@ export default class EmbeddedAskForm extends Component {
   }
 
   /**
-   * Get the button text based on the state of the form
-   */
-  getButtonText() {
-    const { open, submitted } = this.state;
-    let fieldId;
-    let defaultValue;
-
-    // show the button only if the form hasn't been submitted yet.
-    if (!submitted) {
-      if (open) {
-        fieldId = 'elc-text-button-close-form';
-        defaultValue = 'Don\'t submit, close form';
-      } else {
-        fieldId = 'elc-text-button-open-form';
-        defaultValue = 'Tell the president-elect what you think';
-      }
-      return (
-        <button
-          className="btn form-toggle-button"
-          type="button"
-          onClick={() => this.toggleForm()}
-        >
-          <GoogleSheetFieldComponent
-            fieldId={fieldId}
-            defaultValue={defaultValue}
-            isTemplate={false}
-          />
-        </button>
-      );
-    }
-    return '';
-  }
-
-  /**
    * Once the button is submitted, change the form status to
    * submitted to remove the button.
    */
@@ -154,6 +120,40 @@ export default class EmbeddedAskForm extends Component {
   }
 
   /**
+   * Get the button text based on the state of the form
+   */
+  renderToggleButton() {
+    const { open, submitted } = this.state;
+    let fieldId;
+    let defaultValue;
+
+    // show the button only if the form hasn't been submitted yet.
+    if (!submitted) {
+      if (open) {
+        fieldId = 'elc-text-button-close-form';
+        defaultValue = 'Don\'t submit, close form';
+      } else {
+        fieldId = 'elc-text-button-open-form';
+        defaultValue = 'Tell the president-elect what you think';
+      }
+      return (
+        <button
+          className="btn form-toggle-button"
+          type="button"
+          onClick={() => this.toggleForm()}
+        >
+          <GoogleSheetFieldComponent
+            fieldId={fieldId}
+            defaultValue={defaultValue}
+            isTemplate={false}
+          />
+        </button>
+      );
+    }
+    return null;
+  }
+
+  /**
    * Main render function that draws the form
    */
   render() {
@@ -168,7 +168,7 @@ export default class EmbeddedAskForm extends Component {
       >
         <div id="ask-form"className="embedded-form" />
         <div className="form-toggle-button-container">
-          {this.getButtonText()}
+          {this.renderToggleButton()}
         </div>
       </div>
     );
