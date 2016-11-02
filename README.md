@@ -50,6 +50,12 @@ https://docs.google.com/spreadsheets/d/18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IH
 ```
 "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I" is your googleSheetId.
 
+**s3Bucket**:
+
+This is necessary if you would like to use `npm run deploy` to deploy the built project to an s3 bucket.
+
+The `deploy` script uses the `aws` command line tool ([link here](http://docs.aws.amazon.com/cli/latest/reference/s3/)) to push to s3.
+
 ## Development
 
 ### `npm start`
