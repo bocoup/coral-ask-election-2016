@@ -11,13 +11,15 @@ class EmojiBarChart extends PureComponent {
     selectedTopicEmoji: PropTypes.object,
     emoji: PropTypes.array,
     height: PropTypes.number,
-    topic: PropTypes.object
+    topic: PropTypes.object,
+    showBars: PropTypes.bool
   }
 
   static defaultProps = {
     height: 45,
     emoji: [],
-    selectedTopicEmoji: {}
+    selectedTopicEmoji: {},
+    showBars: true
   }
 
   /**
@@ -43,7 +45,7 @@ class EmojiBarChart extends PureComponent {
   }
 
   update() {
-    const { emoji, onSelect, selectedTopicEmoji } = this.props;
+    const { emoji, onSelect, selectedTopicEmoji, showBars } = this.props;
 
     if (!emoji) {
       return;
@@ -65,6 +67,10 @@ class EmojiBarChart extends PureComponent {
     const heightScale = d3.scaleLinear()
       .domain(d3.extent(emoji, d => d.count))
       .range([0, maxBarHeight]);
+
+    if (!showBars) {
+      heightScale.range([0, 0]).clamp(true);
+    }
 
     const binding = parent.selectAll('button.emoji-bar-container')
       .data(emoji, d => `${d.id}`);
