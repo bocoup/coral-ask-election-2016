@@ -56,7 +56,7 @@ export default class EmojiBubbleChart extends PureComponent {
     }
   }
 
-  render() {
+  renderBubbleChart() {
     const {
       emoji,
       onSelect,
@@ -94,11 +94,11 @@ export default class EmojiBubbleChart extends PureComponent {
 
     const pack = d3.pack()
       .size([width, height])
-      .padding(5);
+      .padding(0);
 
     pack(root);
 
-    const scaler = 1.5;
+    const scaler = 0.75;
     const sumValues = d3.sum(root.children, d => d.value);
 
     // .id in root.children is the emoji itself: This maps back to Ask's
@@ -117,62 +117,67 @@ export default class EmojiBubbleChart extends PureComponent {
     const hPct = val => `${(val / height) * 100}%`;
 
     return (
-      <div className={'emojis-bubble-chart'}>
+      <div className="emojis-group-container" style={chartStyle}>
+        {root.children.map((d) => {
+          const containerStyle = {
+            top: hPct(d.y - ((d.r * scaler))),
+            left: wPct(d.x - ((d.r * scaler))),
+            width: wPct(2 * d.r * scaler),
+            height: hPct(2 * d.r * scaler)
+          };
+          const percent = d3.format('0.0%')(d.value / sumValues);
+          const id = getEmojiId(d.id);
+          const isSelected = selectedEmoji && (id === selectedEmoji.id);
+          const key = `bubble${id}`;
 
+          // See EmojiBubbleChart.scss for a thorough explanation of the
+          // purposes for each of these classes
+          const classes = classNames('emoji-container', {
+            selected: isSelected,
+            // Give newly-rendered items the "hidden" and "pop-in" classes
+            hidden: !this.renderedKeys[key],
+            'pop-in': !this.renderedKeys[key]
+          });
+
+          // Set the rendered flag so they don't pop-in again
+          if (!this.renderedKeys[key]) {
+            this.renderedKeys[key] = true;
+          }
+
+          return (
+            <button
+              type="button"
+              className={classes}
+              key={key}
+              onClick={() => onSelect(id)}
+              aria-pressed={isSelected}
+              style={containerStyle}
+            >
+              {inlineEmoji(d.id, {
+                className: 'emoji-image'
+              })}
+              <span className="emoji-label">{percent}</span>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className={'emojis-bubble-chart'}>
         <h3>
           <GoogleSheetFieldComponent
             fieldId={'elc-text-filter-by-feeling-header'}
-            defaultValue={'Filter by Feelings'}
+            defaultValue={'Emotional Responses'}
           />
         </h3>
         <GoogleSheetFieldComponent
           fieldId={'elc-text-filter-by-feeling-blurb'}
           defaultValue={'<p>Select an emoji to see related responses</p>'}
         />
-
-        <div className="emojis-group-container" style={chartStyle}>
-          {root.children.map((d) => {
-            const containerStyle = {
-              top: hPct(d.y - ((d.r * scaler) / 2)),
-              left: wPct(d.x - ((d.r * scaler) / 2)),
-              width: wPct(d.r * scaler),
-              height: hPct(d.r * scaler)
-            };
-            const percent = d3.format('0.0%')(d.value / sumValues);
-            const id = getEmojiId(d.id);
-            const isSelected = selectedEmoji && (id === selectedEmoji.id);
-            const key = `bubble${id}`;
-
-            // See EmojiBubbleChart.scss for a thorough explanation of the
-            // purposes for each of these classes
-            const classes = classNames('emoji-container', {
-              selected: isSelected,
-              // Give newly-rendered items the "hidden" and "pop-in" classes
-              hidden: !this.renderedKeys[key],
-              'pop-in': !this.renderedKeys[key]
-            });
-            // Set the rendered flag so they don't pop-in again
-            if (!this.renderedKeys[key]) {
-              this.renderedKeys[key] = true;
-            }
-
-            return (
-              <button
-                type="button"
-                className={classes}
-                key={key}
-                onClick={() => onSelect(id)}
-                aria-pressed={isSelected}
-                style={containerStyle}
-              >
-                {inlineEmoji(d.id, {
-                  className: 'emoji-image'
-                })}
-                <span className="emoji-label">{percent}</span>
-              </button>
-            );
-          })}
-        </div>
+        {this.renderBubbleChart()}
       </div>
     );
   }
