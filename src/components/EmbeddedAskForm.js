@@ -62,7 +62,7 @@ export default class EmbeddedAskForm extends Component {
       defaultValue = 'Don\'t submit, close form';
     } else {
       fieldId = 'elc-text-button-open-form';
-      defaultValue = 'Tell the President-elect what you think';
+      defaultValue = 'Tell the president-elect what you think';
     }
 
     return <GoogleSheetFieldComponent fieldId={fieldId} defaultValue={defaultValue} />;
@@ -100,6 +100,12 @@ export default class EmbeddedAskForm extends Component {
     const allLabels = d3.select(this.formContainer)
       .selectAll('label');
 
+    // re-emojify all nodes
+    allLabels.nodes().forEach((node) => {
+      twemoji.parse(node, icon => emojiSVGUrl(icon));
+    });
+
+    // also re-emojify on click
     allLabels.on('click', () => {
       // re-emojify all nodes
       allLabels.nodes().forEach((node) => {
