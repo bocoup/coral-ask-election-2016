@@ -10,15 +10,28 @@ import getConfig from '../config';
 
 // import ShortAnswerList from '../components/ShortAnswerList';
 
-import { fetchFormDigestIfNeeded } from '../state/actions';
+import { fetchFormDigestIfNeeded, showForm, hideForm } from '../state/actions';
 
 // Assign value once config loads
 let formScript;
 getConfig.then(config => (formScript = config.formScript));
 
+function mapStateToProps(state) {
+  return {
+    formVisible: state.form.formVisible
+  };
+}
+
 class App extends Component {
   static propTypes = {
-    dispatch: PropTypes.func
+    dispatch: PropTypes.func,
+    formVisible: PropTypes.bool
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.handleFormVisibilityChange = this.handleFormVisibilityChange.bind(this);
   }
 
   componentWillMount() {
@@ -26,11 +39,26 @@ class App extends Component {
     dispatch(fetchFormDigestIfNeeded());
   }
 
+  handleFormVisibilityChange(visible) {
+    const { dispatch } = this.props;
+    if (visible) {
+      dispatch(showForm());
+    } else {
+      dispatch(hideForm());
+    }
+  }
+
   render() {
+    const { formVisible } = this.props;
+
     return (
       <div className="App" ref={(node) => { this.root = node; }}>
 
-        <EmbeddedAskForm formScript={formScript} />
+        <EmbeddedAskForm
+          formVisible={formVisible}
+          onChangeFormVisibility={this.handleFormVisibilityChange}
+          formScript={formScript}
+        />
 
         <div className="container">
           <FilterByEmojiVis />
@@ -45,4 +73,4 @@ class App extends Component {
 }
 
 // Use connect() with no argument to get props.dispatch()
-export default connect()(App);
+export default connect(mapStateToProps)(App);
