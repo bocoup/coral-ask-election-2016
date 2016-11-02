@@ -64,11 +64,12 @@ class EmojiBarChart extends PureComponent {
       .domain(d3.extent(emoji, d => d.count))
       .range([0, maxBarHeight]);
 
-    const binding = parent.selectAll('div.emoji-bar-container')
+    const binding = parent.selectAll('button.emoji-bar-container')
       .data(emoji, d => `${d.id}-${d.count}`);
 
     const entering = binding.enter()
-      .append('div')
+      .append('button')
+      .attr('type', 'button')
       .classed('emoji-bar-container', true);
 
     // Each emoji bar container has:
@@ -104,10 +105,14 @@ class EmojiBarChart extends PureComponent {
     // Click handlers
     mergedSelection
       .classed('enabled', d => !!d.count)
+      .attr('disabled', d => (d.count ? null : 1))
       .on('click', (d) => {
         if (d.count) {
           onSelect(d.id);
         }
+        mergedSelection.classed('selected', d1 => (
+          !!d.count && d1.id === d.id
+        ));
       });
 
     // 1. animate bars

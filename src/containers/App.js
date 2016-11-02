@@ -6,11 +6,15 @@ import FilterByEmojiVis from './FilterByEmojiVis';
 import FilterByTopicVis from './FilterByTopicVis';
 import Footer from '../components/Footer';
 
-import config from '../config';
+import getConfig from '../config';
 
 // import ShortAnswerList from '../components/ShortAnswerList';
 
 import { fetchFormDigestIfNeeded } from '../state/actions';
+
+// Assign value once config loads
+let formScript;
+getConfig.then(config => (formScript = config.formScript));
 
 class App extends Component {
   static propTypes = {
@@ -26,7 +30,7 @@ class App extends Component {
     return (
       <div className="App" ref={(node) => { this.root = node; }}>
 
-        <EmbeddedAskForm formScript={config.formScript} />
+        <EmbeddedAskForm formScript={formScript} />
 
         <div className="container">
           <FilterByEmojiVis />

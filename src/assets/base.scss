@@ -69,7 +69,7 @@ p {
 .emoji-container.selected.visible {
   background: #e6e6e6;
   border-radius: 5px;
-  
+
   .emoji-image {
     padding: .2em;
   }
@@ -127,5 +127,7 @@ button {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  outline: none !important;
+  &:active {
+    outline: 0;
+  }
 }
