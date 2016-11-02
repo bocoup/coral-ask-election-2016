@@ -40,6 +40,7 @@ class Letter extends PureComponent {
 
     return (
       <div className="letter">
+
         <div className="letter-content" ref={(node) => { this.root = node; }}>
           <GoogleSheetFieldComponent
             fieldId={'elc-text-letter-template'}
@@ -69,6 +70,7 @@ class Letter extends PureComponent {
           />
 
         </div>
+
         <button
           type="button"
           className="btn"
@@ -77,8 +79,8 @@ class Letter extends PureComponent {
         >
           {buttonText}
         </button>
-      </div>
 
+      </div>
     );
   }
 }
