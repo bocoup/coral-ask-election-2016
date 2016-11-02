@@ -85,13 +85,14 @@ class EmojiBarChart extends PureComponent {
       .append('button')
       .attr('type', 'button')
       .classed('emoji-bar-container', true)
+      .style('width', `${(100 / emoji.length)}%`)
       .each(function enterButton(d) {
         const button = d3.select(this);
 
         // 1. bar
         button.append('div')
           .classed('bar', true)
-          .style('height', `${maxBarHeight}px`)
+          .style('height', `${showBars ? maxBarHeight : 0}px`)
             .append('div')
             .classed('inner-bar', true)
             .style('top', () => `${maxBarHeight}px`)
