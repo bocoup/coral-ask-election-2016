@@ -26,7 +26,7 @@ class GoogleSheetFieldComponent extends PureComponent {
     dispatch: PropTypes.func,
     fields: PropTypes.object,
     fieldId: PropTypes.string,
-    isTemplate: PropTypes.boolean,
+    isTemplate: PropTypes.bool,
     templateValues: PropTypes.array
   }
 

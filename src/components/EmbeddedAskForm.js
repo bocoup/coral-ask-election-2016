@@ -22,7 +22,8 @@ export default class EmbeddedAskForm extends Component {
     // start with the form closed.
     this.state = {
       open: false,
-      scriptInjected: false
+      scriptInjected: false,
+      submitted: false
     };
 
     if (document.getElementById('ask-form-script')) {
@@ -53,19 +54,47 @@ export default class EmbeddedAskForm extends Component {
    * Get the button text based on the state of the form
    */
   getButtonText() {
-    const { open } = this.state;
+    const { open, submitted } = this.state;
     let fieldId;
     let defaultValue;
 
-    if (open) {
-      fieldId = 'elc-text-button-close-form';
-      defaultValue = 'Don\'t submit, close form';
-    } else {
-      fieldId = 'elc-text-button-open-form';
-      defaultValue = 'Tell the president-elect what you think';
+    // show the button only if the form hasn't been submitted yet.
+    if (!submitted) {
+      if (open) {
+        fieldId = 'elc-text-button-close-form';
+        defaultValue = 'Don\'t submit, close form';
+      } else {
+        fieldId = 'elc-text-button-open-form';
+        defaultValue = 'Tell the president-elect what you think';
+      }
+      return (
+        <button
+          className="btn form-toggle-button"
+          type="button"
+          onClick={() => this.toggleForm()}
+        >
+          <GoogleSheetFieldComponent
+            fieldId={fieldId}
+            defaultValue={defaultValue}
+            isTemplate={false}
+          />
+        </button>
+      );
     }
+    return '';
+  }
 
-    return <GoogleSheetFieldComponent fieldId={fieldId} defaultValue={defaultValue} />;
+  /**
+   * Once the button is submitted, change the form status to
+   * submitted to remove the button.
+   */
+  bindToButtonSubmission() {
+    const button = d3.select(this.formContainer)
+      .select('.submit-button');
+
+    button.on('click', () => {
+      this.setState({ submitted: true });
+    });
   }
 
   /**
@@ -86,7 +115,10 @@ export default class EmbeddedAskForm extends Component {
     // create the script tag and set state when it is added
     const scriptTag = document.createElement('script');
     scriptTag.id = 'ask-form-script';
-    scriptTag.onload = () => this.setState({ scriptInjected: true });
+    scriptTag.onload = () => {
+      this.setState({ scriptInjected: true });
+      this.bindToButtonSubmission();
+    };
     scriptTag.src = formScript;
     firstScriptTag.parentNode.insertBefore(scriptTag, firstScriptTag);
   }
@@ -136,13 +168,7 @@ export default class EmbeddedAskForm extends Component {
       >
         <div id="ask-form"className="embedded-form" />
         <div className="form-toggle-button-container">
-          <button
-            className="btn form-toggle-button"
-            type="button"
-            onClick={() => this.toggleForm()}
-          >
-            {this.getButtonText()}
-          </button>
+          {this.getButtonText()}
         </div>
       </div>
     );
