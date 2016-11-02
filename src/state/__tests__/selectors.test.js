@@ -547,12 +547,12 @@ describe('get____Counts', () => {
       expect(getTopicCounts(defaultState)).toEqual([]);
     });
 
-    it('returns a dictionary by question ID of topic object lists, with counts', () => {
+    it('returns a sorted array of topic object lists, with counts', () => {
       const result = getTopicCounts(populatedState);
       expect(result).toEqual([
-        { id: 'econ', value: 'Economy', count: 3 },
+        { id: 'env', value: 'Environment', count: 12 },
         { id: 'edu', value: 'Education', count: 4 },
-        { id: 'env', value: 'Environment', count: 12 }
+        { id: 'econ', value: 'Economy', count: 3 }
       ]);
     });
 
