@@ -16,7 +16,7 @@
  *             "question": "Which issue should be highest on the new presidentâ€™s agenda?",
  *             "answers": {
  *               "b1cc14fffa31a73de64ba82e99ecfbe6": {
- *                 "answer": "Social Issues",
+ *                 "answer": "Social issues",
  *                 "count": 2
  *
  * Revised JSON:

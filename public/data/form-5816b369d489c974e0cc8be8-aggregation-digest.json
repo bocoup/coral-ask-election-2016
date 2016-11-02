@@ -63,10 +63,10 @@
 			"group_by": true,
 			"options": [{
 				"id": "98a6399d1a49d929e8403bf9fce897e5",
-				"value": "The Economy"
+				"value": "The economy"
 			}, {
 				"id": "4690cd84196b0a4e3f84f2cc3bf79ac7",
-				"value": "Cyber Security"
+				"value": "Cybersecurity"
 			}, {
 				"id": "5f390d80b20daad8f5d2f483fb0ae9d8",
 				"value": "Trade"
@@ -75,25 +75,25 @@
 				"value": "Education"
 			}, {
 				"id": "d91b20b62997b6bfe27473dd16675cfb",
-				"value": "Energy and the Environment"
+				"value": "Energy and the environment"
 			}, {
 				"id": "745ce5bc6e3557b01bf4cfbd90721ae7",
-				"value": "Health Care"
+				"value": "Health care"
 			}, {
 				"id": "c967a0dbb29151be23e4d79805a1da02",
 				"value": "Crime"
 			}, {
 				"id": "e03aac50cc66ce2b2b0eeaf57cb68d0a",
-				"value": "Defense and National Security"
+				"value": "Defense and national security"
 			}, {
 				"id": "b306b60e6d0b6a265e0914a60ac48867",
 				"value": "Immigration"
 			}, {
 				"id": "8deaa8bde66cc6bf6ffc7d4e48c82f68",
-				"value": "Foreign Policy"
+				"value": "Foreign policy"
 			}, {
 				"id": "b1cc14fffa31a73de64ba82e99ecfbe6",
-				"value": "Social Issues"
+				"value": "Social issues"
 			}],
 			"order": 2
 		}
@@ -111,15 +111,15 @@
 					"question": "Which issue should be highest on the new president’s agenda?",
 					"answers": {
 						"4690cd84196b0a4e3f84f2cc3bf79ac7": {
-							"answer": "Cyber Security",
+							"answer": "Cybersecurity",
 							"count": 1
 						},
 						"98a6399d1a49d929e8403bf9fce897e5": {
-							"answer": "The Economy",
+							"answer": "The economy",
 							"count": 1
 						},
 						"d91b20b62997b6bfe27473dd16675cfb": {
-							"answer": "Energy and the Environment",
+							"answer": "Energy and the environment",
 							"count": 2
 						}
 					}
@@ -138,19 +138,19 @@
 					"question": "Which issue should be highest on the new president’s agenda?",
 					"answers": {
 						"745ce5bc6e3557b01bf4cfbd90721ae7": {
-							"answer": "Health Care",
+							"answer": "Health care",
 							"count": 1
 						},
 						"98a6399d1a49d929e8403bf9fce897e5": {
-							"answer": "The Economy",
+							"answer": "The economy",
 							"count": 1
 						},
 						"b1cc14fffa31a73de64ba82e99ecfbe6": {
-							"answer": "Social Issues",
+							"answer": "Social issues",
 							"count": 1
 						},
 						"d91b20b62997b6bfe27473dd16675cfb": {
-							"answer": "Energy and the Environment",
+							"answer": "Energy and the environment",
 							"count": 1
 						}
 					}
@@ -169,11 +169,11 @@
 					"question": "Which issue should be highest on the new president’s agenda?",
 					"answers": {
 						"4690cd84196b0a4e3f84f2cc3bf79ac7": {
-							"answer": "Cyber Security",
+							"answer": "Cybersecurity",
 							"count": 1
 						},
 						"745ce5bc6e3557b01bf4cfbd90721ae7": {
-							"answer": "Health Care",
+							"answer": "Health care",
 							"count": 1
 						}
 					}
@@ -184,7 +184,7 @@
 			"group": {
 				"group_id": "4690cd84196b0a4e3f84f2cc3bf79ac7",
 				"question": "Which issue should be highest on the new president’s agenda?",
-				"answer": "Cyber Security"
+				"answer": "Cybersecurity"
 			},
 			"count": 4,
 			"MultipleChoice": {
@@ -242,7 +242,7 @@
 					"question": "Which issue should be highest on the new president’s agenda?",
 					"answers": {
 						"b1cc14fffa31a73de64ba82e99ecfbe6": {
-							"answer": "Social Issues",
+							"answer": "Social issues",
 							"count": 1
 						}
 					}
@@ -261,11 +261,11 @@
 					"question": "Which issue should be highest on the new president’s agenda?",
 					"answers": {
 						"4690cd84196b0a4e3f84f2cc3bf79ac7": {
-							"answer": "Cyber Security",
+							"answer": "Cybersecurity",
 							"count": 1
 						},
 						"e03aac50cc66ce2b2b0eeaf57cb68d0a": {
-							"answer": "Defense and National Security",
+							"answer": "Defense and national security",
 							"count": 1
 						}
 					}
@@ -276,7 +276,7 @@
 			"group": {
 				"group_id": "745ce5bc6e3557b01bf4cfbd90721ae7",
 				"question": "Which issue should be highest on the new president’s agenda?",
-				"answer": "Health Care"
+				"answer": "Health care"
 			},
 			"count": 4,
 			"MultipleChoice": {
@@ -327,7 +327,7 @@
 							"count": 1
 						},
 						"e03aac50cc66ce2b2b0eeaf57cb68d0a": {
-							"answer": "Defense and National Security",
+							"answer": "Defense and national security",
 							"count": 1
 						}
 					}
@@ -338,7 +338,7 @@
 			"group": {
 				"group_id": "8deaa8bde66cc6bf6ffc7d4e48c82f68",
 				"question": "Which issue should be highest on the new president’s agenda?",
-				"answer": "Foreign Policy"
+				"answer": "Foreign policy"
 			},
 			"count": 2,
 			"MultipleChoice": {
@@ -357,7 +357,7 @@
 			"group": {
 				"group_id": "98a6399d1a49d929e8403bf9fce897e5",
 				"question": "Which issue should be highest on the new president’s agenda?",
-				"answer": "The Economy"
+				"answer": "The economy"
 			},
 			"count": 4,
 			"MultipleChoice": {
@@ -400,19 +400,19 @@
 							"count": 1
 						},
 						"745ce5bc6e3557b01bf4cfbd90721ae7": {
-							"answer": "Health Care",
+							"answer": "Health care",
 							"count": 1
 						},
 						"98a6399d1a49d929e8403bf9fce897e5": {
-							"answer": "The Economy",
+							"answer": "The economy",
 							"count": 1
 						},
 						"b1cc14fffa31a73de64ba82e99ecfbe6": {
-							"answer": "Social Issues",
+							"answer": "Social issues",
 							"count": 2
 						},
 						"d91b20b62997b6bfe27473dd16675cfb": {
-							"answer": "Energy and the Environment",
+							"answer": "Energy and the environment",
 							"count": 1
 						},
 						"de7a22a0c94aa64ba2449e520aa20c99": {
@@ -476,7 +476,7 @@
 					"question": "Which issue should be highest on the new president’s agenda?",
 					"answers": {
 						"4690cd84196b0a4e3f84f2cc3bf79ac7": {
-							"answer": "Cyber Security",
+							"answer": "Cybersecurity",
 							"count": 4
 						},
 						"5f390d80b20daad8f5d2f483fb0ae9d8": {
@@ -484,19 +484,19 @@
 							"count": 1
 						},
 						"745ce5bc6e3557b01bf4cfbd90721ae7": {
-							"answer": "Health Care",
+							"answer": "Health care",
 							"count": 4
 						},
 						"8deaa8bde66cc6bf6ffc7d4e48c82f68": {
-							"answer": "Foreign Policy",
+							"answer": "Foreign policy",
 							"count": 2
 						},
 						"98a6399d1a49d929e8403bf9fce897e5": {
-							"answer": "The Economy",
+							"answer": "The economy",
 							"count": 4
 						},
 						"b1cc14fffa31a73de64ba82e99ecfbe6": {
-							"answer": "Social Issues",
+							"answer": "Social issues",
 							"count": 4
 						},
 						"b306b60e6d0b6a265e0914a60ac48867": {
@@ -508,7 +508,7 @@
 							"count": 1
 						},
 						"d91b20b62997b6bfe27473dd16675cfb": {
-							"answer": "Energy and the Environment",
+							"answer": "Energy and the environment",
 							"count": 5
 						},
 						"de7a22a0c94aa64ba2449e520aa20c99": {
@@ -516,7 +516,7 @@
 							"count": 3
 						},
 						"e03aac50cc66ce2b2b0eeaf57cb68d0a": {
-							"answer": "Defense and National Security",
+							"answer": "Defense and national security",
 							"count": 2
 						}
 					}
@@ -527,7 +527,7 @@
 			"group": {
 				"group_id": "b1cc14fffa31a73de64ba82e99ecfbe6",
 				"question": "Which issue should be highest on the new president’s agenda?",
-				"answer": "Social Issues"
+				"answer": "Social issues"
 			},
 			"count": 4,
 			"MultipleChoice": {
@@ -585,11 +585,11 @@
 					"question": "Which issue should be highest on the new president’s agenda?",
 					"answers": {
 						"4690cd84196b0a4e3f84f2cc3bf79ac7": {
-							"answer": "Cyber Security",
+							"answer": "Cybersecurity",
 							"count": 1
 						},
 						"98a6399d1a49d929e8403bf9fce897e5": {
-							"answer": "The Economy",
+							"answer": "The economy",
 							"count": 1
 						}
 					}
@@ -627,11 +627,11 @@
 					"question": "Which issue should be highest on the new president’s agenda?",
 					"answers": {
 						"745ce5bc6e3557b01bf4cfbd90721ae7": {
-							"answer": "Health Care",
+							"answer": "Health care",
 							"count": 1
 						},
 						"8deaa8bde66cc6bf6ffc7d4e48c82f68": {
-							"answer": "Foreign Policy",
+							"answer": "Foreign policy",
 							"count": 2
 						},
 						"b306b60e6d0b6a265e0914a60ac48867": {
@@ -639,7 +639,7 @@
 							"count": 1
 						},
 						"d91b20b62997b6bfe27473dd16675cfb": {
-							"answer": "Energy and the Environment",
+							"answer": "Energy and the environment",
 							"count": 1
 						},
 						"de7a22a0c94aa64ba2449e520aa20c99": {
@@ -654,7 +654,7 @@
 			"group": {
 				"group_id": "d91b20b62997b6bfe27473dd16675cfb",
 				"question": "Which issue should be highest on the new president’s agenda?",
-				"answer": "Energy and the Environment"
+				"answer": "Energy and the environment"
 			},
 			"count": 5,
 			"MultipleChoice": {
@@ -712,7 +712,7 @@
 			"group": {
 				"group_id": "e03aac50cc66ce2b2b0eeaf57cb68d0a",
 				"question": "Which issue should be highest on the new president’s agenda?",
-				"answer": "Defense and National Security"
+				"answer": "Defense and national security"
 			},
 			"count": 2,
 			"MultipleChoice": {
@@ -744,42 +744,42 @@
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "restore the middle class",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😟",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Jessica",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "The Economy",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "The economy",
 		"id": "5816b922d489c974e0cc8c08"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Oregon",
-		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "universal health care for all",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "universal Health care for all",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😳",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Susan R",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health Care",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health care",
 		"id": "5816b8f9d489c974e0cc8c07"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "portland, oregon",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "slowing down climate change",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😐",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Susan",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the Environment",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the environment",
 		"id": "5816b8ebd489c974e0cc8c06"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "New Jersey",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "police and military reform",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🤔",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Jenn",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Social Issues",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Social issues",
 		"id": "5816b8b1d489c974e0cc8c05"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Minnesota",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Fix the bridges",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😞",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Sally",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Social Issues",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Social issues",
 		"id": "5816b8a1d489c974e0cc8c04"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Temple, Florida",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "It's time to make clean energy the defacto standard. We are burning through our atmosphere and killing our planet. ",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😍",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Shirley",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the Environment",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the environment",
 		"id": "5816b890d489c974e0cc8c03"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Chicago",
@@ -800,21 +800,21 @@
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Close our borders!",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😡",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Joe",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cyber Security",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cybersecurity",
 		"id": "5816b84bd489c974e0cc8c00"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston, MA",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Equal opportunity for women!",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😍",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Irene",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the Environment",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the environment",
 		"id": "5816b83dd489c974e0cc8bff"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Queens, NY",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Defending and strengthening parental policies and women's rights",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😳",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Yolanda",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Foreign Policy",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Foreign policy",
 		"id": "5816b830d489c974e0cc8bfe"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston",
@@ -828,63 +828,63 @@
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Making the internet free and open globally.",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😟",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Foo Bar",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cyber Security",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cybersecurity",
 		"id": "5816b7efd489c974e0cc8bfc"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Nashville, TN",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "replace Columbus Day with Indigenous Peoples' Day",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🤔",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Kristen N",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "The Economy",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "The economy",
 		"id": "5816b7ddd489c974e0cc8bfb"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston, MA",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "raise interest rates",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😀",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Samantha J",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cyber Security",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cybersecurity",
 		"id": "5816b7b7d489c974e0cc8bfa"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "USA",
-		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Universal health care",
+		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Universal Health care",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😐",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Justin A",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health Care",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health care",
 		"id": "5816b7a6d489c974e0cc8bf9"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Arlington VT",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Successfully appointing left-of-center supreme court justices.",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😐",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Tyler K",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Social Issues",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Social issues",
 		"id": "5816b794d489c974e0cc8bf8"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Bean Town",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Balanced budget.",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😍",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Scorps",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cyber Security",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Cybersecurity",
 		"id": "5816b771d489c974e0cc8bf7"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "NYC",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Better healthcare options for the self-employed",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😍",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Emily",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "The Economy",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "The economy",
 		"id": "5816b738d489c974e0cc8bf6"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Seattle",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Clean sheets for hospitals in the country",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😀",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Janet M",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health Care",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health care",
 		"id": "5816b714d489c974e0cc8bf5"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Albuquerque, NM",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "ISIS Eradication",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😡",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Monique J",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Defense and National Security",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Defense and national security",
 		"id": "5816b6fed489c974e0cc8bf4"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Nevada",
@@ -898,21 +898,21 @@
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Improved national mass-transit infrastructure",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😳",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "T4P",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Foreign Policy",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Foreign policy",
 		"id": "5816b6a9d489c974e0cc8bf2"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Tomato Sauce",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🤔",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Captain Frog",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the Environment",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Energy and the environment",
 		"id": "5816b695d489c974e0cc8bf1"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Boston",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "health insurance for all americans ",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🤔",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Jory",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health Care",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Health care",
 		"id": "5816b680d489c974e0cc8bf0"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Norman",
@@ -926,14 +926,14 @@
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "adding more new jobs",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "😐",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Josh",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "The Economy",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "The economy",
 		"id": "5816b601d489c974e0cc8bee"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Tallahassee",
 		"bc92bba1-ae82-4dfb-9261-ed062fe8db8b": "Proving America is the greatest nation in the world ",
 		"c5dba9b7-ba42-44a4-8466-fc2c667617cd": "🇺🇸",
 		"cceb81a8-7feb-43d8-b285-35217947c592": "Marilyn D",
-		"e9fbc117-e71e-4b98-a53e-74a897693280": "Defense and National Security",
+		"e9fbc117-e71e-4b98-a53e-74a897693280": "Defense and national security",
 		"id": "5816b5ebd489c974e0cc8bed"
 	}, {
 		"a889cabd-6057-446f-9f3a-ce908230b6c7": "Omaha",
