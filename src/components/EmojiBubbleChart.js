@@ -2,7 +2,6 @@ import React, { PureComponent, PropTypes } from 'react';
 import classNames from 'classnames';
 import d3 from '../d3';
 import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
-
 import { inlineEmoji } from '../utils/emoji';
 
 import './EmojiBubbleChart.scss';
