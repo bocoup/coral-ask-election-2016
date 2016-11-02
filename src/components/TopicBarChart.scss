@@ -20,6 +20,10 @@
     cursor: pointer;
     display: inline-block;
     margin-bottom: .9em;
+
+    &.disabled {
+      cursor: default;
+    }
   }
 
   .topic-detail-container {

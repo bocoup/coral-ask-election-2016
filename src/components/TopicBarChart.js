@@ -47,15 +47,20 @@ class TopicBarChart extends PureComponent {
               d3.format('.0%')(topic.count / responseCount) :
               0;
             const isSelected = selectedTopic && (topic.id === selectedTopic.id);
+            const disabled = !topic.count;
+
             const classes = classNames('bar-group', {
-              selected: isSelected
+              selected: isSelected,
+              disabled
             });
+
             return (
               <button
                 aria-pressed={isSelected}
                 onClick={() => onSelect(topic.id)}
                 key={topic.value}
                 className={classes}
+                disabled={disabled}
               >
                 <div className="topic-detail-container">
                   <div className="topic-name">{topic.value}</div>
