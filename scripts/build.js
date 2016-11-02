@@ -174,6 +174,11 @@ function build(previousSizeMap) {
       console.log('  ' + chalk.cyan(openCommand) + ' http://localhost:9000');
       console.log();
     }
+
+    console.log(`Generating ${paths.appPublic}/overrides.css...`)
+    require('./generate-css-override').then(function() {
+      console.log('File created');
+    });
   });
 }
 
