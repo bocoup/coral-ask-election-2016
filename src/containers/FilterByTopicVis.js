@@ -65,12 +65,14 @@ class FilterByTopicVis extends PureComponent {
     const { dispatch } = this.props;
     dispatch(fetchResponsesIfNeeded(topicId));
     dispatch(selectTopic(topicId));
+    this.showNextLetter();
   }
 
   selectEmoji(emojiId) {
     const { dispatch } = this.props;
     dispatch(fetchResponsesIfNeeded(emojiId));
     dispatch(selectTopicEmoji(emojiId));
+    this.showNextLetter();
   }
 
   showNextLetter() {
