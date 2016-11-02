@@ -1,45 +1,101 @@
 import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 import twemoji from 'twemoji';
+
+import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
 import { emojiSVGUrl } from '../utils/emoji';
 import './EmbeddedAskForm.scss';
 import d3 from '../d3';
 
-export default class EmojiBarChart extends Component {
+/**
+ * Component that injects the ask-form script tag and renders it with
+ * an open/close toggle. Text for the toggle comes from the google sheet.
+ */
+export default class EmbeddedAskForm extends Component {
   static propTypes = {
     formScript: PropTypes.string
   }
 
+  constructor(props) {
+    super(props);
+
+    // start with the form closed.
+    this.state = {
+      open: false,
+      scriptInjected: false
+    };
+
+    if (document.getElementById('ask-form-script')) {
+      // if this runs we're in trouble since the script seems to rely on #ask-form
+      // already being on the page. Simple fix is probably to just include it again.
+      this.state.scriptInjected = true;
+    }
+  }
+
+  /**
+   * On mount, inject the script if it isn't already there.
+   */
   componentDidMount() {
-    this.injectScript();
+    if (!this.state.scriptInjected) {
+      this.injectScript();
+    }
+    this.addRerenderTwemojiFix();
   }
 
-  shouldComponentUpdate() {
-    // Never re-render, it would clobber the embedded form!
-    return false;
+  /**
+   * On state change, ensure that the answers have their twemoji fix
+   */
+  componentDidUpdate() {
+    this.addRerenderTwemojiFix();
   }
 
+  /**
+   * Get the button text based on the state of the form
+   */
+  getButtonText() {
+    const { open } = this.state;
+    let fieldId;
+    let defaultValue;
+
+    if (open) {
+      fieldId = 'elc-text-button-close-form';
+      defaultValue = 'Don\'t submit, close form';
+    } else {
+      fieldId = 'elc-text-button-open-form';
+      defaultValue = 'Tell the President-elect what you think';
+    }
+
+    return <GoogleSheetFieldComponent fieldId={fieldId} defaultValue={defaultValue} />;
+  }
+
+  /**
+   * Inject the <script> tag for the ask-form
+   */
   injectScript() {
     const { formScript } = this.props;
 
     // Inspired by Google Analytics' script injection code:
     // Use a pre-existing script tag as the model for the one we will insert
-    const scriptTag = document.getElementsByTagName('script')[0];
+    const firstScriptTag = document.getElementsByTagName('script')[0];
 
     // Should this be run twice, do nothing
     if (document.getElementById('ask-form-script')) {
       return;
     }
-    const js = document.createElement('script');
-    js.id = 'ask-form-script';
-    js.onload = () => this.formLoaded();
-    js.src = formScript;
-    scriptTag.parentNode.insertBefore(js, scriptTag);
+
+    // create the script tag and set state when it is added
+    const scriptTag = document.createElement('script');
+    scriptTag.id = 'ask-form-script';
+    scriptTag.onload = () => this.setState({ scriptInjected: true });
+    scriptTag.src = formScript;
+    firstScriptTag.parentNode.insertBefore(scriptTag, firstScriptTag);
   }
 
-  formLoaded() {
-    // Ensure form starts out closed
-    this.closeForm();
-
+  /**
+   * Add click handlers to each of the answers to re-render the emojis as twemoji
+   * Should be run after the form has been rendered.
+   */
+  addRerenderTwemojiFix() {
     // bind events to labels
     const allLabels = d3.select(this.formContainer)
       .selectAll('label');
@@ -52,56 +108,34 @@ export default class EmojiBarChart extends Component {
     });
   }
 
-  closeForm() {
-    const formHeader = this.askForm.querySelector('header');
-    if (!formHeader) {
-      throw new Error('Form has not loaded! Something has gone wrong');
-    }
-    const boundingRect = formHeader.getBoundingClientRect();
-
-    // Collapse form container to show only the header
-    this.askForm.style.maxHeight = `${boundingRect.height}px`;
-
-    // Remove the "open" class, which display: none's form contents SCSS-side
-    this.formContainer.classList.remove('open');
-
-    this.button.innerText = 'Tell the president-elect what you think';
-  }
-
-  openForm() {
-    this.formContainer.classList.add('open');
-    this.askForm.style.maxHeight = '10000px';
-    this.button.innerText = 'Don\'t submit, close form';
-
-    // emojify the content
-    twemoji.parse(this.formContainer, icon => emojiSVGUrl(icon));
-  }
-
+  /**
+   * Callback to handle toggling the form open or close by setting state
+   */
   toggleForm() {
-    const isOpen = this.formContainer.classList.contains('open');
-    if (isOpen) {
-      this.closeForm();
-    } else {
-      this.openForm();
-    }
+    this.setState({ open: !this.state.open });
   }
 
+  /**
+   * Main render function that draws the form
+   */
   render() {
+    const { open } = this.state;
+
+    // form should be loaded closed.
+    // after the script tag has come in, make sure the ask-form has the right
     return (
-      <div className="form-container" ref={(node) => { this.formContainer = node; }}>
-        <div
-          id="ask-form"
-          className="embedded-form"
-          ref={(node) => { this.askForm = node; }}
-        />
+      <div
+        className={classNames('form-container', { open })}
+        ref={(node) => { this.formContainer = node; }}
+      >
+        <div id="ask-form"className="embedded-form" />
         <div className="form-toggle-button-container">
           <button
             className="btn form-toggle-button"
             type="button"
             onClick={() => this.toggleForm()}
-            ref={(node) => { this.button = node; }}
           >
-            Tell the president-elect what you think
+            {this.getButtonText()}
           </button>
         </div>
       </div>
