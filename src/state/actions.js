@@ -3,6 +3,13 @@ import * as api from '../api/api';
 import { combineIds } from '../utils/id-list';
 
 /**
+ * Action creators for toggling the form visibility
+ */
+export const showForm = createAction('SHOW_FORM');
+export const hideForm = createAction('HIDE_FORM');
+
+
+/**
  * Action creators for requesting and receiving data. Identity used for payload
  */
 export const requestFormDigest = createAction('REQUEST_FORM_DIGEST');

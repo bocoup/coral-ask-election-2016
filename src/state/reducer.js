@@ -266,7 +266,20 @@ export const responses = handleActions({
   isFetching: null
 });
 
+export const form = handleActions({
+  SHOW_FORM: () => ({
+    formVisible: true
+  }),
+
+  HIDE_FORM: () => ({
+    formVisible: false
+  })
+}, {
+  formVisible: false
+});
+
 export default combineReducers({
+  form,
   summary,
   fields,
   selected,

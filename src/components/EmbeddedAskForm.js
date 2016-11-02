@@ -13,7 +13,9 @@ import d3 from '../d3';
  */
 export default class EmbeddedAskForm extends Component {
   static propTypes = {
-    formScript: PropTypes.string
+    formScript: PropTypes.string,
+    formVisible: PropTypes.bool,
+    onChangeFormVisibility: PropTypes.func
   }
 
   constructor(props) {
@@ -21,7 +23,6 @@ export default class EmbeddedAskForm extends Component {
 
     // start with the form closed.
     this.state = {
-      open: false,
       scriptInjected: false,
       submitted: false
     };
@@ -116,20 +117,22 @@ export default class EmbeddedAskForm extends Component {
    * Callback to handle toggling the form open or close by setting state
    */
   toggleForm() {
-    this.setState({ open: !this.state.open });
+    this.props.onChangeFormVisibility(!this.props.formVisible);
   }
 
   /**
    * Get the button text based on the state of the form
    */
   renderToggleButton() {
-    const { open, submitted } = this.state;
+    const { formVisible } = this.props;
+    const { submitted } = this.state;
+
     let fieldId;
     let defaultValue;
 
     // show the button only if the form hasn't been submitted yet.
     if (!submitted) {
-      if (open) {
+      if (formVisible) {
         fieldId = 'elc-text-button-close-form';
         defaultValue = 'Don\'t submit, close form';
       } else {
@@ -157,13 +160,13 @@ export default class EmbeddedAskForm extends Component {
    * Main render function that draws the form
    */
   render() {
-    const { open } = this.state;
+    const { formVisible } = this.props;
 
     // form should be loaded closed.
     // after the script tag has come in, make sure the ask-form has the right
     return (
       <div
-        className={classNames('form-container', { open })}
+        className={classNames('form-container', { open: formVisible })}
         ref={(node) => { this.formContainer = node; }}
       >
         <div id="ask-form"className="embedded-form" />
