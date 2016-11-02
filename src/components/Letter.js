@@ -59,12 +59,12 @@ class Letter extends PureComponent {
         <div className="letter-content" ref={(node) => { this.root = node; }}>
           <GoogleSheetFieldComponent
             fieldId={'elc-text-letter-template'}
-            deaultValue={`<p>
+            defaultValue={`<p>
                 Dear [Secretary Clinton/Mr. Trump],
               </p>
               <p>
                 As you prepare to become president I am feeling <span className='emoji'>
-                  {responseField(0)}
+                  ${responseField(0)}
                 </span>.
                 I think your top priority should be <span className='achieve'>
                   {responseField(1)}
@@ -73,11 +73,11 @@ class Letter extends PureComponent {
               <p>
                 If you achieve one thing in the next four years, I want it to
                 be: <span className='achieve'>
-                  {responseField(2)}
+                  ${responseField(2)}
                 </span>.
               </p>
               <p>
-                Thank you and good luck. <br /> {responseField(3)}, {responseField(4)}
+                Thank you and good luck. <br /> ${responseField(3)}, ${responseField(4)}
               </p>`}
             isTemplate
             templateValues={[responseField(0), responseField(1),
