@@ -41,12 +41,20 @@
   .topic-bar-container {
     clear: both;
     background-color: $lightmedgrey;
+
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
   }
 
   .topic-bar {
     background-color: $darkgrey;
     height: 20px;
     transition: width 200ms;
+
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
   }
 
   .bar-group {
