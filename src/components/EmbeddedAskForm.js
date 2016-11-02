@@ -48,6 +48,7 @@ export default class EmbeddedAskForm extends Component {
    */
   componentDidUpdate() {
     this.addRerenderTwemojiFix();
+    this.bindToButtonSubmission();
   }
 
   /**
@@ -83,7 +84,6 @@ export default class EmbeddedAskForm extends Component {
     scriptTag.id = 'ask-form-script';
     scriptTag.onload = () => {
       this.setState({ scriptInjected: true });
-      this.bindToButtonSubmission();
     };
     scriptTag.src = formScript;
     firstScriptTag.parentNode.insertBefore(scriptTag, firstScriptTag);
