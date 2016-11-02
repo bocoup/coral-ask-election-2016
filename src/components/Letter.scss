@@ -6,7 +6,6 @@
     box-shadow: -8px 9px 0px #e8e8e8;
     font-family: 'Georgia', serif;
     margin-bottom: 2em;
-    min-height: 650px;
   }
 
   p {
@@ -60,5 +59,8 @@
     width: 50%;
     margin-top: 2.5em;
     float: right;
+    div {
+      min-height: 650px;
+    }
   }
 }
