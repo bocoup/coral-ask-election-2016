@@ -12,6 +12,7 @@ export default class EmojiBubbleChart extends PureComponent {
     emoji: PropTypes.array,
     selectedEmoji: PropTypes.object,
     onSelect: PropTypes.func,
+    selectedId: PropTypes.string,
     width: PropTypes.number,
     height: PropTypes.number,
     maxRadius: PropTypes.number,
@@ -20,7 +21,8 @@ export default class EmojiBubbleChart extends PureComponent {
 
   static defaultProps = {
     maxRadius: 70,
-    minRadius: 20
+    minRadius: 20,
+    selectedId: null
   }
 
   componentDidMount() {
