@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import twemoji from 'twemoji';
 
 import GoogleSheetFieldComponent from '../containers/GoogleSheetFieldComponent';
-import { emojiSVGUrl } from '../utils/emoji';
+import { twemojifySelection } from '../utils/emoji';
 import './EmbeddedAskForm.scss';
 import d3 from '../d3';
 
@@ -95,21 +94,24 @@ export default class EmbeddedAskForm extends Component {
    * Should be run after the form has been rendered.
    */
   addRerenderTwemojiFix() {
+    const root = d3.select(this.formContainer);
     // bind events to labels
-    const allLabels = d3.select(this.formContainer)
-      .selectAll('label');
+    const allLabels = root.selectAll('label');
 
     // re-emojify all nodes
-    allLabels.nodes().forEach((node) => {
-      twemoji.parse(node, icon => emojiSVGUrl(icon));
-    });
+    twemojifySelection(allLabels);
 
     // also re-emojify on click
     allLabels.on('click', () => {
       // re-emojify all nodes
-      allLabels.nodes().forEach((node) => {
-        twemoji.parse(node, icon => emojiSVGUrl(icon));
-      });
+      twemojifySelection(allLabels);
+    });
+
+    // listen for blur on inputs since this causes a re-render of
+    // the ask form. See https://github.com/bocoup/coral-ask-election-2016/issues/123
+    root.selectAll('input').on('blur', () => {
+      // re-emojify all nodes
+      twemojifySelection(allLabels);
     });
   }
 

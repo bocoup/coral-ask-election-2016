@@ -43,3 +43,15 @@ export const blockEmoji = (emojiUnicode, props) => {
   }, props));
   /* eslint-enable new-cap */
 };
+
+
+/**
+ * twemojifies selected nodes (typically used on answers in the ask form)
+ * Takes a d3 selection (d3.selectAll() output)
+ * @return {void}
+ */
+export function twemojifySelection(selection) {
+  selection.nodes().forEach((node) => {
+    twemoji.parse(node, icon => emojiSVGUrl(icon));
+  });
+}
