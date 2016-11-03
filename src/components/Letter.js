@@ -71,14 +71,16 @@ class Letter extends PureComponent {
 
         </div>
 
-        <button
-          type="button"
-          className="btn"
-          onClick={() => showMore()}
-          disabled={buttonDisabled}
-        >
-          {buttonText}
-        </button>
+        <div className="next-letter">
+          <button
+            type="button"
+            className="btn"
+            onClick={() => showMore()}
+            disabled={buttonDisabled}
+          >
+            {buttonText}
+          </button>
+        </div>
 
       </div>
     );
