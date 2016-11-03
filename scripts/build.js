@@ -175,10 +175,7 @@ function build(previousSizeMap) {
       console.log();
     }
 
-    console.log(`Generating ${paths.appBuild}/overrides.css...`)
-    require('./generate-css-override').then(function() {
-      console.log('File created');
-    });
+    require('./generate-css-override');
   });
 }
 
