@@ -46,6 +46,11 @@
       .emoji {
         width: $small-emoji-size;
         margin: .25em auto 0;
+
+        img {
+          max-width: $small-emoji-size;
+          max-height: $small-emoji-size;
+        }
       }
 
       .label {
