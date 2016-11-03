@@ -6,29 +6,38 @@
   width: 92% !important;
   max-width: 850px;
   padding: 1em;
-}
 
-.form-container.open {
-  .form-toggle-button {
-    background: $medgrey;
-  }
-  .embedded-form {
-    transition: max-height 1s;
+  &.open {
+    .form-toggle-button {
+      background: $medgrey;
+    }
+    .embedded-form {
+      transition: max-height 1s;
 
-    header + div {
-      display: block;
+      header + div,
+      header + p {
+        display: block;
+      }
     }
   }
 }
 
 .form-toggle-button-container {
-  margin: auto;
+  margin: auto auto 2em;
   max-width: 850px;
   width: 92%
 }
 
-.form-toggle-button-container {
-  margin-bottom: 2em;
+.submissions-closed {
+  .form-toggle-button-container {
+    display: none;
+  }
+
+  .embedded-form {
+    header + p {
+      display: none;
+    }
+  }
 }
 
 .embedded-form {
