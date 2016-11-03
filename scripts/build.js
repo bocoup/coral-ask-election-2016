@@ -174,6 +174,8 @@ function build(previousSizeMap) {
       console.log('  ' + chalk.cyan(openCommand) + ' http://localhost:9000');
       console.log();
     }
+
+    require('./generate-css-override');
   });
 }
 
