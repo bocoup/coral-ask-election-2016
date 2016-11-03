@@ -20,9 +20,12 @@ export default class EmbeddedAskForm extends Component {
   constructor(props) {
     super(props);
 
-    // start with the form closed.
+    // start with the form closed, and wait to render the "open" button
+    // until we know the form is accepting submissions.
     this.state = {
       scriptInjected: false,
+      // Initialize to null so we can identify if we have set it later
+      acceptingSubmissions: null,
       submitted: false
     };
 
@@ -42,18 +45,18 @@ export default class EmbeddedAskForm extends Component {
     }
     this.addRerenderTwemojiFix();
   }
-
   /**
    * On state change, ensure that the answers have their twemoji fix
    */
   componentDidUpdate() {
     this.addRerenderTwemojiFix();
     this.bindToButtonSubmission();
+    this.inferAcceptingSubmissionsState();
   }
 
   /**
    * Once the button is submitted, change the form status to
-   * submitted to remove the button.
+   * submitted to remove the "open form" button.
    */
   bindToButtonSubmission() {
     const button = d3.select(this.formContainer)
@@ -62,6 +65,26 @@ export default class EmbeddedAskForm extends Component {
     button.on('click', () => {
       this.setState({ submitted: true });
     });
+  }
+
+  /**
+   * Once the form loads, validate that it is open for submissions
+   * and set the state field as appropriate
+   */
+  inferAcceptingSubmissionsState() {
+    const { acceptingSubmissions } = this.state;
+    const formHasLoaded = !!this.formContainer.querySelector('.embedded-form div');
+
+    // If the form has yet to load, or if we've already determined the state of
+    // the form, return early so that we don't trigger recursive unnecessary renders
+    // by calling setState
+    if (!formHasLoaded || acceptingSubmissions !== null) {
+      return;
+    }
+
+    // The presence of a submit button is a good indicator that the form is open
+    const formExists = !!this.formContainer.querySelector('.submit-button');
+    this.setState({ acceptingSubmissions: formExists });
   }
 
   /**
@@ -163,15 +186,18 @@ export default class EmbeddedAskForm extends Component {
    */
   render() {
     const { formVisible } = this.props;
+    const { acceptingSubmissions } = this.state;
 
     // form should be loaded closed.
-    // after the script tag has come in, make sure the ask-form has the right
     return (
       <div
-        className={classNames('form-container', { open: formVisible })}
+        className={classNames('form-container', {
+          'submissions-closed': !acceptingSubmissions,
+          open: formVisible
+        })}
         ref={(node) => { this.formContainer = node; }}
       >
-        <div id="ask-form"className="embedded-form" />
+        <div id="ask-form" className="embedded-form" />
         <div className="form-toggle-button-container">
           {this.renderToggleButton()}
         </div>
