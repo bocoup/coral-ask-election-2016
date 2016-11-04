@@ -267,8 +267,9 @@ export const getTopicLetter = createSelector(
  */
 export const getTopicLetterCount = createSelector(
   getAggregations,
+  getFilterQuestions,
   getSelected,
-  (aggregations, selected) => {
+  (aggregations, filterQuestions, selected) => {
     const topicId = selected.topic;
     const emojiId = selected.topicEmoji;
     if (!topicId || !aggregations[topicId]) {
@@ -277,6 +278,10 @@ export const getTopicLetterCount = createSelector(
     if (!emojiId) {
       return aggregations[topicId].count || 0;
     }
-    return aggregations[topicId][emojiId] ? aggregations[topicId][emojiId].count : 0;
+    return safeDeepAccess(aggregations, [
+      topicId,
+      filterQuestions.emoji,
+      emojiId
+    ]) || 0;
   }
 );
