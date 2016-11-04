@@ -5,11 +5,12 @@ A prototype application to visualize reactions to the outcome of the 2016 electi
 ## Installation
 This application depends on an AWS installation of [Ask](https://github.com/coralproject/ask-install/releases/latest) with S3 support. Please read the documentation for installing and configuring Ask at https://docs.coralproject.net/products/ask/.
 
-1. Clone this repository to your local machine
+1. Follow the instructions at [data/README.md](data/README.md) to import the interactive form into your Ask installation.
+2. Clone this repository to your local machine
 
         git clone https://github.com/bocoup/coral-ask-election-2016.git
 
-2. Copy the file `config.sample.json` in the project root to `/public/config.json`, then set the values of each key to match your deployment.
+3. Copy the file `config.sample.json` in the project root to `/public/config.json`, then set the values of each key to match your deployment.
 
 ```json
 {
