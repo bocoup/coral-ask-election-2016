@@ -60,8 +60,13 @@
     width: 50%;
     float: right;
 
-    div {
+    .letter-content {
+      padding: 0;
       min-height: 450px;
+
+      div {
+        padding: 2em;
+      }
     }
 
     .btn {
@@ -73,13 +78,9 @@
       display: table;
     }
     .letter-content {
-      padding: 0;
       display: table-footer-group;
-      > div {
-        padding: 2em;
-      }
     }
-    .btn {
+    .next-letter {
       display: table-header-group;
     }
   }

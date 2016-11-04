@@ -95,15 +95,15 @@ const whitelist = ast => {
  * @returns {String} The cleaned stylesheet string
  */
 const beautify = cssStr => cssStr
+  // Strip line comments, including sourcemap comment
+  .replace(/\/\*[^\n]+\*\/(\n|$)/g, '')
   // Remove empty media blocks
   .replace(/\n@media[^{]+\{\s+\}/g, '')
   // Strip superfluous newlines
   .replace(/\{\n{2,}/g, '{\n')
   .replace(/^\n+/, '')
   .replace(/\n{2,}/g, '\n\n')
-  .replace(/\n+$/, '')
-  // Strip no-longer-accurate sourcemap comment
-  .replace(/\n+\/\*[^\n]+$/, '')
+  .replace(/\n+$/, '');
 
 /**
  * Write out the overrides CSS file to the build directory
