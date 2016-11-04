@@ -10,6 +10,7 @@ import { showNextLetter } from '../state/actions';
 
 import {
   getEmojiLetter,
+  getEmojiLetterCount,
   getQuestionsOrder,
   getResponsesList,
   getSelectedEmoji
@@ -18,6 +19,7 @@ import {
 const mapStateToProps = state => ({
   currentLetter: getEmojiLetter(state),
   responses: getResponsesList(state),
+  filteredLetterCount: getEmojiLetterCount(state),
   questionsOrder: getQuestionsOrder(state),
   selectedEmoji: getSelectedEmoji(state)
 });
@@ -27,6 +29,7 @@ class FilteredEmojiLetter extends Component {
     currentLetter: PropTypes.object,
     questionsOrder: PropTypes.array,
     responses: PropTypes.array,
+    filteredLetterCount: PropTypes.number,
     selectedEmoji: PropTypes.object,
     dispatch: PropTypes.func
   }
@@ -63,8 +66,10 @@ class FilteredEmojiLetter extends Component {
   render() {
     const {
       currentLetter,
+      filteredLetterCount,
       questionsOrder,
       selectedEmoji,
+      responses,
       dispatch
     } = this.props;
 
@@ -89,6 +94,7 @@ class FilteredEmojiLetter extends Component {
         <Letter
           showMore={() => dispatch(showNextLetter(selectedEmoji.id))}
           buttonText={showMoreButtonText}
+          buttonDisabled={filteredLetterCount <= 1}
           response={currentLetter}
           questionsOrder={questionsOrder}
         />
@@ -99,6 +105,7 @@ class FilteredEmojiLetter extends Component {
       <Letter
         showMore={() => this.showNextLetter()}
         buttonText="Show another recent response"
+        buttonDisabled={responses.length <= 1}
         response={unfilteredResponse}
         questionsOrder={questionsOrder}
       />
