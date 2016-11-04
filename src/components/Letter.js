@@ -66,7 +66,7 @@ class Letter extends PureComponent {
               </p>`}
             isTemplate
             templateValues={[responseField(0), responseField(1),
-                responseField(2), responseField(3), responseField(4)]}
+              responseField(2), responseField(3), responseField(4)]}
           />
 
         </div>
