@@ -22,7 +22,6 @@ export const getContentFields = state => state.fields.data;
  * This selector can be used to display a global fetching-state indicator,
  * such as an activity spinner.
  *
- * @param {Object} state The state
  * @returns {Boolean} Whether any AJAX request is in progress.
  */
 export const getIsFetching = state => [
@@ -31,26 +30,48 @@ export const getIsFetching = state => [
   'fields'
 ].reduce((isFetching, storeKey) => isFetching || state[storeKey].isFetching, false);
 
+/**
+ * Get the list of question objects, ordered as they occur within the Ask form
+ *
+ * @returns {Object[]} Array of question objects
+ */
 export const getQuestionsList = createSelector(
   getQuestions,
   getQuestionsOrder,
   (questions, order) => order.map(id => questions[id])
 );
 
+/**
+ * Get the available question responses as an ordered array of question objects
+ * (ordered by the order in which the user clicks on answer filters, then recency)
+ *
+ * @returns {Object[]} Array of question objects
+ */
 export const getResponsesList = createSelector(
   getResponses,
   getResponseOrder,
   (responses, order) => order.map(id => responses[id])
 );
 
+// Parse out the content fields from the content fields data store
 export const getContentFieldsData = createSelector(getContentFields, listToObject('field-id (don\'t change!)'));
 
+/**
+ * Get the question object representing the emoji filter question
+ *
+ * @returns {Object} The question object for the emoji question
+ */
 export const getEmojiQuestion = createSelector(
   getQuestions,
   getFilterQuestions,
   (questions, filterQuestions) => questions && questions[filterQuestions.emoji]
 );
 
+/**
+ * Get the question object representing the topic filter question
+ *
+ * @returns {Object} The question object for the topic question
+ */
 export const getTopicQuestion = createSelector(
   getQuestions,
   getFilterQuestions,
@@ -81,18 +102,34 @@ export const getTopicList = createSelector(
   topicQuestion => (topicQuestion && topicQuestion.options) || []
 );
 
+/**
+ * Get the currently selected emoji answer object
+ *
+ * @returns {Object} An answer option object from the emoji question
+ */
 export const getSelectedEmoji = createSelector(
   getEmojiList,
   getSelected,
   (emojiList, selected) => emojiList.find(emoji => emoji.id === selected.emoji)
 );
 
+/**
+ * Get the currently selected topic answer object
+ *
+ * @returns {Object} An answer option object from the topic question
+ */
 export const getSelectedTopic = createSelector(
   getTopicList,
   getSelected,
   (topicList, selected) => topicList.find(topic => topic.id === selected.topic)
 );
 
+/**
+ * Get the currently selected topic emoji answer object (the second-dimension
+ * filter in bottom topic section)
+ *
+ * @returns {Object} An answer option object from the topic emoji question
+ */
 export const getSelectedTopicEmoji = createSelector(
   getEmojiList,
   getSelected,
@@ -164,6 +201,11 @@ export const getEmojiCountsFilteredByTopic = createSelector(
   }
 );
 
+/**
+ * Get the letter to display in the Topic filter section
+ *
+ * @returns {Object} A response letter object
+ */
 export const getEmojiLetter = createSelector(
   getResponses,
   getSelected,
@@ -173,11 +215,34 @@ export const getEmojiLetter = createSelector(
     if (!emojiId) {
       return null;
     }
-    const letterId = selectedResponses[emojiId];
-    return responses[letterId];
+    return responses[selectedResponses[emojiId]];
   }
 );
 
+/**
+ * Returns the number of available letters for the current Emoji section filters
+ * (does not apply when no emoji is selected; use available response list count
+ * in that instance)
+ *
+ * @returns {Number} An integer count of available responses
+ */
+export const getEmojiLetterCount = createSelector(
+  getAggregations,
+  getSelected,
+  (aggregations, selected) => {
+    const emojiId = selected.emoji;
+    if (!emojiId) {
+      return 0;
+    }
+    return aggregations[emojiId] ? aggregations[emojiId].count : 0;
+  }
+);
+
+/**
+ * Get the letter to display in the Topic section
+ *
+ * @returns {Object} A response letter object
+ */
 export const getTopicLetter = createSelector(
   getResponses,
   getSelected,
@@ -192,5 +257,31 @@ export const getTopicLetter = createSelector(
       return responses[selectedResponses[topicId]];
     }
     return responses[selectedResponses[combineIds(topicId, emojiId)]];
+  }
+);
+
+/**
+ * Returns the number of available letters for the current Topic section filters
+ *
+ * @returns {Number} An integer count of available responses
+ */
+export const getTopicLetterCount = createSelector(
+  getAggregations,
+  getFilterQuestions,
+  getSelected,
+  (aggregations, filterQuestions, selected) => {
+    const topicId = selected.topic;
+    const emojiId = selected.topicEmoji;
+    if (!topicId || !aggregations[topicId]) {
+      return 0;
+    }
+    if (!emojiId) {
+      return aggregations[topicId].count || 0;
+    }
+    return safeDeepAccess(aggregations, [
+      topicId,
+      filterQuestions.emoji,
+      emojiId
+    ]) || 0;
   }
 );
