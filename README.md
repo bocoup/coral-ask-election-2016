@@ -3,20 +3,20 @@
 A prototype application to visualize reactions to the outcome of the 2016 election.
 
 ## Installation
+This application depends on an AWS installation of [Ask](https://github.com/coralproject/ask-install/releases/latest) with S3 support. Please read the documentation for installing and configuring Ask at https://docs.coralproject.net/products/ask/.
 
-Copy the file `config.sample.json` in the project root to `/public/config.json`, then set the values of each key to match your deployment.
+1. Clone this repository to your local machine
 
-### Quick Start
+        git clone https://github.com/bocoup/coral-ask-election-2016.git
 
-To get started quickly with local development, just save this JSON as `config.json` in the `/public` folder:
+2. Copy the file `config.sample.json` in the project root to `/public/config.json`, then set the values of each key to match your deployment.
 
 ```json
 {
-  "jsonURI": "./data/",
-  "formId": "5816b369d489c974e0cc8be8",
-  "formScript": "./data/5816b369d489c974e0cc8be8.js",
-  "googleSheetId": "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I",
-  "s3Bucket": "s3://elections.bocoup.com"
+  "jsonURI": "https://s3-us-west-2.amazonaws.com/bucket-name/",
+   "formId": "5816b369d489c974e0cc8be8",
+   "formScript": "https://s3-us-west-2.amazonaws.com/bucket-name/5818fffcba6bce0001ba8ab8.js",
+   "googleSheetId": "18yAMk_ydGpPLHTZPrLox7oplvgc-4aswu1arO_IHY9I",
 }
 ```
 
