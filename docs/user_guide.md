@@ -11,13 +11,13 @@
 When you log in, you'll see a list of existing forms. There should only be one form, called Election Reaction Survey. Click on the title to open the submission manager.
 
 
-![Editing the form](docs/assets/screenshot1.png)
+![Editing the form](assets/screenshot1.png)
 
 
 This is the submission manager, where responses to the form will appear.
 
 
-![Form responses](docs/assets/screenshot2.png)
+![Form responses](assets/screenshot2.png)
 
 
 The latest submissions are at the top of the queue. **A submission is not included in the infographic until you bookmark it.** You can do that by:
@@ -57,7 +57,7 @@ There are also many options in Ask that don't apply to this infographic. The Ask
 You can change the wording on the questions by clicking on Edit Form at the top of the page.
 
 
-![Editing the form](docs/assets/screenshot3.png)
+![Editing the form](assets/screenshot3.png)
 
 
 This is the Edit Form page. You can click on a question to change its wording, and change the wording of the message that appears after people complete a form at the bottom on the right hand side.
@@ -66,13 +66,13 @@ This is the Edit Form page. You can click on a question to change its wording, a
 However, **you can't add any extra emojis** - we haven't included scalable versions of more emojis than the ones we're using. If you want to use a different emoji or other symbol, email jeff@mozillafoundation.org.
 
 
-![Showing the form](docs/assets/screenshot4.png)
+![Showing the form](assets/screenshot4.png)
 
 
 ##How to embed the form separately
 
 
-![Embedding the form](docs/assets/screenshot5.png)
+![Embedding the form](assets/screenshot5.png)
 
 
 You might want to share the form separately before launching the infographic, in order to get the first responses into the system. You can embed it in a webpage either as an iframe or a script tag, or share it as a standalone page. You can access these options by clicking Edit Form at the top of the page, then on the Publish Options button on the left hand side.
