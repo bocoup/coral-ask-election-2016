@@ -1,6 +1,7 @@
 ## Coral Ask Election Reactions
 
 A prototype application to visualize reactions to the outcome of the 2016 election.
+[Click here for the user guide and how to manage submissions](https://github.com/bocoup/coral-ask-election-2016/blob/master/docs/user_guide.md)
 
 ## Installation
 This application depends on an AWS installation of [Ask](https://github.com/coralproject/ask-install/releases/latest) with S3 support. Please read the documentation for installing and configuring Ask at https://docs.coralproject.net/products/ask/.
@@ -81,6 +82,11 @@ Runs the unit tests.
 ### Data
 
 The data used by this application is not included in this repo, but is expected to be placed in `public/data/data.json`.
+
+### How to change the form/manage submissions
+
+[Click here to go to the user guide](https://github.com/bocoup/coral-ask-election-2016/blob/master/docs/user_guide.md)
+
 
 ## Attribution
 
