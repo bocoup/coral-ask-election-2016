@@ -22,17 +22,17 @@ This is the submission manager, where responses to the form will appear.
 The latest submissions are at the top of the queue. **A submission is not included in the infographic until you bookmark it.** You can do that by:
 
 
-*clicking on the small bookmark icon in the submissions list
-*clicking on the Bookmark button in the top right
-*pressing "b" on your keyboard with the submission highlighted
+* clicking on the small bookmark icon in the submissions list
+* clicking on the Bookmark button in the top right
+* pressing "b" on your keyboard with the submission highlighted
 
 
 If you don't want to include a submission, but mark it as reviewed, flag it. You can do that by:
 
 
-*clicking on the small flag icon in the submissions list
-*clicking on the Flag button in the top right
-*pressing "f" on your keyboard with the submission highlighted
+* clicking on the small flag icon in the submissions list
+* clicking on the Flag button in the top right
+* pressing "f" on your keyboard with the submission highlighted
 
 
 You can use the mouse or "J" and "K" on the keyboard to navigate through the submission list.
@@ -41,10 +41,10 @@ You can use the mouse or "J" and "K" on the keyboard to navigate through the sub
 At the top of the submission list are various options:
 
 
-*You can search for a particular word in a submission
-*You can filter out flagged submissions or only show bookmarked submissions
-*You can download all the responses as a CSV list
-*You can change the order from most recent first to oldest first
+* You can search for a particular word in a submission
+* You can filter out flagged submissions or only show bookmarked submissions
+* You can download all the responses as a CSV list
+* You can change the order from most recent first to oldest first
 
 
 There are also many options in Ask that don't apply to this infographic. The Ask Gallery - a way to edit and display the best submissions in a simple embeddable format - is the main feature that isn't being used here. You can ignore the buttons "Send to Gallery" and the "Gallery" tab at the top of the page.
