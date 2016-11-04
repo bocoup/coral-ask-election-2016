@@ -3,6 +3,7 @@
 
 ##This section includes how to manage submissions, how to embed the form separate from the interactive, how to change the questions.
 
+[Click here for installation instructions.](https://github.com/bocoup/coral-ask-election-2016/blob/master/README.md)
 
 ##Managing submissions
 
