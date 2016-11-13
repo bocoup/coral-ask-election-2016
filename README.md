@@ -1,6 +1,9 @@
 ## Coral Ask Election Reactions
 
-A prototype application to visualize reactions to the outcome of the 2016 election.
+A prototype application to visualize reactions to the outcome of the 2016 election. 
+
+[Click here to see a version of it running at Philly.com](http://www.philly.com/philly/news/politics/400537181.html)
+
 [Click here for the user guide and how to manage submissions](https://github.com/bocoup/coral-ask-election-2016/blob/master/docs/user_guide.md)
 
 ## Installation
