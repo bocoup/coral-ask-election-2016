@@ -6,6 +6,9 @@ A prototype application to visualize reactions to the outcome of the 2016 electi
 
 [Click here for the user guide and how to manage submissions](https://github.com/bocoup/coral-ask-election-2016/blob/master/docs/user_guide.md)
 
+If you have any questions or would like help installing, please contact jeff@mozillafoundation.org
+
+
 ## Installation
 This application depends on an AWS installation of [Ask](https://github.com/coralproject/ask-install/releases/latest) with S3 support. Please read the documentation for installing and configuring Ask at https://docs.coralproject.net/products/ask/.
 
@@ -90,6 +93,9 @@ The data used by this application is not included in this repo, but is expected 
 
 [Click here to go to the user guide](https://github.com/bocoup/coral-ask-election-2016/blob/master/docs/user_guide.md)
 
+### Questions? Problems?
+
+Please submit an issue to this repo and/or contact jeff@mozillafoundation.org
 
 ## Attribution
 
