@@ -21,6 +21,7 @@ import {
   getQuestionsOrder,
   getSelectedTopic,
   getTopicLetter,
+  getTopicLetterCount,
   getSelectedTopicEmoji,
   getTopicCounts
 } from '../state/selectors';
@@ -31,6 +32,7 @@ const mapStateToProps = state => ({
   selectedTopicEmoji: getSelectedTopicEmoji(state),
   topicLetter: getTopicLetter(state),
   topics: getTopicCounts(state),
+  filteredLetterCount: getTopicLetterCount(state),
   filteredEmojiCounts: getEmojiCountsFilteredByTopic(state)
 });
 
@@ -41,6 +43,7 @@ class FilterByTopicVis extends PureComponent {
     selectedTopicEmoji: PropTypes.object,
     topics: PropTypes.array,
     topicLetter: PropTypes.object,
+    filteredLetterCount: PropTypes.number,
     filteredEmojiCounts: PropTypes.array,
     dispatch: PropTypes.func
   }
@@ -92,6 +95,7 @@ class FilterByTopicVis extends PureComponent {
       questionsOrder,
       topics,
       topicLetter,
+      filteredLetterCount,
       selectedTopic,
       selectedTopicEmoji,
       filteredEmojiCounts
@@ -130,6 +134,7 @@ class FilterByTopicVis extends PureComponent {
         <Letter
           showMore={() => this.showNextLetter()}
           buttonText={showMoreButtonText}
+          buttonDisabled={filteredLetterCount <= 1}
           response={topicLetter}
           questionsOrder={questionsOrder}
           width={400}

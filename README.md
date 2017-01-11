@@ -1,15 +1,23 @@
 ## Coral Ask Election Reactions
 
-A prototype application to visualize reactions to the outcome of the 2016 election.
+A prototype application to visualize reactions to the outcome of the 2016 election. 
+
+[Click here to see a version of it running at Philly.com](http://www.philly.com/philly/news/politics/400537181.html)
+
+[Click here for the user guide and how to manage submissions](https://github.com/bocoup/coral-ask-election-2016/blob/master/docs/user_guide.md)
+
+If you have any questions or would like help installing, please contact jeff@mozillafoundation.org
+
 
 ## Installation
 This application depends on an AWS installation of [Ask](https://github.com/coralproject/ask-install/releases/latest) with S3 support. Please read the documentation for installing and configuring Ask at https://docs.coralproject.net/products/ask/.
 
-1. Clone this repository to your local machine
+1. Follow the instructions at [data/README.md](data/README.md) to import the interactive form into your Ask installation.
+2. Clone this repository to your local machine
 
         git clone https://github.com/bocoup/coral-ask-election-2016.git
 
-2. Copy the file `config.sample.json` in the project root to `/public/config.json`, then set the values of each key to match your deployment.
+3. Copy the file `config.sample.json` in the project root to `/public/config.json`, then set the values of each key to match your deployment.
 
 ```json
 {
@@ -80,6 +88,14 @@ Runs the unit tests.
 ### Data
 
 The data used by this application is not included in this repo, but is expected to be placed in `public/data/data.json`.
+
+### How to change the form/manage submissions
+
+[Click here to go to the user guide](https://github.com/bocoup/coral-ask-election-2016/blob/master/docs/user_guide.md)
+
+### Questions? Problems?
+
+Please submit an issue to this repo and/or contact jeff@mozillafoundation.org
 
 ## Attribution
 
